@@ -1,0 +1,17 @@
+{
+  "name": "custom-config",
+  "version": "0.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "files": [
+    "tailwind.config.js",
+    "postcss.config.js",
+    ".eslintrc.js"
+  ],
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-tailwindcss": "^3.14.0"
+  }
+}
