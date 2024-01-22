@@ -7,16 +7,13 @@ export async function GET(
 ) {
   try {
     const pb = new PocketBase('http://3.35.176.72:8090');
-
     const resultList = await pb.collection('logs').getOne(params.id);
     return NextResponse.json(resultList);
   } catch (error) {
-    return NextResponse.json({ status: '500' }, { status: 500 });
+    return NextResponse.json({
+      code: 404,
+      message: "The requested resource wasn't found.",
+      data: {},
+    });
   }
-
-  // const pb = new PocketBase('http://3.35.176.72:8090');
-  // const resultList = await pb.collection('logs').getOne(params.id);
-  // console.log('resultList', resultList);
-  // if (!resultList) return NextResponse.json(resultList);
-  // else return NextResponse.json({ status: 404 });
 }
