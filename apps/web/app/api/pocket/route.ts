@@ -1,36 +1,26 @@
 import PocketBase from 'pocketbase';
-import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 
-export async function GET(
-  request: Request,
-  { params }: { params: { id: string } },
-) {
-  //   try {
+// export async function GET(req: NextResponse) {
+//   const pb = new PocketBase('http://3.35.176.72:8090');
+//   const authData = await pb
+//     .collection('users')
+//     .authWithPassword('hong', 'hong123456');
+
+//   return NextResponse.json(authData);
+// }
+
+export async function POST(req: NextResponse) {
+  const { id, password } = await req.json();
   const pb = new PocketBase('http://3.35.176.72:8090');
-  const resultList = await pb.collection('users').getOne(params.id);
-  console.log('resultList', resultList);
-  return NextResponse.json({ resultList });
-  // else return NextResponse.json({ status: 404 });
-  //   } catch (err) {
-  // return NextResponse.json({ status: 500 });
-  //   }
-  //   const pb = new PocketBase('http://3.35.176.72:8090');
-  //   const authData = await pb
-  //     .collection('users')
-  //     .authWithPassword('hong', 'hong123456');
+  const authData = await pb.collection('users').authWithPassword(id, password);
+  // if (!authData?.token) {
+  //   return new Response(JSON.stringify({ error: 'Invalid credentials' }), {
+  //     status: 401,
+  //   });
+  // }
 
-  //   const response = await fetch(
-  //     'http://3.35.176.72:8090/api/collections/users/records',
-  //     {
-  //       headers: {
-  //         Authorization: pb.authStore.token,
-  //       },
-  //     },
-  //   );
-  //   const users = await response.json();
-  //   cookies().set('token', pb.authStore.token);
-  //   const res = NextResponse.next();
-  //   cookies.set('token', pb.authStore.token, { httpOnly: true });
-  //   res.s;
+  cookies().set('newjeans', pb.authStore.exportToCookie(), { httpOnly: true });
+  return NextResponse.json(authData);
 }

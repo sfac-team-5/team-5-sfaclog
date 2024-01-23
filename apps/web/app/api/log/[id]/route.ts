@@ -8,7 +8,8 @@ export async function GET(
   try {
     const pb = new PocketBase('http://3.35.176.72:8090');
     const resultList = await pb.collection('logs').getOne(params.id);
-    return NextResponse.json(resultList);
+
+    return NextResponse.json(resultList, { status: 200 });
   } catch (error) {
     return NextResponse.json({
       code: 404,
