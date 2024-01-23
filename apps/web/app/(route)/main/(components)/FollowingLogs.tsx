@@ -1,12 +1,17 @@
 import React from 'react';
 
-async function FollowingLogs() {
-  const resultList = await fetch(
-    'http://localhost:3000/api/log?sorted=following',
-  );
-  //   if (!resultList.ok) {
-  //     throw new Error('Failed to fetch data');
-  //   }
+interface FollowingLogsProps {
+  user: string;
+}
+
+async function FollowingLogs({ user }: FollowingLogsProps) {
+  const resultList = await fetch('http://localhost:3000/api/log', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ sorted: 'following', user }),
+  });
   const data = await resultList.json();
 
   console.log(

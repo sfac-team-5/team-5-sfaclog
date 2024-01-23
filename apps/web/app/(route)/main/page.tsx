@@ -21,13 +21,12 @@ function MainPage() {
   };
 
   const user = 서버컴포넌트_로그인_확인_함수();
-  console.log(user);
 
   return (
     <main>
       <PopularLogs />
       <RecentlyLogs />
-      <FollowingLogs />
+      <FollowingLogs user={user?.id} />
       <CommunityList />
     </main>
   );
