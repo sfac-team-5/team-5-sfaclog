@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
   const sorted = searchParams.get('sorted');
 
   try {
-    const pb = new PocketBase('http://3.35.176.72:8090');
+    const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
     let records;
 
     if (sorted === 'popular') {
@@ -21,21 +21,8 @@ export async function GET(request: NextRequest) {
       });
       return NextResponse.json(records);
     }
-  } catch (error: any) {
-    return NextResponse.json({
-      status: error.originalError?.status || 500, // 기본 상태 코드
-      message: error.response.message || 'An unexpected error occurred', // 기본 메시지
-    });
-  }
-}
-
-export async function POST(request: NextRequest) {
-  const { sorted, user } = await request.json();
-
-  try {
-    const pb = new PocketBase('http://3.35.176.72:8090');
-
     if (sorted === 'following') {
+      const user = searchParams.get('user');
       const following = await pb
         .collection('following')
         .getFirstListItem(`userId="${user}"`, {
@@ -50,7 +37,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json([]);
       }
 
-      const records = await pb.collection('logs').getFullList({
+      records = await pb.collection('logs').getFullList({
         sort: '-created',
         filter: following.followingId
           .map((id: string) => `user="${id}"`)
@@ -59,10 +46,12 @@ export async function POST(request: NextRequest) {
 
       return NextResponse.json(records);
     }
-  } catch (error: any) {
-    return NextResponse.json({
-      status: error.originalError?.status || 500, // 기본 상태 코드
-      message: error.response.message || 'An unexpected error occurred', // 기본 메시지
-    });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        message: 'An unexpected error occurred',
+      },
+      { status: 500 },
+    );
   }
 }

@@ -13,7 +13,7 @@ import { cookies } from 'next/headers';
 
 export async function POST(req: NextResponse) {
   const { id, password } = await req.json();
-  const pb = new PocketBase('http://3.35.176.72:8090');
+  const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
   const authData = await pb.collection('users').authWithPassword(id, password);
   // if (!authData?.token) {
   //   return new Response(JSON.stringify({ error: 'Invalid credentials' }), {

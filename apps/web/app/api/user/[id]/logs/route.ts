@@ -8,7 +8,7 @@ export async function GET(
   const { id } = params;
   try {
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
-    const log = await pb.collection('logs').getOne(id);
+    const log = await pb.collection('logs').getFirstListItem(`user="${id}"`);
 
     return NextResponse.json(log, { status: 200 });
   } catch (error) {
