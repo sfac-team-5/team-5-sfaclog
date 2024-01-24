@@ -18,7 +18,7 @@ export default function page() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await fetch('http://localhost:3000/api/pocket', {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/pocket`, {
       method: 'POST',
       body: JSON.stringify(formData),
     });

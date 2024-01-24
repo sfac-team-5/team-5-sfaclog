@@ -1,18 +1,19 @@
 import React from 'react';
+import NotFound from '../../../not-found';
+
+async function fetchData() {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/log?sorted=popular`,
+  );
+  if (!response.ok) return [];
+  return response.json();
+}
 
 async function PopularLogs() {
-  const resultList = await fetch(
-    'http://localhost:3000/api/log?sorted=popular',
-  );
-  if (!resultList.ok) {
-    throw new Error('Failed to fetch data');
-  }
-  const data = await resultList.json();
+  const popularLogs = await fetchData();
+  if (popularLogs.length === 0) return NotFound();
 
-  // console.log('--------------------------------인기순--------------------------------');
-  // console.log(data);
-
-  return <div>여기다</div>;
+  return <div>PopularLogs</div>;
 }
 
 export default PopularLogs;

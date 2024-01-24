@@ -1,18 +1,19 @@
 import React from 'react';
+import NotFound from '../../../not-found';
+
+async function fetchData() {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/log?sorted=recently`,
+  );
+  if (!response.ok) return [];
+  return response.json();
+}
 
 async function RecentlyLogs() {
-  const resultList = await fetch(
-    'http://localhost:3000/api/log?sorted=recently',
-  );
-  if (!resultList.ok) {
-    throw new Error('Failed to fetch data');
-  }
-  const data = await resultList.json();
+  const recentlyLogs = await fetchData();
+  if (recentlyLogs.length === 0) return NotFound();
 
-  // console.log('--------------------------------최신순--------------------------------');
-  // console.log(data);
-
-  return <div>여기다</div>;
+  return <div>RecentlyLogs</div>;
 }
 
 export default RecentlyLogs;

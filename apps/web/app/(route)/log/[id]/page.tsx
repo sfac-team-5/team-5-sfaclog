@@ -1,15 +1,29 @@
 import React from 'react';
-import { notFound } from 'next/navigation';
+import NotFound from '../../../not-found';
+import ProfileSection from './(components)/ProfileSection';
+import ContentSection from './(components)/ContentSection';
+import CommentSection from './(components)/CommentSection';
+
+async function fetchData(id: string) {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/log/${id}`,
+  );
+  if (!response.ok) return null;
+  return response.json();
+}
 
 async function LogDetailPage({ params }: { params: { id: string } }) {
-  const result = await fetch(`http://localhost:3000/api/log/${params.id}`);
-  const data = await result.json();
+  const { id } = params;
+  const log = await fetchData(id);
+  if (!log) return NotFound();
 
-  if (data.code && data.code === 404) {
-    notFound();
-  }
-
-  return <div>{data.title}</div>;
+  return (
+    <main>
+      <ProfileSection userId={log.user} />
+      <ContentSection log={log} />
+      <CommentSection logId={log.id} />
+    </main>
+  );
 }
 
 export default LogDetailPage;
