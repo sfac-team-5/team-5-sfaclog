@@ -19,23 +19,25 @@ export const config = {
           .authWithPassword(credentials.id, credentials.password)
           .then(data => data)
           .catch(() => null);
-        console.log('authData = ', authData);
-        if (!authData) return null;
 
-        const imageUrl = pb.files.getUrl(
-          authData.record,
-          authData.record.avatar,
-          {
-            thumb: '100x100',
-          },
-        );
-        console.log('imageUrl', imageUrl);
-        return {
-          id: authData.record.id,
-          name: authData.record.username,
-          email: authData.record.email,
-          image: imageUrl,
-        };
+        if (authData) {
+          const imageUrl = pb.files.getUrl(
+            authData.record,
+            authData.record.avatar,
+            {
+              thumb: '100x100',
+            },
+          );
+
+          return {
+            id: authData.record.id,
+            name: authData.record.username,
+            email: authData.record.email,
+            image: imageUrl,
+          };
+        } else {
+          return null;
+        }
       },
     }),
   ],

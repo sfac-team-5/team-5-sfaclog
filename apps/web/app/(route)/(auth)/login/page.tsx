@@ -3,7 +3,7 @@ import React from 'react';
 import { submitAction } from './action';
 import { useForm } from 'react-hook-form';
 
-export interface formDataProps {
+export interface LoginInputType {
   id: string;
   password: string;
 }
@@ -13,25 +13,21 @@ export default function page() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<formDataProps>({
+  } = useForm<LoginInputType>({
     defaultValues: {
       id: '',
       password: '',
     },
   });
 
-  const handleFormSubmit = async (data: formDataProps) => {
-    await submitAction(data);
+  const handleFormSubmit = async (data: LoginInputType) => {
+    const { loginSuccess } = await submitAction(data);
+    if (loginSuccess) {
+      console.log('로그인 성공');
+    } else {
+      alert('다시 시도해 주세요.');
+    }
   };
-
-  // const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-
-  //   await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/pocket`, {
-  //     method: 'POST',
-  //     body: JSON.stringify(formData),
-  //   });
-  // };
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>

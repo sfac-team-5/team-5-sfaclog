@@ -1,20 +1,17 @@
 'use server';
 import { signIn } from '@/auth';
+import { LoginInputType } from './page';
 
-export async function submitAction(data) {
+export async function submitAction(data: LoginInputType) {
   console.log(data);
-
-  const res = await signIn('credentials', {
-    id: data.id,
-    password: data.password,
-  });
-
-  console.log('server action', res);
-
-  if (!res?.ok) {
-    const errorMessage = res?.error || 'Unknown error occurred';
-    console.error('Login failed:', errorMessage);
-    return 'fail';
+  try {
+    await signIn('credentials', {
+      id: data.id,
+      password: data.password,
+      redirect: false,
+    });
+    return { loginSuccess: true };
+  } catch (err) {
+    return { loginSuccess: false };
   }
-  //   if (!res.ok) return 'fail';
 }
