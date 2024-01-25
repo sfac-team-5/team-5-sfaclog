@@ -3,7 +3,6 @@ import { signIn } from '@/auth';
 import { LoginInputType } from './page';
 
 export async function submitAction(data: LoginInputType) {
-  console.log(data);
   try {
     await signIn('credentials', {
       id: data.id,
