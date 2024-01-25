@@ -9,23 +9,25 @@ export async function Navigation() {
   // className={`ui-selected:bg-primary-50 ui-not-selected:bg-neutral-30  w-32 outline-none`}
   return (
     <div className='mx-auto w-fit'>
-      <nav className='w-[1440px] h-[50px] bg-pink-200 pl-44'>
+      <nav className='h-[50px] w-[1440px] bg-pink-200 px-20'>
         <NavTabs defaultSelectedTabIndex={1}>
           <Link
             href={'#'}
-            className='ui-selected:bg-primary-50 ui-not-selected:bg-neutral-30 inline-flex items-center justify-center w-[120px] h-[50px] outline-none'
+            // eslint-disable-next-line tailwindcss/no-custom-classname
+            className='ui-selected:bg-primary-50 ui-not-selected:bg-neutral-30 inline-flex h-[50px] w-[120px] items-center justify-center outline-none'
           >
             SFACFOLIO
           </Link>
           <Link
             href={'#'}
-            className='ui-selected:bg-primary-50 ui-not-selected:bg-neutral-30 inline-flex items-center justify-center w-[120px] h-[50px] outline-none'
+            // eslint-disable-next-line tailwindcss/no-custom-classname
+            className='ui-selected:bg-primary-50 ui-not-selected:bg-neutral-30 inline-flex h-[50px] w-[120px] items-center justify-center outline-none'
           >
             SFACLOG
           </Link>
         </NavTabs>
       </nav>
-      <nav className='bg-neutral-60 flex h-[80px] items-center justify-center w-[1440px]'>
+      <nav className='bg-neutral-60 flex h-[80px] w-[1440px] items-center justify-between px-20'>
         <NavTabs>
           <Link href={'#'} className={navClass}>
             LOGO
@@ -43,10 +45,12 @@ export async function Navigation() {
             프로젝트
           </Link>
         </NavTabs>
-        <div className='mx-5 hidden sm:block md:block lg:block'>
-          <NavSearch />
+        <div className='flex items-center justify-end'>
+          <div className='mx-5 hidden sm:block md:block lg:block'>
+            <NavSearch />
+          </div>
+          <NavAuthBtn />
         </div>
-        <NavAuthBtn />
       </nav>
     </div>
   );
