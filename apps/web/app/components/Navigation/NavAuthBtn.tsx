@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { auth } from '../../auth';
+import { auth, signOut } from '@/auth';
 
 export async function NavAuthBtn() {
   const session = await auth();
@@ -11,7 +11,7 @@ export async function NavAuthBtn() {
       {session?.user ? (
         <div className='flex'>
           <Image
-            src={session.user.image || 'fallbackImg'}
+            src={session.user.image || ''}
             width={30}
             height={30}
             alt='avatar'
@@ -19,6 +19,14 @@ export async function NavAuthBtn() {
           />
           <div className='mx-2  text-white'>{session?.user.name}</div>
           <div className='mx-2 text-white'>{session?.user.email}</div>
+          <form
+            action={async () => {
+              'use server';
+              await signOut();
+            }}
+          >
+            <button type='submit'>로그아웃</button>
+          </form>
         </div>
       ) : (
         <div className='flex'>
