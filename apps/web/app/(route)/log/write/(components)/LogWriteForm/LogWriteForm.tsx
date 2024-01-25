@@ -9,6 +9,7 @@ import PublicScopeSetting from './(components)/PublicScopeSetting';
 import SeriesSetting from './(components)/SeriesSetting';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import dynamic from 'next/dynamic';
+import PocketBase from 'pocketbase';
 
 const ContentEditor = dynamic(() => import('./(components)/ContentInput'), {
   loading: () => <p>Loading...</p>,
@@ -18,7 +19,7 @@ const ContentEditor = dynamic(() => import('./(components)/ContentInput'), {
 interface LogFormData {
   title: string;
   tag?: string[];
-  thumbnail: File[];
+  thumbnail: FileList | null;
   content: string;
   publicScope: any;
   series: string;
@@ -33,7 +34,7 @@ function LogWriteForm() {
     defaultValues: {
       title: '',
       tag: [],
-      thumbnail: [],
+      thumbnail: null,
       content: '',
       publicScope: null,
       series: '',
@@ -41,12 +42,21 @@ function LogWriteForm() {
   });
 
   const onSubmit: SubmitHandler<LogFormData> = async data => {
-    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/log/write`, {
-      method: 'POST',
-      body: JSON.stringify(data),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/log/write`,
+      {
+        method: 'POST',
+        body: JSON.stringify(data),
+      },
+    );
+    const newLog = await response.json();
+    if (newLog && data.thumbnail) {
+      const pb = new PocketBase('http://3.35.176.72:8090');
+      await pb
+        .collection('logs')
+        .update(newLog.id, { thumbnail: data.thumbnail[0] });
+    }
   };
-
   const [content, setContent] = useState('');
 
   const titleRegister = register('title', {
