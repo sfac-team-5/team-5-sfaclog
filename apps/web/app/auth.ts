@@ -2,22 +2,34 @@ import NextAuth from 'next-auth';
 import type { NextAuthConfig } from 'next-auth';
 import credentials from 'next-auth/providers/credentials';
 import PocketBase from 'pocketbase';
+interface credentialsType {
+  id: string;
+  password: string;
+}
 export const config = {
   providers: [
     credentials({
-      async authorize(credentials) {
+      async authorize(credentials: credentialsType) {
         const pb = new PocketBase('http://3.35.176.72:8090');
         const authData: any = await pb
           .collection('users')
           .authWithPassword(credentials.id, credentials.password)
           .then(data => data)
           .catch(() => null);
-        console.log('authData = ', authData);
+        // console.log('authData = ', authData);
+        const imageUrl = pb.files.getUrl(
+          authData.record,
+          authData.record.avatar,
+          {
+            thumb: '100x100',
+          },
+        );
+        console.log('imageUrl', imageUrl);
         return {
           id: authData.record.id,
           name: authData.record.username,
           email: authData.record.email,
-          image: authData.record.avatar,
+          image: imageUrl,
         };
       },
     }),
@@ -35,10 +47,10 @@ export const config = {
       };
     },
     session({ session, token }) {
-      console.log('session TOKEN ', token);
-      if (token) {
+      if (token && session) {
         session.user.id = token.id;
       }
+      // console.log('session =', session);
       return session;
     },
     authorized({ request, auth }) {
