@@ -1,7 +1,12 @@
 import React from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
-function ImagesInput() {
-  return <div>ImagesInput</div>;
+interface ImagesInputProps {
+  register: UseFormRegisterReturn<'thumbnail'>;
+}
+
+function ImagesInput({ register }: ImagesInputProps) {
+  return <input {...register} type='file' />;
 }
 
 export default ImagesInput;

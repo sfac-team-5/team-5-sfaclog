@@ -28,21 +28,21 @@ function LogWriteForm() {
   const onSubmit: SubmitHandler<LogFormData> = data => console.log(data);
 
   const titleRegister = register('title', {
-    required: '제목을 입력해주세요.',
+    required: '제목을 입력해 주세요.',
   });
 
   const tagRegister = register('tag');
 
   const thumbnailRegister = register('thumbnail', {
-    required: '썸네일을 입력해주세요.',
+    required: '썸네일을 입력해 주세요.',
   });
 
   const contentRegister = register('content', {
-    required: '내용을 입력해주세요.',
+    required: '내용을 입력해 주세요.',
   });
 
   const publicScopeRegister = register('publicScope', {
-    required: '공개 범위를 설정해주세요.',
+    required: '공개 범위를 설정해 주세요.',
   });
 
   const seriesRegister = register('series');
@@ -51,7 +51,7 @@ function LogWriteForm() {
     <form>
       <TitleInput register={titleRegister} />
       <TagInput />
-      <ImagesInput />
+      <ImagesInput register={thumbnailRegister} />
       <ContentInput />
       <ActionButton />
       <PublicScopeSetting />
