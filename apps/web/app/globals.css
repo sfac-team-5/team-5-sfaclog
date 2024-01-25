@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .example {
+    @apply text-primary-100 bg-primary-100;
+  }
+}
