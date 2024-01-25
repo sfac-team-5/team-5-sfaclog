@@ -23,7 +23,7 @@ export async function Navigation() {
               SFACFOLIO
             </Link>
             <Link
-              href={'#'}
+              href='/'
               // eslint-disable-next-line tailwindcss/no-custom-classname
               className='ui-selected:bg-primary-50 ui-not-selected:bg-neutral-30 inline-flex h-[50px] w-[120px] items-center justify-center outline-none'
             >
@@ -36,7 +36,7 @@ export async function Navigation() {
       <div className='bg-neutral-60 w-screen'>
         <nav className='mx-auto flex h-[80px] w-[1440px] items-center justify-between px-20'>
           <NavTabs>
-            <Link href={'#'} className={navClass}>
+            <Link href='/' className={navClass}>
               LOGO
             </Link>
             <Link href={'#'} className={navClass}>

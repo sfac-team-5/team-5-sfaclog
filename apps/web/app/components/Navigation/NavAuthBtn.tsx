@@ -1,6 +1,9 @@
 import React from 'react';
-import { auth } from '../../auth';
+import Link from 'next/link';
 import Image from 'next/image';
+
+import { auth } from '../../auth';
+
 export async function NavAuthBtn() {
   const session = await auth();
   return (
@@ -19,8 +22,12 @@ export async function NavAuthBtn() {
         </div>
       ) : (
         <div className='flex'>
-          <button className='mx-2 border-2 p-2  text-white'>회원가입</button>
-          <button className='mx-2 border-2 p-2  text-white'>로그인</button>
+          <Link href='/singup' className='mx-2 border-2 p-2  text-white'>
+            회원가입
+          </Link>
+          <Link href='/login' className='mx-2 border-2 p-2  text-white'>
+            로그인
+          </Link>
         </div>
       )}
     </div>
