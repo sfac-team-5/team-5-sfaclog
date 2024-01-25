@@ -13,9 +13,9 @@
     "@repo/typescript-config": "*",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
+    "husky": "^8.0.0",
     "prettier": "^3.2.4",
-    "turbo": "latest",
-    "husky": "^8.0.0"
+    "turbo": "latest"
   },
   "engines": {
     "node": ">=18"
