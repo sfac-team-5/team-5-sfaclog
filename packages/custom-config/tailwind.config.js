@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+const customConfig = {
   content: [
     // apps content
     `./app/**/*.{js,ts,jsx,tsx}`,
@@ -12,7 +12,14 @@ module.exports = {
       fontFamily: {
         pretendard: ['var(--font-pretendard)'],
       },
+      colors: {
+        primary: {
+          100: '#0059ff',
+        },
+      },
     },
   },
   plugins: [],
 };
+
+export default customConfig;
