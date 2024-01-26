@@ -31,6 +31,7 @@ export const config = {
 
           return {
             id: authData.record.id,
+            username: authData.record.username,
             name: authData.record.nickname,
             email: authData.record.email,
             image: imageUrl,
@@ -44,10 +45,10 @@ export const config = {
 
   callbacks: {
     async jwt({ token, account, user, profile }) {
-      //   console.log('TOKEN =', token);
-      //   console.log('Account =', account);
-      //   console.log('User= ', user);
-      //   console.log('profile= ', profile);
+      // console.log('TOKEN =', token);
+      // console.log('Account =', account);
+      // console.log('User= ', user);
+      // console.log('profile= ', profile);
       return {
         ...token,
         ...user,
@@ -56,6 +57,7 @@ export const config = {
     session({ session, token }) {
       if (token && session) {
         session.user.id = token.id;
+        session.user.username = token.username;
       }
       // console.log('session =', session);
       return session;
