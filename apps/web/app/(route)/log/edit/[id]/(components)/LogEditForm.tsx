@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Form, SubmitHandler, useForm } from 'react-hook-form';
 import dynamic from 'next/dynamic';
 import TitleInput from '@/(route)/log/write/(components)/LogWriteForm/(components)/TitleInput';
 import TagInput from '@/(route)/log/write/(components)/LogWriteForm/(components)/TagInput';
@@ -29,7 +29,7 @@ const ContentEditor = dynamic(
 interface LogFormData {
   title: string;
   tag?: string[];
-  thumbnail: File[];
+  thumbnail: FileList | null;
   content: string;
   publicScope: any;
   series: string;
@@ -46,10 +46,13 @@ function LogEditForm({ log }: LogEditFormProps) {
     publicScope,
     series,
   } = log;
+  console.log(thumbnail);
   const {
     register,
+    setValue,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm<LogFormData>({
     defaultValues: {
       title,
@@ -61,14 +64,29 @@ function LogEditForm({ log }: LogEditFormProps) {
     },
   });
 
-  const onSubmit: SubmitHandler<LogFormData> = async data => {
-    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/log/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify({ ...data, user }),
-    });
+  const onFormdataSubmit = async ({
+    formData,
+    data,
+  }: {
+    formData: FormData;
+    data: LogFormData;
+  }) => {
+    formData.set('thumbnail', data.thumbnail && (data.thumbnail[0] as any));
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/log/${id}`,
+      {
+        method: 'PUT',
+        body: formData,
+      },
+    );
   };
 
-  const [content, setContent] = useState('');
+  // const onSubmit: SubmitHandler<LogFormData> = async data => {
+  //   await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/log/${id}`, {
+  //     method: 'PUT',
+  //     body: JSON.stringify({ ...data, user }),
+  //   });
+  // };
 
   const titleRegister = register('title', {
     // required: '제목을 입력해 주세요.',
@@ -80,9 +98,7 @@ function LogEditForm({ log }: LogEditFormProps) {
     // required: '썸네일을 입력해 주세요.',
   });
 
-  // const contentRegister = register('content', {
-  //   required: '내용을 입력해 주세요.',
-  // });
+  const contentRegister = register('content');
 
   const publicScopeRegister = register('publicScope', {
     // required: '공개 범위를 설정해 주세요.',
@@ -91,15 +107,15 @@ function LogEditForm({ log }: LogEditFormProps) {
   const seriesRegister = register('series');
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={onFormdataSubmit} control={control}>
       <TitleInput register={titleRegister} />
       <TagInput />
       <ImagesInput register={thumbnailRegister} />
-      <ContentEditor content={content} setContent={setContent} />
+      <ContentEditor setValue={setValue} prevContent={prevContent} />
       <PublicScopeSetting register={publicScopeRegister} />
       <SeriesSetting />
       <ActionButton />
-    </form>
+    </Form>
   );
 }
 
