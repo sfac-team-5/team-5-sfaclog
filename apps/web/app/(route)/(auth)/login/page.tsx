@@ -1,7 +1,9 @@
 'use client';
 import React from 'react';
-import { submitAction } from './action';
 import { useForm } from 'react-hook-form';
+
+import { submitAction } from './action';
+import { useRouter } from 'next/navigation';
 
 export interface LoginInputType {
   username: string;
@@ -9,6 +11,8 @@ export interface LoginInputType {
 }
 
 export default function page() {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -40,11 +44,15 @@ export default function page() {
         { shouldFocus: true },
       );
     }
+
     const { loginSuccess } = await submitAction(data);
+
     if (loginSuccess) {
-      console.log('로그인 성공');
+      router.refresh();
+      alert('로그인되었습니다.');
+      router.back();
     } else {
-      console.log('로그인 실패');
+      console.log('다시 로그인해 주세요.');
     }
   };
 

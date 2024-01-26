@@ -7,7 +7,6 @@ import { userDeleteAction } from './action';
 
 export async function NavAuthBtn() {
   const session = await auth();
-  // console.log(session.user);
 
   return (
     <div>
