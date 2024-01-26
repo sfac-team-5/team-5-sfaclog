@@ -3,9 +3,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { auth, signOut } from '@/auth';
+import { userDeleteAction } from './action';
 
 export async function NavAuthBtn() {
   const session = await auth();
+  // console.log(session.user);
+
   return (
     <div>
       {session?.user ? (
@@ -17,7 +20,7 @@ export async function NavAuthBtn() {
             alt='avatar'
             className='rounded-full'
           />
-          <div className='mx-2  text-white'>{session?.user.name}</div>
+          <div className='mx-2 text-white'>{session?.user.name}</div>
           <div className='mx-2 text-white'>{session?.user.email}</div>
           <form
             action={async () => {
@@ -27,10 +30,19 @@ export async function NavAuthBtn() {
           >
             <button type='submit'>로그아웃</button>
           </form>
+          <form
+            action={async () => {
+              'use server';
+              await userDeleteAction(session.user.id);
+              await signOut();
+            }}
+          >
+            <button>회원 탈퇴</button>
+          </form>
         </div>
       ) : (
         <div className='flex'>
-          <Link href='/singup' className='mx-2 border-2 p-2  text-white'>
+          <Link href='/signup' className='mx-2 border-2 p-2  text-white'>
             회원가입
           </Link>
           <Link href='/login' className='mx-2 border-2 p-2  text-white'>

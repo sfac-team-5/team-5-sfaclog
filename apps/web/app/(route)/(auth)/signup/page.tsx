@@ -27,20 +27,23 @@ function page() {
   const password = watch('password');
 
   const onSubmit = async (data: SignupInputType) => {
-    // async request which may result error
+    const requestData = {
+      ...data,
+      action: 'signup',
+    };
+
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/signup`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(data),
+          body: JSON.stringify(requestData),
         },
       );
       const responseData = await response.json();
-      console.log(responseData);
 
       if (responseData.status !== 200) {
         alert(responseData.message);

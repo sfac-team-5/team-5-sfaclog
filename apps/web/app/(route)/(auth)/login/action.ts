@@ -1,6 +1,7 @@
 'use server';
 import { signIn } from '@/auth';
 import { LoginInputType } from './page';
+
 export async function submitAction(data: LoginInputType) {
   try {
     await signIn('credentials', {
