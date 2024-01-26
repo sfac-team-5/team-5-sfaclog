@@ -30,7 +30,8 @@ export default function page() {
         },
         { shouldFocus: true },
       );
-    } else if (!data.password) {
+    }
+    if (!data.password) {
       setError(
         'password',
         {
@@ -51,9 +52,11 @@ export default function page() {
     <form onSubmit={handleSubmit(handleFormSubmit)}>
       <div className='mb-6  relative'>
         <input
-          {...register('username')}
+          {...register('username', {
+            required: '아이디를 입력해 주세요.',
+          })}
           type='text'
-          className={`rounded-md border-[1px] border-[#B3B3B3] w-[400px] px-4 py-[10px] h-[40px] outline-none ${errors.id ? 'border-red-500' : ''}`}
+          className={`rounded-md border-[1px] border-[#B3B3B3] w-[400px] px-4 py-[10px] h-[40px] outline-none ${errors.username ? 'border-red-500' : ''}`}
         />
         {errors.username && (
           <div className='absolute text-red-500'>{errors.username.message}</div>
