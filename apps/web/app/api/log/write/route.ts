@@ -4,15 +4,16 @@ import PocketBase from 'pocketbase';
 
 export async function POST(request: NextRequest) {
   const session = await auth();
-  const formData = await request.json();
-
-  const { title, content } = formData;
-
+  const formData = await request.formData();
+  console.log(formData);
   try {
     const data = {
       user: session?.user.id,
-      title,
-      content,
+      series: formData.get('series'),
+      title: formData.get('title'),
+      tags: formData.get('tag'),
+      thumbnail: formData.get('thumbnail'),
+      content: formData.get('content'),
       views: 0,
       likes: 0,
       isVisibility: true,

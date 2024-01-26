@@ -7,7 +7,7 @@ import ImagesInput from './(components)/ImagesInput';
 import ActionButton from './(components)/ActionButton';
 import PublicScopeSetting from './(components)/PublicScopeSetting';
 import SeriesSetting from './(components)/SeriesSetting';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Form, SubmitHandler, useForm } from 'react-hook-form';
 import dynamic from 'next/dynamic';
 import PocketBase from 'pocketbase';
 
@@ -16,7 +16,7 @@ const ContentEditor = dynamic(() => import('./(components)/ContentInput'), {
   ssr: false,
 });
 
-interface LogFormData {
+export interface LogFormData {
   title: string;
   tag?: string[];
   thumbnail: FileList | null;
@@ -29,7 +29,9 @@ function LogWriteForm() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
+    control,
   } = useForm<LogFormData>({
     defaultValues: {
       title: '',
@@ -41,23 +43,22 @@ function LogWriteForm() {
     },
   });
 
-  const onSubmit: SubmitHandler<LogFormData> = async data => {
+  const onFormdataSubmit = async ({
+    formData,
+    data,
+  }: {
+    formData: FormData;
+    data: LogFormData;
+  }) => {
+    formData.set('thumbnail', data.thumbnail && (data.thumbnail[0] as any));
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/log/write`,
       {
         method: 'POST',
-        body: JSON.stringify(data),
+        body: formData,
       },
     );
-    const newLog = await response.json();
-    if (newLog && data.thumbnail) {
-      const pb = new PocketBase('http://3.35.176.72:8090');
-      await pb
-        .collection('logs')
-        .update(newLog.id, { thumbnail: data.thumbnail[0] });
-    }
   };
-  const [content, setContent] = useState('');
 
   const titleRegister = register('title', {
     // required: '제목을 입력해 주세요.',
@@ -69,9 +70,7 @@ function LogWriteForm() {
     // required: '썸네일을 입력해 주세요.',
   });
 
-  // const contentRegister = register('content', {
-  //   required: '내용을 입력해 주세요.',
-  // });
+  const contentRegister = register('content');
 
   const publicScopeRegister = register('publicScope', {
     // required: '공개 범위를 설정해 주세요.',
@@ -80,15 +79,15 @@ function LogWriteForm() {
   const seriesRegister = register('series');
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={onFormdataSubmit} control={control}>
       <TitleInput register={titleRegister} />
       <TagInput />
       <ImagesInput register={thumbnailRegister} />
-      <ContentEditor content={content} setContent={setContent} />
+      <ContentEditor setValue={setValue} />
       <PublicScopeSetting register={publicScopeRegister} />
       <SeriesSetting />
       <ActionButton />
-    </form>
+    </Form>
   );
 }
 
