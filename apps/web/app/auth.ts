@@ -4,7 +4,7 @@ import credentials from 'next-auth/providers/credentials';
 import PocketBase from 'pocketbase';
 
 interface credentialsType {
-  id: string;
+  username: string;
   password: string;
 }
 
@@ -16,7 +16,7 @@ export const config = {
 
         const authData: any = await pb
           .collection('users')
-          .authWithPassword(credentials.id, credentials.password)
+          .authWithPassword(credentials.username, credentials.password)
           .then(data => data)
           .catch(() => null);
 
@@ -31,7 +31,7 @@ export const config = {
 
           return {
             id: authData.record.id,
-            name: authData.record.username,
+            name: authData.record.nickname,
             email: authData.record.email,
             image: imageUrl,
           };
