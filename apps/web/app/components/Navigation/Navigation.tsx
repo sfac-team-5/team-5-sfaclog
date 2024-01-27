@@ -17,14 +17,12 @@ export async function Navigation() {
           <NavTabs defaultSelectedTabIndex={1}>
             <Link
               href={'#'}
-              // eslint-disable-next-line tailwindcss/no-custom-classname
               className='ui-selected:bg-primary-50 ui-not-selected:bg-neutral-30 inline-flex h-[50px] w-[120px] items-center justify-center outline-none'
             >
               SFACFOLIO
             </Link>
             <Link
               href='/'
-              // eslint-disable-next-line tailwindcss/no-custom-classname
               className='ui-selected:bg-primary-50 ui-not-selected:bg-neutral-30 inline-flex h-[50px] w-[120px] items-center justify-center outline-none'
             >
               SFACLOG
