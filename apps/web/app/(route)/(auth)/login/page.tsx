@@ -58,31 +58,31 @@ export default function page() {
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
-      <div className='mb-6  relative'>
+      <div className='relative  mb-6'>
         <input
           {...register('username', {
             required: '아이디를 입력해 주세요.',
           })}
           type='text'
-          className={`rounded-md border-[1px] border-[#B3B3B3] w-[400px] px-4 py-[10px] h-[40px] outline-none ${errors.username ? 'border-red-500' : ''}`}
+          className={`h-[40px] w-[400px] rounded-md border-[1px] border-[#B3B3B3] px-4 py-[10px] outline-none ${errors.username ? 'border-red-500' : ''}`}
         />
         {errors.username && (
           <div className='absolute text-red-500'>{errors.username.message}</div>
         )}
       </div>
-      <div className='mb-6 relative'>
+      <div className='relative mb-6'>
         <input
           {...register('password', {
             required: '비밀번호를 입력해 주세요.',
           })}
           type='password'
-          className={`rounded-md border-2 w-[400px] h-[40px] px-4 py-[10px] outline-none ${errors.password ? 'border-red-500' : ''}`}
+          className={`h-[40px] w-[400px] rounded-md border-2 px-4 py-[10px] outline-none ${errors.password ? 'border-red-500' : ''}`}
         />
         {errors.password && (
           <div className='absolute text-red-500'>{errors.password.message}</div>
         )}
       </div>
-      <button type='submit' className='border-4 border-primary-50 w-28'>
+      <button type='submit' className='border-primary-50 w-28 border-4'>
         제출
       </button>
     </form>

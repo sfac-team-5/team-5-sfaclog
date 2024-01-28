@@ -1,8 +1,7 @@
 'use server';
 
-import { signOut } from 'next-auth/react';
 import PocketBase from 'pocketbase';
-
+import { auth, signOut } from '@/auth';
 export async function userDeleteAction(userId: string) {
   const pb = new PocketBase('http://3.35.176.72:8090');
 
@@ -13,4 +12,8 @@ export async function userDeleteAction(userId: string) {
     console.log(error);
     return { success: false };
   }
+}
+
+export async function LogoutAction() {
+  await signOut();
 }
