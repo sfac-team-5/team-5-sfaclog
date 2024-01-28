@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
-import { Navigation } from './components/Navigation/Navigation';
+import { Navigation } from '@/components/Header/Navigation/Navigation';
 import './globals.css';
+import { Header } from './components/Header/Header';
 
 const pretendard = localFont({
   src: [
@@ -26,7 +27,7 @@ export default async function RootLayout({
   return (
     <html lang='ko'>
       <body className={`${pretendard.variable} font-pretendard`}>
-        <Navigation />
+        <Header />
         {children}
       </body>
     </html>

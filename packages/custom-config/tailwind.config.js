@@ -47,7 +47,6 @@ const customConfig = {
           10: '#E6E6E6',
           5: '#F3F3F3',
         },
-        White: '#FFFFFF',
         stroke: {
           50: '#7FACFF',
           30: '#B3B3B3',
