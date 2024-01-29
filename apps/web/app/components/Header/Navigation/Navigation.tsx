@@ -16,7 +16,7 @@ export async function Navigation() {
           href='#'
           className='mr-[40px] flex h-[64px] items-center outline-none'
         >
-          <Logo className='fill-primary-100 h-[20px] w-[120px] ' />
+          <Logo className='fill-brand-100 h-[20px] w-[120px] ' />
         </Link>
         <Link href={'#'} className={navClasses}>
           인기 로그

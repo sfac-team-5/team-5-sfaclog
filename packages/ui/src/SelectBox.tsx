@@ -35,7 +35,7 @@ export function Selectbox({
         <div className='relative mt-1'>
           <Listbox.Button
             onClick={() => setIsOpen(prev => !prev)}
-            className={`relative w-full cursor-pointer rounded-md border-[1px] ui-open:border-stroke-50 bg-white py-2 pl-3 pr-10 text-left focus:outline-none sm:text-sm`}
+            className={`ui-open:border-stroke-50 relative w-full cursor-pointer rounded-md border-[1px] bg-white py-2 pl-3 pr-10 text-left focus:outline-none sm:text-sm`}
           >
             <span className='block truncate'>
               {selected ? (
@@ -54,15 +54,13 @@ export function Selectbox({
             leaveFrom='opacity-100'
             leaveTo='opacity-0'
           >
-            <Listbox.Options className='absolute p-2 mt-2 max-h-60 w-full overflow-auto rounded-md bg-white text-base shadow-custom focus:outline-none sm:text-sm'>
+            <Listbox.Options className='shadow-custom absolute mt-2 max-h-60 w-full overflow-auto rounded-md bg-white p-2 text-base focus:outline-none sm:text-sm'>
               {selectList.map((item, itemIdx) => (
                 <Listbox.Option
                   key={itemIdx}
                   className={({ active }) =>
                     `relative rounded-md cursor-default select-none ${width === 'long' ? 'py-2 pl-6 pr-4' : 'py-2 pl-4 pr-2'} ${
-                      active
-                        ? 'bg-primary-10 text-primary-100'
-                        : 'text-neutral-40'
+                      active ? 'bg-brand-10 text-brand-100' : 'text-neutral-40'
                     }`
                   }
                   value={item}
@@ -72,7 +70,7 @@ export function Selectbox({
                       <span
                         className={`block truncate ${
                           selected
-                            ? 'font-medium text-primary-100'
+                            ? 'text-brand-100 font-medium'
                             : 'font-normal'
                         }`}
                       >

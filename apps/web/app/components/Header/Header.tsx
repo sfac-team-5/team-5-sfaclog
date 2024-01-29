@@ -3,12 +3,16 @@ import { HeaderTabs } from './HeaderTabs';
 import { Navigation } from './Navigation/Navigation';
 export function Header() {
   return (
-    <header className='h-fit w-full min-w-[1440px]'>
+    <header className='h-fit w-full'>
       <div className='bg-neutral-5 relative h-[46px]'>
-        <HeaderTabs />
+        <div className='container'>
+          <HeaderTabs />
+        </div>
       </div>
-      <div className='h-[64px] bg-white px-[240px]'>
-        <Navigation />
+      <div className='h-[64px] bg-white'>
+        <div className='container'>
+          <Navigation />
+        </div>
       </div>
     </header>
   );

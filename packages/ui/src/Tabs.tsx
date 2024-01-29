@@ -9,7 +9,7 @@ interface NavTabsProps {
 /**
  *
  * @description Tabs 컴포넌트안에 있는 자식 요소들은 탭이 된다
- * @description CSS guide / tab 선택O => ui-selected:bg-primary-50 / tab 선택X => ui-not-selected:bg-neutral-30
+ * @description CSS guide / tab 선택O => ui-selected:bg-brand-50 / tab 선택X => ui-not-selected:bg-neutral-30
  * @param onChange (index:number) => void
  */
 export function Tabs({
@@ -19,7 +19,7 @@ export function Tabs({
 }: NavTabsProps) {
   return (
     <Tab.Group defaultIndex={defaultSelectedTabIndex} onChange={onChange}>
-      <Tab.List className={'flex justify-center items-center'}>
+      <Tab.List className={'flex items-center justify-center'}>
         {Children.map(children, (child, idx) => (
           <Tab key={idx} as={Fragment}>
             {child}

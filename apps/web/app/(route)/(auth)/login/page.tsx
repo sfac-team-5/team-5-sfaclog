@@ -48,19 +48,19 @@ export default function page() {
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
-      <div className='mb-6 relative'>
+      <div className='relative mb-6'>
         <UsernameInput register={usernameRegister} errors={errors} />
         {errors.username && (
           <div className='absolute text-red-500'>{errors.username.message}</div>
         )}
       </div>
-      <div className='mb-6 relative'>
+      <div className='relative mb-6'>
         <PasswordInput register={passwordRegister} errors={errors} />
         {errors.password && (
           <div className='absolute text-red-500'>{errors.password.message}</div>
         )}
       </div>
-      <button type='submit' className='border-primary-50 w-28 border-4'>
+      <button type='submit' className='border-brand-50 w-28 border-4'>
         제출
       </button>
     </form>
