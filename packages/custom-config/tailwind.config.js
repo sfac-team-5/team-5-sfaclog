@@ -17,6 +17,9 @@ const customConfig = {
         md: '768px',
         lg: '1024px',
       },
+      boxShadow: {
+        custom: '0 4px 16px 0 rgba(7, 46, 120, 0.14)',
+      },
       colors: {
         primary: {
           100: '#0059FF',
@@ -44,14 +47,15 @@ const customConfig = {
           10: '#E6E6E6',
           5: '#F3F3F3',
         },
-        White: '#FFFFFF',
         stroke: {
-          blue: '#99BDFF',
+          50: '#7FACFF',
+          30: '#B3B3B3',
           10: '#E6E6E6',
           5: '#F3F3F3',
         },
         background: {
           100: '#666666',
+          50: 'var(--background-50-opacity, rgba(0, 0, 0, 0.30))',
           5: '#F8F8F9',
           blue: '#F5F8FF',
         },

@@ -60,7 +60,7 @@ export default function page() {
           <div className='absolute text-red-500'>{errors.password.message}</div>
         )}
       </div>
-      <button type='submit' className='border-4 border-primary-50 w-28'>
+      <button type='submit' className='border-primary-50 w-28 border-4'>
         제출
       </button>
     </form>

@@ -12,14 +12,14 @@ interface NavTabsProps {
  * @description CSS guide / tab 선택O => ui-selected:bg-primary-50 / tab 선택X => ui-not-selected:bg-neutral-30
  * @param onChange (index:number) => void
  */
-export function NavTabs({
+export function Tabs({
   children,
   defaultSelectedTabIndex,
   onChange,
 }: NavTabsProps) {
   return (
     <Tab.Group defaultIndex={defaultSelectedTabIndex} onChange={onChange}>
-      <Tab.List>
+      <Tab.List className={'flex justify-center items-center'}>
         {Children.map(children, (child, idx) => (
           <Tab key={idx} as={Fragment}>
             {child}

@@ -3,8 +3,9 @@ import localFont from 'next/font/local';
 import { ClientSessionProvider } from './components/Providers/ClientSessionProvider';
 import Footer from './components/Footer/Footer';
 
-import { Navigation } from './components/Navigation/Navigation';
+import { Navigation } from '@/components/Header/Navigation/Navigation';
 import './globals.css';
+import { Header } from './components/Header/Header';
 
 const pretendard = localFont({
   src: [
@@ -28,6 +29,7 @@ export default async function RootLayout({
   return (
     <html lang='ko'>
       <body className={`${pretendard.variable} font-pretendard`}>
+        <Header />
         <ClientSessionProvider>{children}</ClientSessionProvider>
         <Footer />
       </body>
