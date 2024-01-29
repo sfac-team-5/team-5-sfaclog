@@ -19,7 +19,7 @@ export function Tabs({
 }: NavTabsProps) {
   return (
     <Tab.Group defaultIndex={defaultSelectedTabIndex} onChange={onChange}>
-      <Tab.List className={'flex items-center justify-center'}>
+      <Tab.List className={'relative flex items-center justify-center'}>
         {Children.map(children, (child, idx) => (
           <Tab key={idx} as={Fragment}>
             {child}

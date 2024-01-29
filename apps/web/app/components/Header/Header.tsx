@@ -5,7 +5,7 @@ export function Header() {
   return (
     <header className='h-fit w-full'>
       <div className='bg-neutral-5 relative h-[46px]'>
-        <div className='container'>
+        <div className='mx-auto h-full w-[1440px] px-[184px]'>
           <HeaderTabs />
         </div>
       </div>
