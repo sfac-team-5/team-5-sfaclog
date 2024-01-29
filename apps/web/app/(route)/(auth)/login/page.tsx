@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 
 import { submitAction } from './action';
 import { useRouter } from 'next/navigation';
+import UsernameInput from './(components)/UsernameInput';
+import PasswordInput from './(components)/PasswordInput';
 
 export interface LoginInputType {
   username: string;
@@ -16,7 +18,6 @@ export default function page() {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm<LoginInputType>({
     defaultValues: {
@@ -26,25 +27,6 @@ export default function page() {
   });
 
   const handleFormSubmit = async (data: LoginInputType) => {
-    if (!data.username) {
-      setError(
-        'username',
-        {
-          message: '아이디를 입력해주세요',
-        },
-        { shouldFocus: true },
-      );
-    }
-    if (!data.password) {
-      setError(
-        'password',
-        {
-          message: '비밀번호를 입력해주세요',
-        },
-        { shouldFocus: true },
-      );
-    }
-
     const { loginSuccess } = await submitAction(data);
 
     if (loginSuccess) {
@@ -56,28 +38,24 @@ export default function page() {
     }
   };
 
+  const usernameRegister = register('username', {
+    required: '아이디를 입력해 주세요.',
+  });
+
+  const passwordRegister = register('password', {
+    required: '비밀번호를 입력해 주세요.',
+  });
+
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
-      <div className='mb-6  relative'>
-        <input
-          {...register('username', {
-            required: '아이디를 입력해 주세요.',
-          })}
-          type='text'
-          className={`rounded-md border-[1px] border-[#B3B3B3] w-[400px] px-4 py-[10px] h-[40px] outline-none ${errors.username ? 'border-red-500' : ''}`}
-        />
+      <div className='mb-6 relative'>
+        <UsernameInput register={usernameRegister} errors={errors} />
         {errors.username && (
           <div className='absolute text-red-500'>{errors.username.message}</div>
         )}
       </div>
       <div className='mb-6 relative'>
-        <input
-          {...register('password', {
-            required: '비밀번호를 입력해 주세요.',
-          })}
-          type='password'
-          className={`rounded-md border-2 w-[400px] h-[40px] px-4 py-[10px] outline-none ${errors.password ? 'border-red-500' : ''}`}
-        />
+        <PasswordInput register={passwordRegister} errors={errors} />
         {errors.password && (
           <div className='absolute text-red-500'>{errors.password.message}</div>
         )}
