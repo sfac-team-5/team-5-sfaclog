@@ -9,7 +9,7 @@
     "./Tabs": "./src/Tabs.tsx",
     "./SelectBox": "./src/SelectBox.tsx",
     "./ButtonRound": "./src/ButtonRound.tsx",
-    "./Icon" : "./src/Icon.tsx"
+    "./Icon": "./public/svgs/index.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

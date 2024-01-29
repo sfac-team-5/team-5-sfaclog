@@ -2,7 +2,7 @@
 import React from 'react';
 import { Selectbox } from '@repo/ui/SelectBox';
 import { IconTaillessArrowUp, IconTaillessArrowDown } from '@public/svgs';
-import { IconTest } from '@repo/ui/Icon';
+import { IconArrowDown } from '@repo/ui/Icon';
 const selectList = [
   { value: 'Wade Cooper' },
   { value: 'Arlene Mccoy' },
@@ -35,7 +35,7 @@ export default function page() {
           label='라벨'
         />
       </div>
-      <IconTest className='stroke-primary-100' />
+      <IconArrowDown className='stroke-primary-100' />
     </div>
   );
 }
