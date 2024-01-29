@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import { ClientSessionProvider } from './components/Providers/ClientSessionProvider';
+import Footer from './components/Footer/Footer';
 
 import { Navigation } from '@/components/Header/Navigation/Navigation';
 import './globals.css';
@@ -28,7 +30,8 @@ export default async function RootLayout({
     <html lang='ko'>
       <body className={`${pretendard.variable} font-pretendard`}>
         <Header />
-        {children}
+        <ClientSessionProvider>{children}</ClientSessionProvider>
+        <Footer />
       </body>
     </html>
   );

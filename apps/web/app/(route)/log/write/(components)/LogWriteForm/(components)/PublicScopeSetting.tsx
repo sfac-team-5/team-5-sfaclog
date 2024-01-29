@@ -1,6 +1,11 @@
 import React from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
-function PublicScopeSetting() {
+interface PublicScopeSettingProps {
+  register: UseFormRegisterReturn<'publicScope'>;
+}
+
+function PublicScopeSetting({ register }: PublicScopeSettingProps) {
   return <div>PublicScopeSetting</div>;
 }
 
