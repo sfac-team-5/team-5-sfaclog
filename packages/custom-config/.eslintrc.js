@@ -32,7 +32,7 @@ module.exports = {
     // '@typescript-eslint/interface-name-prefix': 'off',
     // '@typescript-eslint/explicit-function-return-type': 'off',
     // '@typescript-eslint/explicit-module-boundary-types': 'off',
-    'tailwindcss/no-custom-classname': ['enabled', {}],
+    'tailwindcss/no-custom-classname': 'off',
   },
   settings: {
     react: {
