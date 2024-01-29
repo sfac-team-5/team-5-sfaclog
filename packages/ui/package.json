@@ -8,7 +8,8 @@
     "./code": "./src/code.tsx",
     "./Tabs": "./src/Tabs.tsx",
     "./SelectBox": "./src/SelectBox.tsx",
-    "./ButtonRound": "./src/ButtonRound.tsx"
+    "./ButtonRound": "./src/ButtonRound.tsx",
+    "./Icon" : "./src/Icon.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
@@ -17,6 +18,7 @@
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
+    "@svgr/webpack": "^8.1.0",
     "@turbo/gen": "^1.11.3",
     "@types/eslint": "^8.56.1",
     "@types/node": "^20.10.6",
