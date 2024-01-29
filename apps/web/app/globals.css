@@ -4,6 +4,6 @@
 
 @layer components {
   .example {
-    @apply text-primary-100 bg-primary-100;
+    @apply text-brand-100 bg-brand-100;
   }
 }

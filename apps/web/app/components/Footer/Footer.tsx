@@ -6,7 +6,7 @@ function Footer() {
   return (
     <footer className='bg-black text-white'>
       <FooterTop />
-      <div className='h-[1px] w-full bg-neutral-70'></div>
+      <div className='bg-neutral-70 h-[1px] w-full'></div>
       <FooterBottom />
     </footer>
   );

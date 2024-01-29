@@ -15,7 +15,6 @@ interface SelectBoxProps {
 export function Selectbox({
   IconArrowDown,
   IconArrowUp,
-  label,
   onChange,
   width = 'long',
   placeholder,
@@ -28,10 +27,10 @@ export function Selectbox({
     setSelected(() => data);
     onChange(data);
   };
+
   return (
     <div className={`mt-10 ${widthClass}`}>
       <Listbox value={selected} onChange={handleValChange}>
-        {label && <Listbox.Label>{label}</Listbox.Label>}
         <div className='relative mt-1'>
           <Listbox.Button
             onClick={() => setIsOpen(prev => !prev)}
@@ -39,7 +38,7 @@ export function Selectbox({
           >
             <span className='block truncate'>
               {selected ? (
-                selected.value
+                <span className='text-text-primary'>{selected.value}</span>
               ) : (
                 <span className='text-neutral-40'>{placeholder}</span>
               )}
@@ -54,15 +53,13 @@ export function Selectbox({
             leaveFrom='opacity-100'
             leaveTo='opacity-0'
           >
-            <Listbox.Options className='shadow-custom absolute mt-2 max-h-60 w-full overflow-auto rounded-md bg-white p-2 text-base focus:outline-none sm:text-sm'>
+            <Listbox.Options className='shadow-custom absolute z-10 mt-2 max-h-60 w-full overflow-auto rounded-md bg-white p-2 text-base focus:outline-none sm:text-sm'>
               {selectList.map((item, itemIdx) => (
                 <Listbox.Option
                   key={itemIdx}
                   className={({ active }) =>
-                    `relative rounded-md cursor-default select-none ${width === 'long' ? 'py-2 pl-6 pr-4' : 'py-2 pl-4 pr-2'} ${
-                      active
-                        ? 'bg-primary-10 text-primary-100'
-                        : 'text-neutral-40'
+                    `relative rounded-md cursor-pointer select-none ${width === 'long' ? 'py-2 pl-6 pr-4' : 'py-2 pl-4 pr-2'} ${
+                      active ? 'bg-brand-10 text-brand-100' : 'text-neutral-40'
                     }`
                   }
                   value={item}

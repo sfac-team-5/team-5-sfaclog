@@ -10,13 +10,13 @@ export async function Navigation() {
   const navClasses =
     'ui-selected:font-bold ui-selected:border-neutral-90 ui-selected:border-b-2 flex h-[64px] w-max items-center justify-center border-b-2 border-transparent px-[24px] py-[10px] text-[16px] outline-none duration-200 ease-in-out';
   return (
-    <nav className='flex h-full items-center'>
+    <nav className='flex size-full items-center'>
       <Tabs>
         <Link
           href='#'
           className='mr-[40px] flex h-[64px] items-center outline-none'
         >
-          <Logo className='fill-primary-100 h-[20px] w-[120px] ' />
+          <Logo className='fill-brand-100 h-[20px] w-[120px] ' />
         </Link>
         <Link href={'#'} className={navClasses}>
           인기 로그

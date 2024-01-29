@@ -9,7 +9,9 @@
     "./Tabs": "./src/Tabs.tsx",
     "./SelectBox": "./src/SelectBox.tsx",
     "./ButtonRound": "./src/ButtonRound.tsx",
-    "./Icon": "./public/svgs/index.ts"
+    "./Icon": "./public/svgs/index.ts",
+    "./Toggle": "./src/Toggle.tsx",
+    "./RadioButtons": "./src/RadioButtons.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
