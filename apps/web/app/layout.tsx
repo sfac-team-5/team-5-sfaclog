@@ -1,7 +1,8 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import { ClientSessionProvider } from './(route)/test/ClientSessionProvider';
+import { ClientSessionProvider } from './components/Providers/ClientSessionProvider';
+import Footer from './components/Footer/Footer';
 
 const pretendard = localFont({
   src: [
@@ -26,6 +27,7 @@ export default async function RootLayout({
     <html lang='ko'>
       <body className={`${pretendard.variable} font-pretendard`}>
         <ClientSessionProvider>{children}</ClientSessionProvider>
+        <Footer />
       </body>
     </html>
   );
