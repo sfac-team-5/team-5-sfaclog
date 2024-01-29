@@ -8,7 +8,9 @@
     "./code": "./src/code.tsx",
     "./Tabs": "./src/Tabs.tsx",
     "./SelectBox": "./src/SelectBox.tsx",
-    "./ButtonRound": "./src/ButtonRound.tsx"
+    "./ButtonRound": "./src/ButtonRound.tsx",
+    "./Toggle": "./src/Toggle.tsx",
+    "./RadioButtons": "./src/RadioButtons.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
