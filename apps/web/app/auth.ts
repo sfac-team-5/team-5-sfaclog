@@ -14,44 +14,51 @@ declare module 'next-auth' {
 }
 
 interface credentialsType {
-  id: string;
+  username: string;
   password: string;
 }
+
 export const config = {
   providers: [
     credentials({
       async authorize(credentials: credentialsType) {
         const pb = new PocketBase('http://3.35.176.72:8090');
+
         const authData: any = await pb
           .collection('users')
-          .authWithPassword(credentials.id, credentials.password)
+          .authWithPassword(credentials.username, credentials.password)
           .then(data => data)
           .catch(() => null);
-        // console.log('authData = ', authData);
-        const imageUrl = pb.files.getUrl(
-          authData.record,
-          authData.record.avatar,
-          {
-            thumb: '100x100',
-          },
-        );
-        console.log('imageUrl', imageUrl);
-        return {
-          id: authData.record.id,
-          name: authData.record.username,
-          email: authData.record.email,
-          image: imageUrl,
-        };
+
+        if (authData) {
+          const imageUrl = pb.files.getUrl(
+            authData.record,
+            authData.record.avatar,
+            {
+              thumb: '100x100',
+            },
+          );
+
+          return {
+            id: authData.record.id,
+            username: authData.record.username,
+            name: authData.record.nickname,
+            email: authData.record.email,
+            image: imageUrl,
+          };
+        } else {
+          return null;
+        }
       },
     }),
   ],
 
   callbacks: {
     async jwt({ token, account, user, profile }) {
-      //   console.log('TOKEN =', token);
-      //   console.log('Account =', account);
-      //   console.log('User= ', user);
-      //   console.log('profile= ', profile);
+      // console.log('TOKEN =', token);
+      // console.log('Account =', account);
+      // console.log('User= ', user);
+      // console.log('profile= ', profile);
       return {
         ...token,
         ...user,
@@ -60,6 +67,7 @@ export const config = {
     session({ session, token }) {
       if (token && session) {
         session.user.id = token.id;
+        session.user.username = token.username;
       }
       // console.log('session =', session);
       return session;
