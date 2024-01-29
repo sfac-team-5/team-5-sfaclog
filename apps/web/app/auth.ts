@@ -1,7 +1,17 @@
 import NextAuth from 'next-auth';
-import type { NextAuthConfig } from 'next-auth';
+import type { DefaultSession, NextAuthConfig } from 'next-auth';
 import credentials from 'next-auth/providers/credentials';
 import PocketBase from 'pocketbase';
+declare module 'next-auth' {
+  interface Session extends DefaultSession {
+    user: {
+      email: string;
+      id: string;
+      image: string;
+      name: string;
+    };
+  }
+}
 
 interface credentialsType {
   username: string;
