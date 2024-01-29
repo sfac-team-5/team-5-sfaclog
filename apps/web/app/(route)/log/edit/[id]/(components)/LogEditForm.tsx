@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 
-import { Form, SubmitHandler, useForm } from 'react-hook-form';
+import { Form, useForm } from 'react-hook-form';
 import dynamic from 'next/dynamic';
 import TitleInput from '@/(route)/log/write/(components)/LogWriteForm/(components)/TitleInput';
 import TagInput from '@/(route)/log/write/(components)/LogWriteForm/(components)/TagInput';
@@ -50,7 +50,6 @@ function LogEditForm({ log }: LogEditFormProps) {
   const {
     register,
     setValue,
-    handleSubmit,
     formState: { errors },
     control,
   } = useForm<LogFormData>({

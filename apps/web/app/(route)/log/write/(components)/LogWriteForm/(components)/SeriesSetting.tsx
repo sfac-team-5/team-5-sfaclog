@@ -8,7 +8,7 @@ function SeriesSetting() {
   useEffect(() => {
     if (!session) return;
 
-    async function fetchData(id: string) {
+    const fetchData = async (id: string) => {
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_BASE_URL}/api/series/${id}`,
@@ -16,7 +16,7 @@ function SeriesSetting() {
         const data = await response.json();
         setSeries(data);
       } catch (error) {}
-    }
+    };
     fetchData(session.user.id);
   }, [session]);
 

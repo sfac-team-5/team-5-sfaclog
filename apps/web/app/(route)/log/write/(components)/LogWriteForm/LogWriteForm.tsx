@@ -1,15 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import TitleInput from './(components)/TitleInput';
 import TagInput from './(components)/TagInput';
 import ImagesInput from './(components)/ImagesInput';
 import ActionButton from './(components)/ActionButton';
 import PublicScopeSetting from './(components)/PublicScopeSetting';
 import SeriesSetting from './(components)/SeriesSetting';
-import { Form, SubmitHandler, useForm } from 'react-hook-form';
+import { Form, useForm } from 'react-hook-form';
 import dynamic from 'next/dynamic';
-import PocketBase from 'pocketbase';
 
 const ContentEditor = dynamic(() => import('./(components)/ContentInput'), {
   loading: () => <p>Loading...</p>,
@@ -28,7 +27,6 @@ export interface LogFormData {
 function LogWriteForm() {
   const {
     register,
-    handleSubmit,
     setValue,
     formState: { errors },
     control,
