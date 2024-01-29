@@ -2,7 +2,7 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import { auth, signIn, signOut } from '../../auth';
 import { Client } from './Client';
-import { ClientSessionProvider } from './ClientSessionProvider';
+import { ClientSessionProvider } from '../../components/Providers/ClientSessionProvider';
 
 async function Page({ params }: { params: { id: string } }) {
   // const response = await fetch(
