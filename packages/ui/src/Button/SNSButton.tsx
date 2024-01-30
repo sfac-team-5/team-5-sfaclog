@@ -10,6 +10,7 @@ interface SNSButtonProps {
   bgColor: string;
   borderColor?: string;
   disabled?: boolean;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 // 반응형 진행 시 사이즈별로 나뉠 수 있음
@@ -27,11 +28,13 @@ function SNSButton({
   bgColor,
   borderColor,
   disabled,
+  onClick,
 }: SNSButtonProps) {
   return (
     <button
       type={type}
       disabled={disabled}
+      onClick={onClick}
       className={`${btnSize[size]} ${bgColor} ${labelColor} ${borderColor && `${borderColor} border`} rounded-[6px] duration-200 ease-in-out disabled:bg-neutral-10 disabled:text-neutral-30`}
     >
       <div className='flex items-center justify-center gap-1.5'>
