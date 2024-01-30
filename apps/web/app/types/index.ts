@@ -55,25 +55,21 @@ export interface LogType {
   thumbnailUrl: string;
 }
 
-// export interface CommunityType {
-//   collectionId: string;
-//   collectionName: string;
-//   content: string;
-//   created: string;
-//   expand: {
-//     user: UserType;
-//     series: SeriesType;
-//   };
-//   id: string;
-//   isDelete: boolean;
-//   isVisibility: boolean;
-//   likes: number;
-//   series: SeriesType;
-//   tags: string[]; // 태그의 구체적인 타입이 필요하면 수정할 수 있음
-//   thumbnail: string;
-//   title: string;
-//   updated: string;
-//   user: string;
-//   views: number;
-//   thumbnailUrl: string;
-// }
+export interface CommunityType {
+  // 추후 수정 필요
+  author: string;
+  category: string;
+  collectionId: string;
+  collectionName: string;
+  comments: number;
+  content: string;
+  created: string;
+  expand: {
+    author: UserType;
+  };
+  id: string;
+  likes: number;
+  title: string;
+  updated: string;
+  views: number;
+}

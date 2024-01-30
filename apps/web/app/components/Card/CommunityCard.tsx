@@ -6,40 +6,26 @@ import { CardDate } from './(components)/CardDate';
 import { CardComments } from './(components)/CardComments';
 import { CardTag } from './(components)/CardTag';
 import { Avatar } from '../Avatar';
-
-const dummyData = {
-  content:
-    '더미텍스트 더미텍스트 더미텍스트 더미텍스트 더미텍스트 더미텍스트 더미텍스트 더미텍스트 더미텍스트 더미텍스트 더미텍스트 더미텍스트 더미더미텍스트 더미텍스트 더미텍스트 더미텍스트 더미텍스트 더미텍스트 더미텍스트 더미텍스트 더미텍스트 더미텍스트 더미텍스트 더미텍스트 더미텍스트 더미텍스트 더미텍스트 더미텍스트 더미더미텍스트 더미텍스트 더미텍스트 더미텍스트',
-  created: '2024-01-26 08:01:17 UTC',
-  likes: 680,
-  comments: 20,
-  category: '자유주제',
-  tags: ['tag', 'tag', 'tag'],
-  title: '효과적인 의사소통을 위한 비언어적 신호',
-  user: '화끈한 군고구마',
-};
+import { CommunityType } from '@/types';
 
 interface CommunityCardProps {
-  community?: {
-    content: string;
-    created: string;
-    likes: number;
-    comments: number;
-    category: string;
-    tags: string[];
-    title: string;
-    user: string;
-  };
+  community: CommunityType;
 }
 
-export function CommunityCard({ community = dummyData }: CommunityCardProps) {
-  const content = dummyData.content.substr(0, 100) + '...';
+export function CommunityCard({ community }: CommunityCardProps) {
+  const nickname = community.expand?.author?.nickname
+    ? community.expand.author.nickname
+    : '사용자명';
+  const content =
+    community.content.length > 100
+      ? community.content.substr(0, 100) + '...'
+      : community.content;
 
   return (
     <CardBox type='community'>
       <div className='flex size-[150px] flex-col items-center justify-center gap-3 overflow-hidden'>
         <Avatar size={80} />
-        <span className='text-B2B14'>{community.user}</span>
+        <span className='text-B2B14'>{nickname}</span>
       </div>
 
       <div className='bg-brand-30 mx-6 h-[150px] w-[1px]'></div>
@@ -55,9 +41,12 @@ export function CommunityCard({ community = dummyData }: CommunityCardProps) {
         </div>
         <div className='mt-5 flex w-full justify-between'>
           <div className='flex items-center gap-[6px]'>
-            {community.tags.map((tag, idx) => {
+            <CardTag tag='tag' />
+            <CardTag tag='tag' />
+            <CardTag tag='tag' />
+            {/* {community.tags.map((tag, idx) => {
               return <CardTag key={idx} tag={tag} />;
-            })}
+            })} */}
           </div>
           <div className='flex gap-3'>
             <CardComments count={community.comments} />
