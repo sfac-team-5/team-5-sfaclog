@@ -8,15 +8,6 @@ const customConfig = {
     '../../packages/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    container: {
-      screens: {
-        lg: '1440px',
-      },
-      padding: {
-        lg: '240px',
-      },
-      center: true,
-    },
     extend: {
       fontFamily: {
         pretendard: ['var(--font-pretendard)'],
@@ -25,6 +16,15 @@ const customConfig = {
         sm: '360px',
         md: '768px',
         lg: '1440px',
+      },
+      container: {
+        screens: {
+          lg: '1440px',
+        },
+        padding: {
+          lg: '240px',
+        },
+        center: true,
       },
       boxShadow: {
         custom: '0 4px 16px 0 rgba(7, 46, 120, 0.14)',
