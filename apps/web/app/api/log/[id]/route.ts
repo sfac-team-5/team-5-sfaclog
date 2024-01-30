@@ -10,8 +10,14 @@ export async function GET(
   try {
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
     const log = await pb.collection('logs').getOne(id);
-
-    return NextResponse.json(log, { status: 200 });
+    if (log.isDelete as boolean) {
+      return NextResponse.json(
+        { message: 'This log is already deleted ' },
+        { status: 405 },
+      );
+    } else {
+      return NextResponse.json(log, { status: 200 });
+    }
   } catch (error) {
     return NextResponse.json(
       {
@@ -59,6 +65,24 @@ export async function PUT(
       {
         message: 'An unexpected error occurred',
       },
+      { status: 500 },
+    );
+  }
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } },
+) {
+  const { id } = params;
+  try {
+    const data = { isDelete: true };
+    const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
+    const log = await pb.collection('logs').update(id, data);
+    return NextResponse.json(log, { status: 200 });
+  } catch (error) {
+    return NextResponse.json(
+      { message: 'An unexpected error occurred' },
       { status: 500 },
     );
   }
