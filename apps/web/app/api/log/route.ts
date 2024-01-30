@@ -17,7 +17,6 @@ export async function GET(request: NextRequest) {
 
       // 썸네일 URL 추가
       records.forEach(record => {
-        console.log('>>>', record);
         const thumbnailFilename = record.thumbnail;
         record.thumbnailUrl = pb.files.getUrl(record, thumbnailFilename, {
           thumb: '300x300',
@@ -33,7 +32,6 @@ export async function GET(request: NextRequest) {
 
       // 썸네일 URL 추가
       records.forEach(record => {
-        console.log('>>>', record);
         const thumbnailFilename = record.thumbnail;
         record.thumbnailUrl = pb.files.getUrl(record, thumbnailFilename, {
           thumb: '300x300',
@@ -67,7 +65,6 @@ export async function GET(request: NextRequest) {
 
       // 썸네일 URL 추가
       records.forEach(record => {
-        console.log('>>>', record);
         const thumbnailFilename = record.thumbnail;
         record.thumbnailUrl = pb.files.getUrl(record, thumbnailFilename, {
           thumb: '300x300',

@@ -1,7 +1,7 @@
 export function formatDate(inputDate: string) {
   const now = new Date();
   const input = new Date(inputDate);
-  const diff = now - input;
+  const diff = now.getTime() - input.getTime();
 
   const minute = 60 * 1000;
   const hour = 60 * minute;

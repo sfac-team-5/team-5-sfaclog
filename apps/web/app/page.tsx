@@ -11,11 +11,10 @@ export default async function Page() {
   };
 
   const popularLogs = await fetchData();
-  // console.log(popularLogs);
 
   return (
     <main>
-      <MainCarousel />
+      {/* <MainCarousel /> */}
       <div className='container grid grid-cols-3 gap-6'>
         {popularLogs.length == 0 ? (
           <div>로그가 없습니다.</div>

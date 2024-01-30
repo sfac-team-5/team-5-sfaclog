@@ -5,6 +5,7 @@ import { CardTitle } from './(components)/CardTitle';
 import { Avatar } from '../Avatar';
 import { CardViews } from './(components)/CardViews';
 import { CardLikes } from './(components)/CardLikes';
+import { CardDate } from './(components)/CardDate';
 
 interface LogCardProps {
   log?: any;
@@ -12,9 +13,16 @@ interface LogCardProps {
 
 export function LogCard({ log }: LogCardProps) {
   console.log(log.expand);
+  const series = log.expand?.series?.title
+    ? log.expand.series.title
+    : '카테고리명';
+  const nickname = log.expand?.user?.nickname
+    ? log.expand.user.nickname
+    : '사용자명';
+
   return (
     <CardBox>
-      <div className='size-[280px] overflow-hidden rounded-md'>
+      <div className='h-[280px] w-full overflow-hidden rounded-md'>
         {log.thumbnailUrl === '' ? (
           <div className='bg-background-5 size-full' />
         ) : (
@@ -29,14 +37,15 @@ export function LogCard({ log }: LogCardProps) {
         )}
       </div>
       <div className='w-full'>
-        <div>
-          <CardCategory category={log.series} />
+        <div className='mb-2 flex items-center justify-between'>
+          <CardCategory category={series} />
+          <CardDate date={log.created} />
         </div>
         <CardTitle title={log.title} />
-        <div className='flex w-full justify-between'>
-          <div className='flex'>
-            <Avatar />
-            <span>{log.expand.user.nickname}</span>
+        <div className='mt-5 flex w-full justify-between'>
+          <div className='flex items-center gap-2'>
+            <Avatar size={24} />
+            <span className='text-[12px]'>{nickname}</span>
           </div>
           <div className='flex gap-3'>
             <CardViews count={log.views} />

@@ -3,5 +3,5 @@ interface CardTitleProps {
 }
 
 export function CardTitle({ title }: CardTitleProps) {
-  return <div>{title}</div>;
+  return <div className='font-bold'>{title}</div>;
 }

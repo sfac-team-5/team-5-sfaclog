@@ -3,5 +3,9 @@ interface CardCategoryProps {
 }
 
 export function CardCategory({ category }: CardCategoryProps) {
-  return <span>{category ? category : '카테고리명'}</span>;
+  return (
+    <span className='text-brand-90 text-[12px] font-bold'>
+      {category ? category : '카테고리명'}
+    </span>
+  );
 }
