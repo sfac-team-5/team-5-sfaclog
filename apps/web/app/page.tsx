@@ -4,24 +4,22 @@ import { MainCarousel } from './components/Carousel/MainCarousel';
 import { CommunityType, LogType } from './types';
 
 export default async function Page() {
-  const fetchLogData = async () => {
-    const response = await fetch(
+  const fetchData = async () => {
+    const fetchLogData = fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/log?sorted=popular`,
-    );
-    if (!response.ok) return [];
-    return response.json();
-  };
-
-  const fetchCommunityData = async () => {
-    const response = await fetch(
+    ).then(response => (response.ok ? response.json() : []));
+    const fetchCommunityData = fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/community?sorted=popular`,
-    );
-    if (!response.ok) return [];
-    return response.json();
+    ).then(response => (response.ok ? response.json() : []));
+
+    const [popularLogs, popularCommunities] = await Promise.all([
+      fetchLogData,
+      fetchCommunityData,
+    ]);
+    return { popularLogs, popularCommunities };
   };
 
-  const popularLogs = await fetchLogData();
-  const popularCommunities = await fetchCommunityData();
+  const { popularLogs, popularCommunities } = await fetchData();
 
   return (
     <main>
