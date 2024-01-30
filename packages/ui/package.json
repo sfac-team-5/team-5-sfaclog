@@ -13,7 +13,7 @@
     "./RadioButtons": "./src/RadioButtons.tsx",
     "./Button": "./src/Button/Button.tsx",
     "./ButtonWithIcon": "./src/Button/ButtonWithIcon.tsx",
-    "./SNSButton": "./src/Button/SNSButton.tsx"
+    "./SNSButton": "./src/Button/SNSButton.tsx",
     "./InputBox": "./src/InputBox.tsx"
   },
   "scripts": {
