@@ -2,9 +2,9 @@ import React from 'react';
 
 function FooterInfo() {
   return (
-    <div className='text-[14px] text-neutral-30'>
+    <div className='text-B2R14 text-neutral-30'>
       <div className='mb-2'>
-        <span className='mr-[17px] font-bold text-neutral-20'>
+        <span className='text-neutral-20 mr-[17px] font-bold'>
           인사이드아웃 사회적 협동 조합
         </span>
         <span>이사장 : 염민호 (와이엠에스닷코)</span>
