@@ -43,7 +43,7 @@ export default function page() {
         placeholder='placeholder'
         verifiedMessage={verifiedMessage}
         errorMessage={errors.text?.message}
-        onChange={value => setValue('text', value)}
+        onValueChange={value => setValue('text', value)}
       />
       <div className='space-x-4'>
         <button
@@ -68,7 +68,7 @@ export default function page() {
       <InputBox
         type='password'
         placeholder='password'
-        onChange={value => setValue('password', value)}
+        onValueChange={value => setValue('password', value)}
       />
     </div>
   );

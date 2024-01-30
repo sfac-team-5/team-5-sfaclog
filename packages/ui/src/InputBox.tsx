@@ -1,12 +1,12 @@
 'use client';
-import { useState } from 'react';
+import { InputHTMLAttributes, useState } from 'react';
 
-interface InputBoxProps {
+interface InputBoxProps extends Partial<InputHTMLAttributes<HTMLInputElement>> {
   type?: 'text' | 'password';
   placeholder?: string | undefined;
   verifiedMessage?: string | null;
   errorMessage?: string | null;
-  onChange: (value: string) => void;
+  onValueChange?: (value: string) => void;
 }
 
 export function InputBox({
@@ -14,7 +14,8 @@ export function InputBox({
   placeholder = undefined,
   verifiedMessage,
   errorMessage,
-  onChange,
+  onValueChange,
+  ...otherProps
 }: InputBoxProps) {
   const [isView, setIsView] = useState(false);
 
@@ -26,7 +27,9 @@ export function InputBox({
     const {
       target: { value },
     } = event;
-    onChange(value);
+    if (onValueChange) {
+      onValueChange(value);
+    }
   };
 
   return (
@@ -42,6 +45,7 @@ export function InputBox({
         placeholder={placeholder}
         onChange={handleValueChange}
         className={`placeholder:text-text-gray placeholder:text-B2R14 text-B2R14 text-text-secondary h-[40px] w-[400px] rounded-md border  px-4 outline-none ${errorMessage ? 'border-highlight-warning focus:border-highlight-warning caret-highlight-warning' : 'border-stroke-30 focus:border-stroke-50'}`}
+        {...otherProps}
       />
       {verifiedMessage && (
         <span className='text-B3R12 text-text-success'>{verifiedMessage}</span>
