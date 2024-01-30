@@ -13,7 +13,6 @@ interface LogCardProps {
 }
 
 export function LogCard({ log }: LogCardProps) {
-  console.log(log);
   const series = log.expand?.series?.title
     ? log.expand.series.title
     : '카테고리명';

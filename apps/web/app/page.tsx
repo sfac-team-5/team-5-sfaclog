@@ -16,8 +16,9 @@ export default async function Page() {
 
   return (
     <main>
-      {/* <MainCarousel /> */}
-      <div className='container grid grid-cols-3 gap-6'>
+      <MainCarousel />
+
+      <div className='container mt-[72px] grid grid-cols-3 gap-6'>
         {popularLogs.length == 0 ? (
           <div>로그가 없습니다.</div>
         ) : (
@@ -27,7 +28,7 @@ export default async function Page() {
         )}
       </div>
 
-      <div className='container mt-[72px] flex flex-col gap-6'>
+      <div className='container mb-20 mt-[72px] flex flex-col gap-6'>
         <CommunityCard />
         <CommunityCard />
       </div>
