@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./button": "./src/button.tsx",
     "./card": "./src/card.tsx",
     "./code": "./src/code.tsx",
     "./Tabs": "./src/Tabs.tsx",
@@ -11,7 +10,10 @@
     "./ButtonRound": "./src/ButtonRound.tsx",
     "./Icon": "./public/svgs/index.ts",
     "./Toggle": "./src/Toggle.tsx",
-    "./RadioButtons": "./src/RadioButtons.tsx"
+    "./RadioButtons": "./src/RadioButtons.tsx",
+    "./Button": "./src/Button/Button.tsx",
+    "./ButtonWithIcon": "./src/Button/ButtonWithIcon.tsx",
+    "./SNSButton": "./src/Button/SNSButton.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
