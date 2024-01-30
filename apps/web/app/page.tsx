@@ -1,9 +1,9 @@
-import { MainCarousel } from './components/Carousel/MainCarousel';
+// import { MainCarousel } from './components/Carousel/MainCarousel';
 
 export default function Page() {
   return (
     <main>
-      <MainCarousel />
+      {/* <MainCarousel /> */}
       <div className='container'>
         <span className='text-H0M32'>test</span>
         <span>test</span>

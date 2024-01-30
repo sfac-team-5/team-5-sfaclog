@@ -1,12 +1,21 @@
-import { IconSearch } from '@public/svgs';
-import React from 'react';
+'use client';
+import { ModalSearch } from '@/components/Modal/ModalSearch';
+
+import { IconSearch } from '@repo/ui/Icon';
+import React, { useState } from 'react';
 
 export function NavSearch() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className='group '>
-      <button className='group-hover:border-primary-50 rounded-full border-[1px] border-transparent p-[6px] duration-100 ease-in-out'>
-        <IconSearch className='fill-neutral-90 group-hover:fill-primary-90 ' />
+      <button
+        onClick={() => setIsModalOpen(true)}
+        className='group-hover:border-primary-50 rounded-full border-[1px] border-transparent p-[6px] duration-100 ease-in-out'
+      >
+        <IconSearch />
       </button>
+      {isModalOpen && <ModalSearch setIsModalOpen={setIsModalOpen} />}
     </div>
   );
 }

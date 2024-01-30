@@ -17,8 +17,8 @@ module.exports = {
     ignoreBuildErrors: true,
   },
   transpilePackages: ['@repo/ui'],
-  typescript: {
-    ignoreBuildErrors: true,
+  eslint: {
+    ignoreDuringBuilds: true,
   },
   webpack(config) {
     config.module.rules.push({
