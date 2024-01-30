@@ -10,7 +10,8 @@
     "./SelectBox": "./src/SelectBox.tsx",
     "./ButtonRound": "./src/ButtonRound.tsx",
     "./Toggle": "./src/Toggle.tsx",
-    "./RadioButtons": "./src/RadioButtons.tsx"
+    "./RadioButtons": "./src/RadioButtons.tsx",
+    "./InputBox": "./src/InputBox.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
