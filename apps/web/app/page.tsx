@@ -1,5 +1,7 @@
+import { CommunityCard } from './components/Card/CommunityCard';
 import { LogCard } from './components/Card/LogCard';
 import { MainCarousel } from './components/Carousel/MainCarousel';
+import { LogType } from './types';
 
 export default async function Page() {
   const fetchData = async () => {
@@ -19,10 +21,15 @@ export default async function Page() {
         {popularLogs.length == 0 ? (
           <div>로그가 없습니다.</div>
         ) : (
-          popularLogs.map(log => {
+          popularLogs.map((log: LogType) => {
             return <LogCard key={log.collectionId} log={log}></LogCard>;
           })
         )}
+      </div>
+
+      <div className='container mt-[72px] flex flex-col gap-6'>
+        <CommunityCard />
+        <CommunityCard />
       </div>
     </main>
   );

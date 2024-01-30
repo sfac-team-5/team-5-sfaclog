@@ -22,6 +22,16 @@ export interface UserType {
   verified: boolean;
 }
 
+interface SeriesType {
+  collectionId: string;
+  collectionName: string;
+  created: string;
+  id: string;
+  title: string;
+  updated: string;
+  userid: string;
+}
+
 export interface LogType {
   collectionId: string;
   collectionName: string;
@@ -45,12 +55,25 @@ export interface LogType {
   thumbnailUrl: string;
 }
 
-interface SeriesType {
-  collectionId: string;
-  collectionName: string;
-  created: string;
-  id: string;
-  title: string;
-  updated: string;
-  userid: string;
-}
+// export interface CommunityType {
+//   collectionId: string;
+//   collectionName: string;
+//   content: string;
+//   created: string;
+//   expand: {
+//     user: UserType;
+//     series: SeriesType;
+//   };
+//   id: string;
+//   isDelete: boolean;
+//   isVisibility: boolean;
+//   likes: number;
+//   series: SeriesType;
+//   tags: string[]; // 태그의 구체적인 타입이 필요하면 수정할 수 있음
+//   thumbnail: string;
+//   title: string;
+//   updated: string;
+//   user: string;
+//   views: number;
+//   thumbnailUrl: string;
+// }

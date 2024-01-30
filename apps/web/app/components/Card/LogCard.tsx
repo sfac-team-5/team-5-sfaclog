@@ -22,7 +22,7 @@ export function LogCard({ log }: LogCardProps) {
     : '사용자명';
 
   return (
-    <CardBox>
+    <CardBox type='log'>
       <div className='h-[280px] w-full overflow-hidden rounded-md'>
         {log.thumbnailUrl === '' ? (
           <div className='bg-background-5 size-full' />
@@ -42,11 +42,13 @@ export function LogCard({ log }: LogCardProps) {
           <CardCategory category={series} />
           <CardDate date={log.created} />
         </div>
-        <CardTitle title={log.title} />
+        <div>
+          <CardTitle title={log.title} />
+        </div>
         <div className='mt-5 flex w-full justify-between'>
           <div className='flex items-center gap-2'>
             <Avatar size={24} />
-            <span className='text-[12px]'>{nickname}</span>
+            <span className='text-B3R12'>{nickname}</span>
           </div>
           <div className='flex gap-3'>
             <CardViews count={log.views} />

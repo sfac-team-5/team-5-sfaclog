@@ -1,10 +1,13 @@
 interface CardBoxProps {
   children: React.ReactNode;
+  type: 'log' | 'community';
 }
 
-export function CardBox({ children }: CardBoxProps) {
+export function CardBox({ children, type }: CardBoxProps) {
   return (
-    <div className='background-white shadow-custom flex cursor-pointer flex-col items-start gap-3 rounded-md p-3'>
+    <div
+      className={`background-white shadow-custom flex cursor-pointer items-start rounded-md ${type == 'log' ? 'flex-col gap-3 p-3' : 'p-6 pr-10'}`}
+    >
       {children}
     </div>
   );

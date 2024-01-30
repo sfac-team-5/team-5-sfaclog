@@ -1,9 +1,6 @@
 import { formatNumber } from '@/utils/formatUtils';
 import { IconViewBlack } from '@repo/ui/Icon';
-
-export interface CountProps {
-  count: number;
-}
+import { CountProps } from './CardLikes';
 
 export function CardViews({ count }: CountProps) {
   return (
