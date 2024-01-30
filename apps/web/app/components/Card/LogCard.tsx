@@ -6,13 +6,14 @@ import { Avatar } from '../Avatar';
 import { CardViews } from './(components)/CardViews';
 import { CardLikes } from './(components)/CardLikes';
 import { CardDate } from './(components)/CardDate';
+import { LogType } from '@/types';
 
 interface LogCardProps {
-  log?: any;
+  log: LogType;
 }
 
 export function LogCard({ log }: LogCardProps) {
-  console.log(log.expand);
+  console.log(log);
   const series = log.expand?.series?.title
     ? log.expand.series.title
     : '카테고리명';
