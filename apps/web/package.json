@@ -9,6 +9,7 @@
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.18",
     "@repo/ui": "*",
     "@svgr/webpack": "^8.1.0",
     "next": "^14.0.4",

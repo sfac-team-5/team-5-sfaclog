@@ -1,7 +1,6 @@
 'use client';
 import React from 'react';
 import { Selectbox } from '@repo/ui/SelectBox';
-import { IconTaillessArrowUp, IconTaillessArrowDown } from '@public/svgs';
 const selectList = [
   { value: 'Wade Cooper' },
   { value: 'Arlene Mccoy' },
@@ -16,8 +15,6 @@ export default function page() {
     <div className='ml-14'>
       <Selectbox
         onChange={data => console.log(data)}
-        IconArrowDown={<IconTaillessArrowDown className='stroke-neutral-90' />}
-        IconArrowUp={<IconTaillessArrowUp className='stroke-neutral-90' />}
         selectList={selectList}
         width='long'
         placeholder='무엇이 불편하셨나요?'
@@ -26,10 +23,6 @@ export default function page() {
       <div>
         <Selectbox
           onChange={data => console.log(data)}
-          IconArrowDown={
-            <IconTaillessArrowDown className='stroke-neutral-90' />
-          }
-          IconArrowUp={<IconTaillessArrowUp className='stroke-neutral-90' />}
           selectList={selectList}
           width='short'
           label='라벨'
