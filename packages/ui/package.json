@@ -9,6 +9,7 @@
     "./Tabs": "./src/Tabs.tsx",
     "./SelectBox": "./src/SelectBox.tsx",
     "./ButtonRound": "./src/ButtonRound.tsx",
+    "./Icon": "./public/svgs/index.ts",
     "./Toggle": "./src/Toggle.tsx",
     "./RadioButtons": "./src/RadioButtons.tsx"
   },
@@ -19,6 +20,7 @@
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
+    "@svgr/webpack": "^8.1.0",
     "@turbo/gen": "^1.11.3",
     "@types/eslint": "^8.56.1",
     "@types/node": "^20.10.6",
