@@ -1,27 +1,26 @@
 'use client';
 import { Fragment, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
+import {
+  IconTaillessArrowUpBlack,
+  IconTaillessArrowDownBlack,
+} from '../public/svgs';
 
 interface SelectBoxProps {
   label?: string;
   width: 'long' | 'short';
   placeholder?: string;
   onChange: (data: any) => void;
-  IconArrowUp: React.ReactNode;
-  IconArrowDown: React.ReactNode;
-  selectList: Array<Object>;
+  selectList: Array<any>;
 }
 
 export function Selectbox({
-  IconArrowDown,
-  IconArrowUp,
   onChange,
   width = 'long',
   placeholder,
   selectList,
 }: SelectBoxProps) {
   const [selected, setSelected] = useState(placeholder ? null : selectList[0]);
-  const [isOpen, setIsOpen] = useState(false);
   const widthClass = width === 'long' ? 'w-[400px]' : 'w-[122px]';
   const handleValChange = (data: any) => {
     setSelected(() => data);
@@ -33,7 +32,6 @@ export function Selectbox({
       <Listbox value={selected} onChange={handleValChange}>
         <div className='relative mt-1'>
           <Listbox.Button
-            onClick={() => setIsOpen(prev => !prev)}
             className={`ui-open:border-stroke-50 relative w-full cursor-pointer rounded-md border-[1px] bg-white py-2 pl-3 pr-10 text-left focus:outline-none sm:text-sm`}
           >
             <span className='block truncate'>
@@ -43,8 +41,11 @@ export function Selectbox({
                 <span className='text-neutral-40'>{placeholder}</span>
               )}
             </span>
-            <span className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2'>
-              {isOpen ? IconArrowUp : IconArrowDown}
+            <span className='ui-not-open:hidden pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2'>
+              <IconTaillessArrowUpBlack />
+            </span>
+            <span className='ui-open:hidden pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2'>
+              <IconTaillessArrowDownBlack />
             </span>
           </Listbox.Button>
           <Transition
@@ -58,13 +59,23 @@ export function Selectbox({
                 <Listbox.Option
                   key={itemIdx}
                   className={({ active }) =>
-                    `relative rounded-md cursor-pointer select-none ${width === 'long' ? 'py-2 pl-6 pr-4' : 'py-2 pl-4 pr-2'} ${
+                    `relative text-B1R16  rounded-md cursor-pointer select-none ${width === 'long' ? 'py-2 pl-6 pr-4' : 'py-2 pl-4 pr-2'} ${
                       active ? 'bg-brand-10 text-brand-100' : 'text-neutral-40'
                     }`
                   }
                   value={item}
                 >
-                  <span className={`block truncate`}>{item.value}</span>
+                  {({ selected }) => (
+                    <>
+                      <span
+                        className={`block truncate ${
+                          selected && 'text-brand-100'
+                        }`}
+                      >
+                        {item.value}
+                      </span>
+                    </>
+                  )}
                 </Listbox.Option>
               ))}
             </Listbox.Options>
