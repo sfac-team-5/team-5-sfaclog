@@ -1,26 +1,29 @@
+import { LogCard } from './components/Card/LogCard';
 import { MainCarousel } from './components/Carousel/MainCarousel';
 
-export default function Page() {
+export default async function Page() {
+  const fetchData = async () => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/log?sorted=popular`,
+    );
+    if (!response.ok) return [];
+    return response.json();
+  };
+
+  const popularLogs = await fetchData();
+  // console.log(popularLogs);
+
   return (
     <main>
       <MainCarousel />
-      <div className='container'>
-        <span className='text-H0M32'>test</span>
-        <span>test</span>
-        <p className='text-B1B16'>
-          안녕
-          <br />
-          안녕
-          <br />
-          안녕
-        </p>
-        <p className='text-B2B14'>
-          안녕
-          <br />
-          안녕
-          <br />
-          안녕
-        </p>
+      <div className='container grid grid-cols-3 gap-6'>
+        {popularLogs.length == 0 ? (
+          <div>로그가 없습니다.</div>
+        ) : (
+          popularLogs.map(log => {
+            return <LogCard key={log.collectionId} log={log}></LogCard>;
+          })
+        )}
       </div>
     </main>
   );
