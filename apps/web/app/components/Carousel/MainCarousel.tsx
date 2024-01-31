@@ -5,7 +5,11 @@ import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import './carouselNavBtn.css';
-import { IconTaillessArrowLeft, IconTaillessArrowRight } from '@public/svgs';
+import {
+  IconTaillessArrowLeftBlack,
+  IconTaillessArrowRightBlack,
+} from '@repo/ui/Icon';
+
 export function MainCarousel() {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -45,10 +49,10 @@ export function MainCarousel() {
             </SwiperSlide>
           </Swiper>
           <button className='custom-prev'>
-            <IconTaillessArrowLeft />
+            <IconTaillessArrowLeftBlack />
           </button>
           <button className='custom-next'>
-            <IconTaillessArrowRight />
+            <IconTaillessArrowRightBlack />
           </button>
         </div>
       )}

@@ -12,12 +12,30 @@ export async function GET(request: NextRequest) {
     if (sorted === 'popular') {
       records = await pb.collection('logs').getFullList({
         sort: '-likes',
+        expand: 'user,series',
+      });
+
+      // 썸네일 URL 추가
+      records.forEach(record => {
+        const thumbnailFilename = record.thumbnail;
+        record.thumbnailUrl = pb.files.getUrl(record, thumbnailFilename, {
+          thumb: '300x300',
+        });
       });
       return NextResponse.json(records);
     }
     if (sorted === 'recently') {
       records = await pb.collection('logs').getFullList({
         sort: '-created',
+        expand: 'user,series',
+      });
+
+      // 썸네일 URL 추가
+      records.forEach(record => {
+        const thumbnailFilename = record.thumbnail;
+        record.thumbnailUrl = pb.files.getUrl(record, thumbnailFilename, {
+          thumb: '300x300',
+        });
       });
       return NextResponse.json(records);
     }
@@ -39,11 +57,19 @@ export async function GET(request: NextRequest) {
 
       records = await pb.collection('logs').getFullList({
         sort: '-created',
+        expand: 'user,series',
         filter: following.followingId
           .map((id: string) => `user="${id}"`)
           .join('||'),
       });
 
+      // 썸네일 URL 추가
+      records.forEach(record => {
+        const thumbnailFilename = record.thumbnail;
+        record.thumbnailUrl = pb.files.getUrl(record, thumbnailFilename, {
+          thumb: '300x300',
+        });
+      });
       return NextResponse.json(records);
     }
   } catch (error) {
