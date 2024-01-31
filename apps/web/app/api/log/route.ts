@@ -10,19 +10,19 @@ export async function GET(request: NextRequest) {
     let records;
 
     if (sorted === 'popular') {
-      records = await pb.collection('logs').getFullList({
+      records = await pb.collection('logs').getList(1, 6, {
         sort: '-likes',
         expand: 'user,series',
       });
 
       // 썸네일 URL 추가
-      records.forEach(record => {
+      records.items.forEach(record => {
         const thumbnailFilename = record.thumbnail;
         record.thumbnailUrl = pb.files.getUrl(record, thumbnailFilename, {
           thumb: '300x300',
         });
       });
-      return NextResponse.json(records);
+      return NextResponse.json(records.items);
     }
     if (sorted === 'recently') {
       records = await pb.collection('logs').getFullList({
