@@ -14,7 +14,7 @@ declare module 'next-auth' {
 }
 
 interface credentialsType {
-  username: string;
+  email: string;
   password: string;
 }
 
@@ -26,7 +26,7 @@ export const config = {
 
         const authData: any = await pb
           .collection('users')
-          .authWithPassword(credentials.username, credentials.password)
+          .authWithPassword(credentials.email, credentials.password)
           .then(data => data)
           .catch(() => null);
 
