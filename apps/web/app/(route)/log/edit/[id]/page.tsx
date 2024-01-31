@@ -1,6 +1,7 @@
 import NotFound from '@/not-found';
 import React from 'react';
 import LogEditForm from './(components)/LogEditForm';
+import LogDeleteButton from './(components)/LogDeleteButton';
 
 const fetchData = async (id: string) => {
   const response = await fetch(
@@ -18,6 +19,7 @@ async function LogEditPage({ params }: { params: { id: string } }) {
   return (
     <main>
       <LogEditForm log={log} />
+      <LogDeleteButton logId={id} />
     </main>
   );
 }

@@ -11,7 +11,7 @@ export function ButtonRound({ children, onClick, type }: ButtonProps) {
   const hoverClasses =
     type === 'outline'
       ? 'text-neutral-90 h-8 hover:text-brand-90 hover:border-brand-90 border-[1px] border-transparent'
-      : 'text-white bg-brand-70 hover:bg-brand-90';
+      : 'text-white bg-brand-70 hover:bg-brand-90 active:bg-brand-90';
   return (
     <button
       onClick={onClick}

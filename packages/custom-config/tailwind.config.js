@@ -144,7 +144,7 @@ const customConfig = {
           point: '#196AFF',
           gray: '#999999',
           white: '#FFFFFF',
-          waring: '#FF000',
+          waring: '#FF0000',
           success: '#07A320',
         },
         state: {
