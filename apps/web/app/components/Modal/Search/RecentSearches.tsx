@@ -43,11 +43,11 @@ export function RecentSearches() {
             setTimeout(() => {
               setIsRemove(() => undefined);
               setRecord(prev => prev.filter((el, index) => idx !== index));
-            }, 500);
+            }, 300);
           };
           return (
             <div
-              className={`flex cursor-pointer items-center gap-[1px] transition-opacity duration-500 ease-in-out ${removeAll ? 'opacity-0' : isRemove === idx ? 'opacity-0' : 'duration-0'}`}
+              className={`flex cursor-pointer items-center gap-[1px] transition-opacity duration-300 ease-in-out ${removeAll ? 'opacity-0' : isRemove === idx ? 'opacity-0' : '!duration-0'}`}
               key={idx}
               onClick={handleRemove}
             >
