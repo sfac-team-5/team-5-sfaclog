@@ -11,6 +11,7 @@
     "./Icon": "./public/svgs/index.ts",
     "./Toggle": "./src/Toggle.tsx",
     "./RadioButtons": "./src/RadioButtons.tsx",
+    "./Chip": "./src/Chip.tsx",
     "./Button": "./src/Button/Button.tsx",
     "./ButtonWithIcon": "./src/Button/ButtonWithIcon.tsx",
     "./SNSButton": "./src/Button/SNSButton.tsx",
