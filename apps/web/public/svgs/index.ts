@@ -7,6 +7,7 @@ import IconYoutube from './IconYoutube.svg';
 import IconGoogle from './IconGoogle.svg';
 import IconKakao from './IconKakao.svg';
 import IconNaver from './IconNaver.svg';
+import IconCancelGray from './IconCancelGray.svg';
 import Logo from './logo.svg';
 export {
   IconArrowRightSmall,
@@ -18,5 +19,6 @@ export {
   IconGoogle,
   IconKakao,
   IconNaver,
+  IconCancelGray,
   Logo,
 };

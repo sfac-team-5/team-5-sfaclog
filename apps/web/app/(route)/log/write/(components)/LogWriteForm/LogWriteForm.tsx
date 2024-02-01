@@ -4,14 +4,22 @@ import React from 'react';
 import TitleInput from './(components)/TitleInput';
 import TagInput from './(components)/TagInput';
 import ImagesInput from './(components)/ImagesInput';
-import ActionButton from './(components)/ActionButton';
 import PublicScopeSetting from './(components)/PublicScopeSetting';
 import SeriesSetting from './(components)/SeriesSetting';
 import { Form, useForm } from 'react-hook-form';
 import dynamic from 'next/dynamic';
+import Button from '@repo/ui/Button';
+
+const selectList = [
+  { value: '카테고리1' },
+  { value: '카테고리2' },
+  { value: '카테고리3' },
+];
 
 const ContentEditor = dynamic(() => import('./(components)/ContentInput'), {
-  loading: () => <p>Loading...</p>,
+  loading: () => (
+    <div className='border-stroke-30 h-[400px] w-[670px] rounded-md border'></div>
+  ),
   ssr: false,
 });
 
@@ -20,7 +28,7 @@ export interface LogFormData {
   tag?: string[];
   thumbnail: FileList | null;
   content: string;
-  publicScope: any;
+  publicScope: boolean;
   series: string;
 }
 
@@ -28,15 +36,19 @@ function LogWriteForm() {
   const {
     register,
     setValue,
+    getValues,
     formState: { errors },
     control,
+    watch,
+    setError,
+    clearErrors,
   } = useForm<LogFormData>({
     defaultValues: {
       title: '',
       tag: [],
       thumbnail: null,
       content: '',
-      publicScope: null,
+      publicScope: true,
       series: '',
     },
   });
@@ -48,7 +60,15 @@ function LogWriteForm() {
     formData: FormData;
     data: LogFormData;
   }) => {
+    // 리펙토링 필요 T_T
+    if (data.tag) {
+      for (const tag of data.tag) {
+        formData.append('tags', tag);
+      }
+    }
+
     formData.set('thumbnail', data.thumbnail && (data.thumbnail[0] as any));
+
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/log/write`,
       {
@@ -59,33 +79,55 @@ function LogWriteForm() {
   };
 
   const titleRegister = register('title', {
-    // required: '제목을 입력해 주세요.',
+    required: '제목을 입력해 주세요.',
   });
 
   const tagRegister = register('tag');
 
-  const thumbnailRegister = register('thumbnail', {
-    // required: '썸네일을 입력해 주세요.',
-  });
+  const thumbnailRegister = register('thumbnail');
 
   const contentRegister = register('content');
 
-  const publicScopeRegister = register('publicScope', {
-    // required: '공개 범위를 설정해 주세요.',
-  });
+  const publicScopeRegister = register('publicScope');
 
   const seriesRegister = register('series');
 
   return (
-    <Form onSubmit={onFormdataSubmit} control={control}>
-      <TitleInput register={titleRegister} />
-      <TagInput />
-      <ImagesInput register={thumbnailRegister} />
-      <ContentEditor setValue={setValue} />
-      <PublicScopeSetting register={publicScopeRegister} />
-      <SeriesSetting />
-      <ActionButton />
-    </Form>
+    <>
+      <Form
+        onSubmit={onFormdataSubmit}
+        control={control}
+        className='mx-auto max-w-[670px]'
+      >
+        <div className='mb-10 flex gap-6'>
+          <div className='flex w-full flex-col gap-[22px]'>
+            <TitleInput label='제목' setValue={setValue} errors={errors} />
+            <TagInput
+              setValue={setValue}
+              setError={setError}
+              clearErrors={clearErrors}
+              errorMessage={errors.tag?.message}
+            />
+          </div>
+          <ImagesInput register={thumbnailRegister} watch={watch} />
+        </div>
+        <ContentEditor setValue={setValue} getValues={getValues} />
+        <div className='flex items-center justify-between pb-[60px] pt-10'>
+          <PublicScopeSetting setValue={setValue} />
+          <SeriesSetting setValue={setValue} selectList={selectList} />
+        </div>
+        <div className='bg-neutral-5 fixed bottom-0 left-0 flex w-full items-center justify-end gap-5 px-[60px] py-3'>
+          <p className='text-B3R12 text-neutral-40'>자동 저장 완료 00:00:00</p>
+          <Button type='button' size='s' label='임시저장' disabled={true} />
+          <Button
+            type='submit'
+            size='s'
+            label='등록하기'
+            onClick={() => onFormdataSubmit}
+          />
+        </div>
+      </Form>
+    </>
   );
 }
 
