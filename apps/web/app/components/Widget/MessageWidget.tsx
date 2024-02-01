@@ -2,6 +2,7 @@ import { Tabs } from '@repo/ui/Tabs';
 import { NoData } from './NoData';
 import { WidgetHeader } from './WidgetHeader';
 import MessageBox from './(components)/MessageBox';
+import { MessageChat } from './(components)/MessageChat';
 
 export function MessageWidget() {
   const tabClasses =
@@ -30,6 +31,8 @@ export function MessageWidget() {
         <MessageBox unread={false} />
         <MessageBox unread={false} />
       </div>
+
+      <MessageChat />
     </div>
   );
 }

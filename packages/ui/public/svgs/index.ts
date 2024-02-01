@@ -55,6 +55,10 @@ import IconGoodBoxGray from './goods/good_box_gray.svg';
 // chat icon import
 import IconChatBlack from './chats/chat_black.svg';
 import IconChatBoxGray from './chats/chat_box_gray.svg';
+// send icon import
+import IconSendBlack from './sends/send_black.svg';
+import IconSendBlue from './sends/send_blue.svg';
+import IconSendGray from './sends/send_gray.svg';
 // etc icon import
 import IconPencil from './etc/pencil.svg';
 import IconRefresh from './etc/refresh.svg';
@@ -62,6 +66,7 @@ import IconSearch from './etc/search.svg';
 import IconSetting from './etc/setting.svg';
 import IconShare from './etc/share.svg';
 import IconGroupGray from './etc/group_gray.svg';
+import IconKebabBlack from './etc/kebab_black.svg';
 export {
   IconTaillessArrowUpBlack,
   IconTaillessArrowUpBlue,
@@ -109,10 +114,14 @@ export {
   IconGoodBoxGray,
   IconChatBlack,
   IconChatBoxGray,
+  IconSendBlack,
+  IconSendBlue,
+  IconSendGray,
   IconPencil,
   IconRefresh,
   IconSearch,
   IconSetting,
   IconShare,
   IconGroupGray,
+  IconKebabBlack,
 };
