@@ -75,3 +75,4 @@ export interface CommunityType {
 }
 
 export type WidgetType = '알림' | '메시지';
+export type MessageType = 'incoming' | 'outgoing';
