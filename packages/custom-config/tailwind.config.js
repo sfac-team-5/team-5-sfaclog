@@ -162,6 +162,9 @@ const customConfig = {
           10: '#E6E6E6',
           5: '#F3F3F3',
         },
+        tag: {
+          tag: '#EFF3FA',
+        },
       },
     },
   },
