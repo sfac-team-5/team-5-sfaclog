@@ -2,8 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-  .example {
-    @apply text-brand-100 bg-brand-100;
+@layer utilities {
+  .hide-scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
+  .hide-scroll::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.ql-toolbar.ql-snow {
+  @apply rounded-t-[6px];
+}
+
+.ql-container.ql-snow {
+  @apply !h-[calc(400px-43px)] rounded-b-[6px];
 }
