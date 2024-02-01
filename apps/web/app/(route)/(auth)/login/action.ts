@@ -1,11 +1,11 @@
 'use server';
 import { signIn } from '@/auth';
-import { LoginInputType } from './page';
+import { LoginInputType } from './(components)/LoginForm';
 
 export async function submitAction(data: LoginInputType) {
   try {
     await signIn('credentials', {
-      username: data.username,
+      email: data.email,
       password: data.password,
       redirect: false,
     });

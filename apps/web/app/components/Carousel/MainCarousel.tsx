@@ -15,13 +15,15 @@ export function MainCarousel() {
   useEffect(() => {
     setLoading(() => true);
   }, []);
+
   return (
     <>
       {loading && (
-        <div className='relative mx-auto mt-[52px] w-[1440px]'>
+        <div className='relative mx-auto mt-[52px] w-full'>
           <Swiper
             modules={[Navigation]}
             slidesPerView={'auto'}
+            initialSlide={1}
             centeredSlides
             loop
             navigation={{
@@ -29,23 +31,17 @@ export function MainCarousel() {
               nextEl: '.custom-next',
             }}
           >
-            <SwiperSlide className='bg-neutral-10 mr-[18px] !h-[320px] !w-[580px]'>
+            <SwiperSlide className='mr-[18px] !h-[320px] !w-[580px] bg-neutral-10'>
               Slide 1
             </SwiperSlide>
-            <SwiperSlide className='bg-neutral-20 mr-[18px] !h-[320px] !w-[580px]'>
+            <SwiperSlide className='mr-[18px] !h-[320px] !w-[580px] bg-neutral-20'>
               Slide 2
             </SwiperSlide>
-            <SwiperSlide className='bg-neutral-30 mr-[18px] !h-[320px] !w-[580px]'>
+            <SwiperSlide className='mr-[18px] !h-[320px] !w-[580px] bg-neutral-30'>
               Slide 3
             </SwiperSlide>
-            <SwiperSlide className='bg-neutral-40 mr-[18px] !h-[320px]  !w-[580px] '>
+            <SwiperSlide className='mr-[18px] !h-[320px] !w-[580px] bg-neutral-30'>
               Slide 4
-            </SwiperSlide>
-            <SwiperSlide className='mr-[18px] !h-[320px] !w-[580px] bg-neutral-50 '>
-              Slide 5
-            </SwiperSlide>
-            <SwiperSlide className='bg-neutral-60 mr-[18px] !h-[320px] !w-[580px]'>
-              Slide 6
             </SwiperSlide>
           </Swiper>
           <button className='custom-prev'>

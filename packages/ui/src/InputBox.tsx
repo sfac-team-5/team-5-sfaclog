@@ -33,7 +33,7 @@ export function InputBox({
   };
 
   return (
-    <div className='relative flex w-fit flex-col gap-2'>
+    <div className='relative flex flex-col gap-2'>
       <input
         type={
           type === 'text'
@@ -44,7 +44,7 @@ export function InputBox({
         }
         placeholder={placeholder}
         onChange={handleValueChange}
-        className={`placeholder:text-text-gray placeholder:text-B2R14 text-B2R14 text-text-secondary h-[40px] w-[400px] rounded-md border  px-4 outline-none ${errorMessage ? 'border-highlight-warning focus:border-highlight-warning caret-highlight-warning' : 'border-stroke-30 focus:border-stroke-50'}`}
+        className={`h-[40px] w-full rounded-md border px-4  text-B2R14 text-text-secondary outline-none  placeholder:text-B2R14 placeholder:text-text-gray ${errorMessage ? 'border-highlight-warning caret-highlight-warning focus:border-highlight-warning' : 'border-stroke-30 focus:border-stroke-50'}`}
         {...otherProps}
       />
       {verifiedMessage && (

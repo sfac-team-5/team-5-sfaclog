@@ -13,7 +13,7 @@ interface ButtonProps {
 const btnSize = {
   s: 'w-[107px] h-[40px] text-B2M14',
   m: 'w-[146px] h-[40px] text-B2M14',
-  l: 'w-[360px] h-[50px] text-B1B16',
+  l: 'w-[400px] h-[50px] text-B1B16',
 };
 
 function Button({ type, size, label, disabled, onClick }: ButtonProps) {

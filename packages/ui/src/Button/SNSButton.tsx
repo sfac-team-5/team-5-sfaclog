@@ -11,13 +11,14 @@ interface SNSButtonProps {
   borderColor?: string;
   disabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  icon: React.ReactNode;
 }
 
 // 반응형 진행 시 사이즈별로 나뉠 수 있음
 const btnSize = {
   s: 'w-[107px] h-[40px] text-B2M14',
   m: 'w-[146px] h-[40px] text-B2M14',
-  l: 'w-[360px] h-[45px] text-B1M16',
+  l: 'w-[400px] h-[45px] text-B1M16',
 };
 
 function SNSButton({
@@ -29,6 +30,7 @@ function SNSButton({
   borderColor,
   disabled,
   onClick,
+  icon,
 }: SNSButtonProps) {
   return (
     <button
@@ -39,7 +41,7 @@ function SNSButton({
     >
       <div className='flex items-center justify-center gap-1.5'>
         {/* 아이콘 */}
-        <div className='size-5 rounded-full bg-red-400'></div>
+        {icon}
         {label}
       </div>
     </button>

@@ -10,12 +10,12 @@ export async function GET(request: NextRequest) {
     let records;
 
     if (sorted === 'popular') {
-      records = await pb.collection('communities').getFullList({
+      records = await pb.collection('communities').getList(1, 5, {
         sort: '-likes',
         expand: 'author',
       });
 
-      return NextResponse.json(records);
+      return NextResponse.json(records.items);
     }
   } catch (error) {
     return NextResponse.json(

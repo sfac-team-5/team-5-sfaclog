@@ -7,6 +7,8 @@ import IconTaillessArrowDownBlue from './arrows/tailless_arrow_down_blue.svg';
 import IconTaillessArrowDownGray from './arrows/tailless_arrow_down_gray.svg';
 import IconTaillessArrowRightBlack from './arrows/tailless_arrow_right_black.svg';
 import IconTaillessArrowLeftBlack from './arrows/tailless_arrow_left_black.svg';
+import IconTaillessArrowRightBlue from './arrows/tailless_arrow_right_blue.svg';
+import IconTaillessArrowLeftBlue from './arrows/tailless_arrow_left_blue.svg';
 import IconArrowUpBlack from './arrows/arrow_up_black.svg';
 import IconArrowDownBlack from './arrows/arrow_down_black.svg';
 import IconArrowLeftBlack from './arrows/arrow_left_black.svg';
@@ -68,6 +70,8 @@ export {
   IconTaillessArrowDownGray,
   IconTaillessArrowLeftBlack,
   IconTaillessArrowRightBlack,
+  IconTaillessArrowRightBlue,
+  IconTaillessArrowLeftBlue,
   IconArrowDownBlack,
   IconArrowLeftBlack,
   IconArrowRightBlack,
