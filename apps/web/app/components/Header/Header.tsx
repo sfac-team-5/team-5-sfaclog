@@ -1,6 +1,8 @@
 import React from 'react';
 import { HeaderTabs } from './HeaderTabs';
 import { Navigation } from './Navigation/Navigation';
+import { Widget } from '../Widget/Widget';
+
 export function Header() {
   return (
     <header className='h-fit w-full'>
@@ -9,9 +11,10 @@ export function Header() {
           <HeaderTabs />
         </div>
       </div>
-      <div className='h-[64px] bg-white'>
+      <div className='relative h-[64px] bg-white'>
         <div className='container'>
           <Navigation />
+          <Widget type='알림' />
         </div>
       </div>
     </header>
