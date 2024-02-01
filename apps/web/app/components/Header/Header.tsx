@@ -1,7 +1,8 @@
 import React from 'react';
 import { HeaderTabs } from './HeaderTabs';
 import { Navigation } from './Navigation/Navigation';
-import { Widget } from '../Widget/Widget';
+import { NotificationWidget } from '../Widget/NotificationWidget';
+import { MessageWidget } from '../Widget/MessageWidget';
 
 export function Header() {
   return (
@@ -14,7 +15,8 @@ export function Header() {
       <div className='relative h-[64px] bg-white'>
         <div className='container'>
           <Navigation />
-          <Widget type='알림' />
+          {/* <NotificationWidget /> */}
+          <MessageWidget />
         </div>
       </div>
     </header>

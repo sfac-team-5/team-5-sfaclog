@@ -73,3 +73,5 @@ export interface CommunityType {
   updated: string;
   views: number;
 }
+
+export type WidgetType = '알림' | '메시지';

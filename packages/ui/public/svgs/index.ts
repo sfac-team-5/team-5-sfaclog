@@ -61,6 +61,7 @@ import IconRefresh from './etc/refresh.svg';
 import IconSearch from './etc/search.svg';
 import IconSetting from './etc/setting.svg';
 import IconShare from './etc/share.svg';
+import IconGroupGray from './etc/group_gray.svg';
 export {
   IconTaillessArrowUpBlack,
   IconTaillessArrowUpBlue,
@@ -113,4 +114,5 @@ export {
   IconSearch,
   IconSetting,
   IconShare,
+  IconGroupGray,
 };
