@@ -21,7 +21,7 @@ function MessageBox({ unread }: MessageBoxProps) {
               <div className='bg-brand-90 size-[5px] rounded-full'></div>
             )}
           </div>
-          <div className='text-neutral-40 text-[10px]'>2시간 전</div>
+          <div className='text-neutral-40 text-B5R10'>2시간 전</div>
         </div>
         <div
           className={`${unread ? 'text-B3M12 text-neutral-70' : 'text-B3R12 text-neutral-40'}`}

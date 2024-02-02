@@ -15,7 +15,7 @@ export function NotificationBox({ unread }: NotificationBoxProps) {
           <span className='text-B3B12'>Nara</span>님 외 42명이 회원님의 로그를
           좋아합니다: 스펙폴리오에서 디자이너 찾는 방법을 우리 모두 한번···
         </p>
-        <span className='text-neutral-40 text-[10px]'>1분 전</span>
+        <span className='text-neutral-40 text-B5R10'>1분 전</span>
       </div>
     </div>
   );

@@ -50,7 +50,7 @@ export function MessageOffer({ type }: MessageOfferProps) {
         </div>
 
         <div className='flex flex-col gap-1.5 px-2 py-5'>
-          <p className='text-neutral-70 text-[10px]'>
+          <p className='text-neutral-70 text-B5R10'>
             버튼을 클릭하여 대화를 시작해보세요 👀
           </p>
           <div className='flex justify-between gap-1.5'>
