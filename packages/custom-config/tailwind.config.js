@@ -137,6 +137,7 @@ const customConfig = {
         highlight: {
           warning: '#FF0000',
           success: '#07A320',
+          popup: '#E5E9F2',
         },
         text: {
           primary: '#1A1A1A',
