@@ -1,9 +1,10 @@
-import { IconArrowLeftBlack, IconKebabBlack } from '@repo/ui/Icon';
+import { IconArrowLeftBlack } from '@repo/ui/Icon';
 import { Avatar } from '../../Avatar';
 import { MessageChatForm } from './MessageChatForm';
 import { MessageDate } from './MessageDate';
 import { MessageOffer } from './MessageOffer';
 import { MessageBubble } from './MessageBubble';
+import { MessageDialog } from './MessageDialog';
 
 export function MessageChat() {
   return (
@@ -14,7 +15,7 @@ export function MessageChat() {
           <Avatar size={25} />
           <span className='text-B2B14 text-neutral-90'>Name</span>
         </div>
-        <IconKebabBlack className='cursor-pointer' />
+        <MessageDialog />
       </div>
 
       <div className='scrollbar-hide flex h-[calc(100%-54px-68px)] w-full flex-col overflow-auto scroll-smooth px-6'>
