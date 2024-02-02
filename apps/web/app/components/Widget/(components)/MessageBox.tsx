@@ -2,12 +2,16 @@ import { Avatar } from '@/components/Avatar';
 
 interface MessageBoxProps {
   unread: boolean;
+  onClick: React.MouseEventHandler<HTMLDivElement>;
 }
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 
-function MessageBox({ unread }: MessageBoxProps) {
+function MessageBox({ unread, onClick }: MessageBoxProps) {
   return (
-    <div className={`flex cursor-pointer items-center gap-4 px-6 py-3`}>
+    <div
+      className={`flex cursor-pointer items-center gap-4 px-6 py-3`}
+      onClick={onClick}
+    >
       <Avatar size={50} />
       <div className='flex flex-col gap-1.5'>
         <div className='flex justify-between'>
