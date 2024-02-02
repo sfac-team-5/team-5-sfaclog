@@ -51,9 +51,7 @@ export async function NotificationWidget() {
               {groupedNotifications.today.map(notification => (
                 <NotificationBox
                   key={notification.id}
-                  isRead={!notification.isRead}
-                  content={notification.content}
-                  created={notification.created}
+                  notification={notification}
                 />
               ))}
             </>
@@ -65,9 +63,7 @@ export async function NotificationWidget() {
               {groupedNotifications.lastSevenDays.map(notification => (
                 <NotificationBox
                   key={notification.id}
-                  isRead={!notification.isRead}
-                  content={notification.content}
-                  created={notification.created}
+                  notification={notification}
                 />
               ))}
             </>
@@ -79,9 +75,7 @@ export async function NotificationWidget() {
               {groupedNotifications.lastThirtyDays.map(notification => (
                 <NotificationBox
                   key={notification.id}
-                  isRead={!notification.isRead}
-                  content={notification.content}
-                  created={notification.created}
+                  notification={notification}
                 />
               ))}
             </>
