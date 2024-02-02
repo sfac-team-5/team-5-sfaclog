@@ -15,8 +15,8 @@ export function Header() {
       <div className='relative h-[64px] bg-white'>
         <div className='container'>
           <Navigation />
-          {/* <NotificationWidget /> */}
-          <MessageWidget />
+          <NotificationWidget />
+          {/* <MessageWidget /> */}
         </div>
       </div>
     </header>
