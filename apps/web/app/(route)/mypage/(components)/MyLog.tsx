@@ -1,5 +1,5 @@
 import React from 'react';
-import NotFound from '../../../not-found';
+import { NoData } from '@/components/NoData';
 
 interface MyLogProps {
   userId: string;
@@ -15,7 +15,7 @@ async function fetchData(userId: string) {
 
 async function MyLog({ userId }: MyLogProps) {
   const myLog = await fetchData(userId);
-  if (myLog.length === 0) return NotFound();
+  if (myLog.length === 0) return NoData();
 
   return <div>MyLog</div>;
 }
