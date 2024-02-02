@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { Avatar } from '@/components/Avatar';
 import { NotificationType } from '@/types';
@@ -11,6 +12,7 @@ interface NotificationBoxProps {
 }
 
 export function NotificationBox({ notification }: NotificationBoxProps) {
+  const router = useRouter();
   const [isRead, setIsRead] = useState(notification.isRead);
 
   const handleClick = async () => {
@@ -25,7 +27,10 @@ export function NotificationBox({ notification }: NotificationBoxProps) {
       },
     );
 
-    if (response.ok) setIsRead(true);
+    if (response.ok) {
+      setIsRead(true);
+      router.push(notification.link);
+    }
   };
 
   return (
