@@ -15,6 +15,7 @@
     "./Button": "./src/Button/Button.tsx",
     "./SNSButton": "./src/Button/SNSButton.tsx",
     "./CapsuleButton": "./src/Button/CapsuleButton.tsx",
+    "./HeartCapsuleButton": "./src/Button/HeartCapsuleButton.tsx",
     "./InputBox": "./src/InputBox.tsx"
   },
   "scripts": {

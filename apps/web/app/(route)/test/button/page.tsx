@@ -4,6 +4,7 @@ import SNSButton from '@repo/ui/SNSButton';
 import CapsuleButton from '@repo/ui/CapsuleButton';
 
 import React from 'react';
+import HeartCapsuleButton from '@repo/ui/HeartCapsuleButton';
 
 function page() {
   return (
@@ -62,6 +63,10 @@ function page() {
 
       <CapsuleButton label='회원가입' />
       <CapsuleButton label='전체' size='l' />
+
+      <br />
+
+      <HeartCapsuleButton label='999+' />
     </div>
   );
 }
