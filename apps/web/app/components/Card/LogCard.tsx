@@ -49,7 +49,7 @@ export function LogCard({ variant, log, more }: LogCardProps) {
         </div>
         <div className='mt-5 flex w-full justify-between'>
           <div className='flex items-center gap-2'>
-            <Avatar size={'xs'} />
+            <Avatar size='xs' />
             <span className='text-B3R12'>{nickname}</span>
           </div>
           <div className='flex gap-3'>

@@ -12,7 +12,7 @@ function MessageBox({ unread, onClick }: MessageBoxProps) {
       className={`flex cursor-pointer items-center gap-4 px-6 py-3`}
       onClick={onClick}
     >
-      <Avatar size={'medium'} />
+      <Avatar size='m' />
       <div className='flex flex-col gap-1.5'>
         <div className='flex justify-between'>
           <div className='flex items-center gap-1.5'>

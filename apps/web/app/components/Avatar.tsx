@@ -3,36 +3,29 @@ import Image from 'next/image';
 interface AvatarProps {
   type?: 'all' | 'user';
   url?: string;
-  size: 'large' | 'medium' | 'small' | 'xs' | number;
+  size: keyof typeof avatarSize | number;
 }
 
-const getSizeInPixels = (
-  size: 'large' | 'medium' | 'small' | 'xs' | number,
-): number => {
-  switch (size) {
-    case 'large':
-      return 80;
-    case 'medium':
-      return 50;
-    case 'small':
-      return 32;
-    case 'xs':
-      return 25;
-    default:
-      return size;
-  }
+const avatarSize = {
+  xs: 25,
+  s: 32,
+  m: 50,
+  l: 80,
 };
 
 export function Avatar({
+  size,
   type = 'user',
   url = '/images/Avatar.png',
-  size,
 }: AvatarProps) {
-  const pixelSize = getSizeInPixels(size);
+  const pixelSize = typeof size === 'number' ? size : avatarSize[size];
 
   return (
     <div
-      style={{ width: `${pixelSize}px`, height: `${pixelSize}px` }}
+      style={{
+        width: `${pixelSize}px`,
+        height: `${pixelSize}px`,
+      }}
       className='overflow-hidden rounded-full'
     >
       {type === 'user' ? (
