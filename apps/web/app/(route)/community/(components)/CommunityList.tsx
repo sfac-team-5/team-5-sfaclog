@@ -18,7 +18,7 @@ async function CommunityList({ communityList }: CommunityListProps) {
   const popularCommunities = await fetchData();
 
   return (
-    <div className='container mb-20 mt-[72px] flex flex-col gap-8'>
+    <div className='mb-20 mt-[72px] flex flex-col gap-8'>
       <div className='grid grid-cols-3 gap-5'>
         {popularCommunities.map((community: CommunityType) => {
           return (

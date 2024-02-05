@@ -15,7 +15,7 @@ async function CommunityPage() {
   const communityList = await fetchData();
 
   return (
-    <main>
+    <main className='container'>
       <CommunityNavigation />
       <SectionHeader title='커뮤니티' />
       <CommunityList communityList={communityList} />
