@@ -15,13 +15,18 @@ const fetchData = async (id: string) => {
 async function LogDetailPage({ params }: { params: { id: string } }) {
   const { id } = params;
   const log = await fetchData(id);
-  if (!log) return NotFound();
+  if (!log || log.isDelete) return NotFound();
 
   return (
-    <main>
-      <ProfileSection userId={log.user} />
-      <ContentSection log={log} />
-      <CommentSection logId={log.id} />
+    <main className='container flex gap-16'>
+      <div>
+        <ProfileSection user={log.expand.user} />
+        <div>함께보면 좋은 로그</div>
+      </div>
+      <div className='w-full'>
+        <ContentSection log={log} />
+        <CommentSection logId={log.id} />
+      </div>
     </main>
   );
 }

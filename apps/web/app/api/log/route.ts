@@ -14,7 +14,6 @@ export async function GET(request: NextRequest) {
         sort: '-likes',
         expand: 'user,series',
       });
-
       // 썸네일 URL 추가
       records.items.forEach(record => {
         const thumbnailFilename = record.thumbnail;
@@ -71,6 +70,15 @@ export async function GET(request: NextRequest) {
         });
       });
       return NextResponse.json(records);
+    }
+    if (sorted === 'userlogs') {
+      console.log('get user Logs!');
+      const user = searchParams.get('user');
+      records = await pb.collection('logs').getList(1, 3, {
+        filter: `user="${user}"`,
+      });
+
+      return NextResponse.json(records.items);
     }
   } catch (error) {
     return NextResponse.json(
