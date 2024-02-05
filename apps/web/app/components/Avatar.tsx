@@ -1,13 +1,14 @@
-import AvatarImage from './AvatarImage';
+import Image from 'next/image';
 
 interface AvatarProps {
+  url?: string;
   size: number;
 }
 
-export function Avatar({ size }: AvatarProps) {
+export function Avatar({ url = '/images/Avatar.png', size }: AvatarProps) {
   return (
-    <div>
-      <AvatarImage size={size} />
+    <div className={`w-[${size}px]`}>
+      <Image src={url} width={size} height={size} alt='profile image' />
     </div>
   );
 }

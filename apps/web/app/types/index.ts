@@ -73,3 +73,24 @@ export interface CommunityType {
   updated: string;
   views: number;
 }
+
+export type WidgetType = '알림' | '메시지';
+export type MessageType = 'incoming' | 'outgoing';
+
+export interface NotificationType {
+  collectionId: string;
+  collectionName: string;
+  content: string;
+  created: string;
+  id: string;
+  isRead: boolean;
+  link: string;
+  updated: string;
+  userId: string;
+}
+
+export interface GroupedNotificationsType {
+  today: NotificationType[];
+  lastSevenDays: NotificationType[];
+  lastThirtyDays: NotificationType[];
+}
