@@ -34,6 +34,7 @@ async function PopularLogs() {
           <div key={columnIndex} className='grid gap-4'>
             {column.map((log: LogType) => (
               <LogCard
+                variant='mainPage'
                 key={log.collectionId}
                 log={log}
                 more={getRandom(0, 2)}
