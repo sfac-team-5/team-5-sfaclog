@@ -1,6 +1,3 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { IconTaillessArrowRightBlue } from '@repo/ui/Icon';
 import TextButton from './TextButton';
 
 interface SectionHeaderProps {
