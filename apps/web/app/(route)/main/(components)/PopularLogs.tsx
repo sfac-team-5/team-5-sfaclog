@@ -1,8 +1,8 @@
 import React from 'react';
-import NotFound from '../../../not-found';
 import { SectionHeader } from '@/components/SectionHeader';
 import { LogCard } from '@/components/Card/LogCard';
 import { LogType } from '@/types';
+import { NoData } from '@/components/NoData';
 
 const fetchData = async () => {
   const response = await fetch(
@@ -18,7 +18,7 @@ function getRandom(min: number, max: number) {
 
 async function PopularLogs() {
   const popularLogs = await fetchData();
-  if (popularLogs.length === 0) return NotFound();
+  if (popularLogs.length === 0) return NoData();
 
   const masonry = [[], [], []];
 
