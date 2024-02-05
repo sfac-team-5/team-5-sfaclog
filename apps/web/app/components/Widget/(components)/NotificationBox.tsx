@@ -38,7 +38,7 @@ export function NotificationBox({ notification }: NotificationBoxProps) {
       className={`flex cursor-pointer items-center gap-4 px-6 py-3 ${isRead ? 'bg-white' : 'bg-brand-10'}`}
       onClick={handleClick}
     >
-      <Avatar size={50} />
+      <Avatar size={'medium'} />
       <div className='flex w-[calc(100%-50px)] flex-col gap-1'>
         <p className='text-neutral-70 text-B3R12'>{notification.content}</p>
         <span className='text-neutral-40 text-B5R10'>

@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { auth, signIn, signOut } from '../../auth';
 import { Client } from './Client';
 import { ClientSessionProvider } from '../../components/Providers/ClientSessionProvider';
+import { Avatar } from '@/components/Avatar';
 
 async function Page({ params }: { params: { id: string } }) {
   // const response = await fetch(
@@ -16,6 +17,11 @@ async function Page({ params }: { params: { id: string } }) {
   const session = await auth();
   return (
     <div>
+      <Avatar size={'large'} />
+      <Avatar size={'medium'} />
+      <Avatar size={'small'} />
+      <Avatar size={'xs'} />
+      <Avatar size={10} />
       <form
         action={async formData => {
           'use server';
