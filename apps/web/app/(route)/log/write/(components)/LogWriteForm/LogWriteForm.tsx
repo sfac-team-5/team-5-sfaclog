@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import TitleInput from './(components)/TitleInput';
 import TagInput from './(components)/TagInput';
 import ImagesInput from './(components)/ImagesInput';
@@ -9,6 +9,7 @@ import SeriesSetting from './(components)/SeriesSetting';
 import { Form, useForm } from 'react-hook-form';
 import dynamic from 'next/dynamic';
 import Button from '@repo/ui/Button';
+import { useRouter } from 'next/navigation';
 
 const selectList = [
   { value: '카테고리1' },
@@ -52,7 +53,7 @@ function LogWriteForm() {
       series: '',
     },
   });
-
+  const router = useRouter();
   const onFormdataSubmit = async ({
     formData,
     data,
@@ -91,6 +92,37 @@ function LogWriteForm() {
   const publicScopeRegister = register('publicScope');
 
   const seriesRegister = register('series');
+
+  // useEffect(() => {
+  //   const handleBackButton = (event: any) => {
+  //     // event.preventDefault();
+  //     // history.pushState(null, '', location.href);
+  //     // router.push('/modal?type=log-cancel');
+  //   };
+  //   history.pushState(null, '', location.href);
+
+  //   // console.log(location.href);
+  //   window.addEventListener('popstate', handleBackButton);
+  //   return () => {
+  //     window.removeEventListener('popstate', handleBackButton);
+  //   };
+  // }, []);
+
+  useEffect(() => {
+    // history.pushState(null, '', location.href);
+    const handleBeforePopState = (event: any) => {
+      event.preventDefault();
+      const isConfirmed = confirm('뒤로가시겠습니까?');
+      if (isConfirmed) {
+        router.back();
+      }
+    };
+
+    window.addEventListener('popstate', handleBeforePopState);
+    return () => {
+      window.removeEventListener('popstate', handleBeforePopState);
+    };
+  }, []);
 
   return (
     <>
