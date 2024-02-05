@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 interface AvatarProps {
+  type?: 'all' | 'user';
   url?: string;
   size: 'large' | 'medium' | 'small' | 'xs' | number;
 }
@@ -22,17 +23,32 @@ const getSizeInPixels = (
   }
 };
 
-export function Avatar({ url = '/images/Avatar.png', size }: AvatarProps) {
+export function Avatar({
+  type = 'user',
+  url = '/images/Avatar.png',
+  size,
+}: AvatarProps) {
   const pixelSize = getSizeInPixels(size);
 
   return (
-    <div className={`w-[${size}px]`}>
-      <Image
-        src={url}
-        width={pixelSize}
-        height={pixelSize}
-        alt='profile image'
-      />
+    <div
+      style={{ width: `${pixelSize}px`, height: `${pixelSize}px` }}
+      className='overflow-hidden rounded-full'
+    >
+      {type === 'user' ? (
+        <Image
+          src={url}
+          width={pixelSize}
+          height={pixelSize}
+          alt='profile image'
+          sizes='100%'
+          className='size-full object-cover'
+        />
+      ) : (
+        <div className='bg-brand-90 text-H2M20 flex size-full items-center justify-center rounded-full font-semibold text-white'>
+          ALL
+        </div>
+      )}
     </div>
   );
 }
