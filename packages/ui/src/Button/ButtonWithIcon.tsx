@@ -28,7 +28,7 @@ function ButtonWithIcon({
       type={type}
       disabled={disabled}
       onClick={onClick}
-      className={`${btnSize[size]}  rounded-[6px] bg-brand-70 text-white duration-200 ease-in-out hover:bg-brand-90 active:bg-brand-90 disabled:bg-neutral-10 disabled:text-neutral-30`}
+      className={`${btnSize[size]} bg-brand-70 hover:bg-brand-90 active:bg-brand-90 disabled:bg-neutral-10 disabled:text-neutral-30 rounded-[6px] text-white duration-200 ease-in-out`}
     >
       <div className='flex items-center justify-center gap-1.5'>
         {label}
