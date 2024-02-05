@@ -15,7 +15,9 @@
     "./Button": "./src/Button/Button.tsx",
     "./ButtonWithIcon": "./src/Button/ButtonWithIcon.tsx",
     "./SNSButton": "./src/Button/SNSButton.tsx",
-    "./InputBox": "./src/InputBox.tsx"
+    "./InputBox": "./src/InputBox.tsx",
+    "./Check":"./src/Check.tsx",
+    "./Radio":"./src/Radio.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
