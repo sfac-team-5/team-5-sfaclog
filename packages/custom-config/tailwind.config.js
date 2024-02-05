@@ -122,7 +122,7 @@ const customConfig = {
           '10px',
           { fontWeight: 400, lineHeight: 'normal', letterSpacing: 0 },
         ],
-        B6R10: [
+        B6R8: [
           '8px',
           { fontWeight: 400, lineHeight: 'normal', letterSpacing: 0 },
         ],
