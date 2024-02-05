@@ -22,7 +22,11 @@ async function PopularCommunity() {
       <div className='flex flex-col gap-6'>
         {popularCommunities.map((community: CommunityType) => {
           return (
-            <CommunityCard key={community.collectionId} community={community} />
+            <CommunityCard
+              variant='mainPage'
+              key={community.collectionId}
+              community={community}
+            />
           );
         })}
       </div>
