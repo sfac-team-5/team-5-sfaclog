@@ -42,7 +42,7 @@ function SNSButton({
       <div className='flex items-center justify-center gap-1.5'>
         {/* 아이콘 */}
         {icon}
-        {label}
+        <span>{label}</span>
       </div>
     </button>
   );
