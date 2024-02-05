@@ -1,6 +1,7 @@
 import React from 'react';
 import CommunityNavigation from './(components)/CommunityNavigation';
 import CommunityList from './(components)/CommunityList';
+import { SectionHeader } from '@/components/SectionHeader';
 
 const fetchData = async () => {
   const response = await fetch(
@@ -16,6 +17,7 @@ async function CommunityPage() {
   return (
     <main>
       <CommunityNavigation />
+      <SectionHeader title='커뮤니티' />
       <CommunityList communityList={communityList} />
     </main>
   );
