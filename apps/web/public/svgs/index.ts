@@ -21,4 +21,6 @@ export {
   IconKakao,
   IconNaver,
   Logo,
+  Complete,
+  NotFoundImage,
 };
