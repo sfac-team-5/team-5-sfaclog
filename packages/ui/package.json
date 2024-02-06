@@ -16,6 +16,8 @@
     "./SNSButton": "./src/Button/SNSButton.tsx",
     "./CapsuleButton": "./src/Button/CapsuleButton.tsx",
     "./HeartCapsuleButton": "./src/Button/HeartCapsuleButton.tsx",
+    "./IconButton": "./src/Button/IconButton.tsx",
+    "./RoundIconButton": "./src/Button/RoundIconButton.tsx",
     "./InputBox": "./src/InputBox.tsx"
   },
   "scripts": {

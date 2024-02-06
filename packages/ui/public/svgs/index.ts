@@ -59,10 +59,16 @@ import IconChatBoxGray from './chats/chat_box_gray.svg';
 import IconSendBlack from './sends/send_black.svg';
 import IconSendBlue from './sends/send_blue.svg';
 import IconSendGray from './sends/send_gray.svg';
+// search icon import
+import IconSearch from './etc/search.svg';
+import IconSearchBlack from './search/search_black.svg';
+import IconSearchWhite from './search/search_white.svg';
+// search icon import
+import IconBookmarkGray from './bookmarks/bookmark_gray.svg';
+import IconBookmarkBlue from './bookmarks/bookmark_blue.svg';
 // etc icon import
 import IconPencil from './etc/pencil.svg';
 import IconRefresh from './etc/refresh.svg';
-import IconSearch from './etc/search.svg';
 import IconSetting from './etc/setting.svg';
 import IconShare from './etc/share.svg';
 import IconGroupGray from './etc/group_gray.svg';
@@ -117,6 +123,10 @@ export {
   IconSendBlack,
   IconSendBlue,
   IconSendGray,
+  IconSearchBlack,
+  IconSearchWhite,
+  IconBookmarkGray,
+  IconBookmarkBlue,
   IconPencil,
   IconRefresh,
   IconSearch,

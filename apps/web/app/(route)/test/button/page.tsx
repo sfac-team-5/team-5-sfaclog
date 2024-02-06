@@ -1,10 +1,19 @@
+import React from 'react';
+
 import TextButton from '@/components/TextButton';
+
 import Button from '@repo/ui/Button';
 import SNSButton from '@repo/ui/SNSButton';
 import CapsuleButton from '@repo/ui/CapsuleButton';
-
-import React from 'react';
 import HeartCapsuleButton from '@repo/ui/HeartCapsuleButton';
+import IconButton from '@repo/ui/IconButton';
+import RoundIconButton from '@repo/ui/RoundIconButton';
+import {
+  IconBookmarkBlue,
+  IconBookmarkGray,
+  IconSearchBlack,
+  IconSearchWhite,
+} from '@repo/ui/Icon';
 
 function page() {
   return (
@@ -67,6 +76,17 @@ function page() {
       <br />
 
       <HeartCapsuleButton label='999+' />
+
+      <br />
+
+      <IconButton
+        defaultIcon={<IconBookmarkGray />}
+        hoverIcon={<IconBookmarkBlue />}
+      />
+      <RoundIconButton
+        defaultIcon={<IconSearchBlack />}
+        hoverIcon={<IconSearchWhite />}
+      />
     </div>
   );
 }
