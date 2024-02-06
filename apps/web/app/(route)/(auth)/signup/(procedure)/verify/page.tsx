@@ -28,7 +28,8 @@ export default function page() {
             if (emailAddress) {
               const result = await repeatVerifyEmail(emailAddress);
               if (result) alert('이메일이 재전송 되었습니다.');
-            } else alert('이메일 재전송에 실패 하였습니다');
+              else alert('이메일 재전송에 실패 하였습니다');
+            } else alert('에러나 404페이지로 보내야함');
           }}
         />
         <div className='text-text-secondary text-B2R14 mt-2 leading-tight tracking-tighter'>

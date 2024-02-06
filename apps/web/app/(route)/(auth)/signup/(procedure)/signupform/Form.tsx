@@ -60,6 +60,7 @@ export function Form() {
     watch,
     trigger,
     clearErrors,
+    setError,
     formState: { errors, isValid },
   } = useForm<SignUpType>({
     mode: 'onChange',
@@ -71,6 +72,7 @@ export function Form() {
     },
   });
   const password = watch('password');
+  const passwordConfirm = watch('passwordConfirm');
   const controller = new AbortController();
   const checkEmail = async (value: string) => {
     //캐싱을 위해 SWR 이나  최적화 문제로 디바운스가 필요함
@@ -220,6 +222,16 @@ export function Form() {
               pattern: {
                 value: /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-])(.{8,})$/,
                 message: '규칙에 맞지 않는 비밀번호 입니다.',
+              },
+              onChange: e => {
+                if (
+                  e.target.value !== passwordConfirm &&
+                  passwordConfirm.length > 0
+                ) {
+                  setError('passwordConfirm', {
+                    message: '비밀번호가 일치 하지 않습니다.',
+                  });
+                }
               },
             })}
           />
