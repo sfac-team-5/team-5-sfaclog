@@ -1,7 +1,8 @@
 import React from 'react';
+import { Loading } from '@/components/Loading';
 
 function page() {
-  return <div>page</div>;
+  return <Loading />;
 }
 
 export default page;
