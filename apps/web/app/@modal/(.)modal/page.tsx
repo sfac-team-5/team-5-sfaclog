@@ -3,12 +3,17 @@
 import React from 'react';
 import ModalBox from './(components)/ModalBox';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { modalLogDelete, modalUserBlock, modalLogCancel } from './index';
+import {
+  modalLogDelete,
+  modalUserBlock,
+  modalLogCancel,
+  modalReplyCommentDelete,
+} from './index';
 
 interface ModalStateType {
   title: string;
   description: string;
-  action: () => void | null;
+  action: (() => void) | null;
 }
 
 function Modal() {
@@ -17,8 +22,8 @@ function Modal() {
   const type = params.get('type');
   const id = params.get('id');
   const name = params.get('username');
-
-  console.log(type, id, name);
+  const commentId = params.get('comment-id');
+  const userId = params.get('user-id');
 
   let modalState: ModalStateType = {
     title: '',
@@ -49,17 +54,30 @@ function Modal() {
       modalState = {
         title: modalLogCancel.title,
         description: modalLogCancel.description,
+        action: () => router.push(modalLogCancel.link),
+      };
+      break;
+    case 'reply-comment-delete':
+      modalState = {
+        title: modalReplyCommentDelete.title,
+        description: modalReplyCommentDelete.description,
         action: () => {
+          id &&
+            commentId &&
+            userId &&
+            modalReplyCommentDelete.commentDelete(id, commentId, userId);
           router.back();
-          setTimeout(() => router.push(modalLogCancel.link), 100);
+          setTimeout(() => router.refresh(), 100);
         },
       };
       break;
   }
 
+  if (!modalState.action) return null;
+
   return (
     <div className='size-screen fixed inset-0 z-[100] flex items-center justify-center bg-black/30'>
-      <ModalBox {...modalState} />
+      <ModalBox {...modalState} type={type} />
     </div>
   );
 }

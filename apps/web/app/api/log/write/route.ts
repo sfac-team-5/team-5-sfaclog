@@ -37,10 +37,15 @@ export async function POST(request: NextRequest) {
 
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
     const newLog = await pb.collection('logs').create(data);
+    await pb
+      .collection('comments')
+      .create({ log: newLog.id, comment: JSON.stringify([]) });
+    await pb
+      .collection('replyComments')
+      .create({ log: newLog.id, comment: JSON.stringify([]) });
 
     return NextResponse.json(newLog);
   } catch (error) {
-    // console.log(error);
     return NextResponse.json(
       {
         message: 'An unexpected error occurred',

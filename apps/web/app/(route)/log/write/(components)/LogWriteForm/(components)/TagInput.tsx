@@ -73,7 +73,7 @@ export default function TagInput({
         태그
       </label>
       <div
-        className='border-neutral-30 text-B2M14 text-text-secondary hide-scroll mb-1 h-[74px] cursor-text overflow-x-hidden overflow-y-scroll rounded-[6px] border'
+        className='hide-scroll mb-1 h-[74px] cursor-text overflow-x-hidden overflow-y-scroll rounded-[6px] border border-neutral-30 text-B2M14 text-text-secondary'
         onClick={handleTagBoxClick}
       >
         <div className='flex size-full items-start px-4 py-2'>
@@ -83,7 +83,7 @@ export default function TagInput({
             {hashtags.map((tag, i) => (
               <li
                 key={i}
-                className='text-text-secondary text-B2M14 bg-tag-tag flex max-w-[400px] items-center gap-2 rounded-full py-1 pl-3 pr-[9.5px]'
+                className='flex max-w-[400px] items-center gap-2 rounded-full bg-tag-tag py-1 pl-3 pr-[9.5px] text-B2M14 text-text-secondary'
               >
                 #{tag}
                 <span onClick={() => onDelete(tag)}>
@@ -99,7 +99,7 @@ export default function TagInput({
               onChange={onChange}
               onKeyDown={onKeyDown}
               placeholder='#태그 입력 (최대 3개 입력)'
-              className='placeholder:text-B2R14 placeholder:text-text-gray shrink-0 outline-none'
+              className='shrink-0 outline-none placeholder:text-B2R14 placeholder:text-text-gray'
               ref={inputRef}
             />
           </ul>

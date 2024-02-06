@@ -6,12 +6,13 @@ interface ModalBoxProps {
   title: string;
   description: string;
   action?: any;
+  type: string | null;
 }
-function ModalBox({ title, description, action }: ModalBoxProps) {
+function ModalBox({ title, description, action, type }: ModalBoxProps) {
   return (
-    <div className='shadow-custom h-[172px] w-[306px] overflow-hidden rounded-[6px] bg-white'>
+    <div className='h-[172px] w-[306px] overflow-hidden rounded-[6px] bg-white shadow-custom'>
       <ModalBody title={title} description={description} />
-      <ModalButton action={action} />
+      <ModalButton action={action} type={type} />
     </div>
   );
 }

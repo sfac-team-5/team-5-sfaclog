@@ -1,8 +1,10 @@
 import React from 'react';
 import NotFound from '../../../not-found';
-import ProfileSection from './(components)/ProfileSection';
-import ContentSection from './(components)/ContentSection';
-import CommentSection from './(components)/CommentSection';
+import CommentSection from './(components)/CommentSection/CommentSection';
+import ProfileSection from './(components)/ProfileSection/ProfileSection';
+import ContentSection from './(components)/ContentSection/ContentSection';
+
+export const revalidate = 1;
 
 const fetchData = async (id: string) => {
   const response = await fetch(

@@ -55,13 +55,12 @@ export async function POST(request: NextRequest) {
       likes: 0,
       isVisibility: true,
     };
-    console.log(data);
+
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
     const newCommunity = await pb.collection('communities').create(data);
 
     return NextResponse.json(newCommunity);
   } catch (error) {
-    // console.log(error);
     return NextResponse.json(
       {
         message: 'An unexpected error occurred',

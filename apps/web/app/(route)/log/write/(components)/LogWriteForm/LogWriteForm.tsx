@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import TitleInput from './(components)/TitleInput';
 import TagInput from './(components)/TagInput';
 import ImagesInput from './(components)/ImagesInput';
@@ -19,7 +19,7 @@ const selectList = [
 
 const ContentEditor = dynamic(() => import('./(components)/ContentInput'), {
   loading: () => (
-    <div className='border-stroke-30 h-[400px] w-[670px] rounded-md border'></div>
+    <div className='h-[400px] w-[670px] rounded-md border border-stroke-30'></div>
   ),
   ssr: false,
 });
@@ -93,34 +93,22 @@ function LogWriteForm() {
 
   const seriesRegister = register('series');
 
-  // useEffect(() => {
-  //   const handleBackButton = (event: any) => {
-  //     // event.preventDefault();
-  //     // history.pushState(null, '', location.href);
-  //     // router.push('/modal?type=log-cancel');
-  //   };
-  //   history.pushState(null, '', location.href);
-
-  //   // console.log(location.href);
-  //   window.addEventListener('popstate', handleBackButton);
-  //   return () => {
-  //     window.removeEventListener('popstate', handleBackButton);
-  //   };
-  // }, []);
-
+  // 1. 렌더링이 안 끝났을 때 뒤로가기 누르면 동작 안함
+  // 2. 새로고침을 누르고 하면 동작 안함(애매)
+  // 3. 창을 다시 누르면(브라우저가 재 포커스되면) 동작 안함
   useEffect(() => {
-    // history.pushState(null, '', location.href);
-    const handleBeforePopState = (event: any) => {
-      event.preventDefault();
-      const isConfirmed = confirm('뒤로가시겠습니까?');
-      if (isConfirmed) {
-        router.back();
-      }
+    history.pushState(null, '', location.href);
+    const browserPreventEvent = () => {
+      history.pushState(null, '', location.href);
+      router.push('/modal?type=log-cancel');
     };
-
-    window.addEventListener('popstate', handleBeforePopState);
+    window.addEventListener('popstate', () => {
+      browserPreventEvent();
+    });
     return () => {
-      window.removeEventListener('popstate', handleBeforePopState);
+      window.removeEventListener('popstate', () => {
+        browserPreventEvent();
+      });
     };
   }, []);
 
@@ -148,7 +136,7 @@ function LogWriteForm() {
           <PublicScopeSetting setValue={setValue} />
           <SeriesSetting setValue={setValue} selectList={selectList} />
         </div>
-        <div className='bg-neutral-5 fixed bottom-0 left-0 flex w-full items-center justify-end gap-5 px-[60px] py-3'>
+        <div className='fixed bottom-0 left-0 flex w-full items-center justify-end gap-5 bg-neutral-5 px-[60px] py-3'>
           <p className='text-B3R12 text-neutral-40'>자동 저장 완료 00:00:00</p>
           <Button type='button' size='s' label='임시저장' disabled={true} />
           <Button

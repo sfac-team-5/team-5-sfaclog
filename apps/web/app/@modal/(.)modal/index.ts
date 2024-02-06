@@ -26,3 +26,15 @@ export const modalLogCancel = {
   description: '작성을 정말 취소하시겠습니까? 작성하신 로그가 사라집니다.',
   link: '/',
 };
+
+export const modalReplyCommentDelete = {
+  title: '삭제하기',
+  description: '이 댓글을 삭제하시겠습니까?',
+  commentDelete: async (id: string, commentId: string, userId: string) => {
+    const response = await fetch(`/api/log/reply-comment/${id}`, {
+      method: 'DELETE',
+      body: JSON.stringify({ commentId, userId }),
+    });
+    if (!response.ok) return alert('삭제 실패요 ㅜㅜ');
+  },
+};

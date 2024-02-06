@@ -26,7 +26,7 @@ function ImagesInput({ register, watch }: ImagesInputProps) {
       <div>
         <label
           htmlFor='thumbnail'
-          className='bg-neutral-5 border-stroke-30 relative flex aspect-square w-[198px] cursor-pointer flex-col items-center justify-center gap-2 overflow-hidden rounded-md border'
+          className='relative flex aspect-square w-[198px] cursor-pointer flex-col items-center justify-center gap-2 overflow-hidden rounded-md border border-stroke-30 bg-neutral-5'
         >
           {newPrevImage.length !== 0 ? (
             <Image src={newPrevImage} alt='preview' fill objectFit='cover' />
