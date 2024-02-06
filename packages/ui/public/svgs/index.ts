@@ -1,7 +1,7 @@
 //arrow icon import
 import IconTaillessArrowUpBlack from './arrows/tailless_arrow_up_black.svg';
-import IconTaillessArrowUpBlue from './arrows/tailless_arrow_down_blue.svg';
-import IconTaillessArrowUpGray from './arrows/tailless_arrow_down_gray.svg';
+import IconTaillessArrowUpBlue from './arrows/tailless_arrow_up_blue.svg';
+import IconTaillessArrowUpGray from './arrows/tailless_arrow_up_gray.svg';
 import IconTaillessArrowDownBlack from './arrows/tailless_arrow_down_black.svg';
 import IconTaillessArrowDownBlue from './arrows/tailless_arrow_down_blue.svg';
 import IconTaillessArrowDownGray from './arrows/tailless_arrow_down_gray.svg';
