@@ -7,7 +7,7 @@ export interface CountProps {
 
 export function CardLikes({ count }: CountProps) {
   return (
-    <div className='flex items-center gap-1 text-[11px]'>
+    <div className='text-neutral-70 flex items-center gap-1 text-[11px]'>
       <IconHeartBlack className='size-4' /> {formatNumber(count)}
     </div>
   );

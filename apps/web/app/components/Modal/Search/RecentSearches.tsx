@@ -29,7 +29,7 @@ export function RecentSearches() {
       <div className='flex justify-between'>
         <div className='text-B1M16 text-text-primary'>최근검색어</div>
         <div
-          className='text-text-gray cursor-pointer text-[10px] '
+          className='text-text-gray text-B5R10 cursor-pointer'
           onClick={handleRemoveAll}
         >
           모두지우기

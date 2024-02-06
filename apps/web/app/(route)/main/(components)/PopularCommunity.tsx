@@ -1,8 +1,8 @@
 import React from 'react';
-import NotFound from '../../../not-found';
 import { SectionHeader } from '@/components/SectionHeader';
 import { CommunityCard } from '@/components/Card/CommunityCard';
 import { CommunityType } from '@/types';
+import { NoData } from '@/components/NoData';
 
 const fetchData = async () => {
   const response = await fetch(
@@ -14,7 +14,7 @@ const fetchData = async () => {
 
 async function PopularCommunity() {
   const popularCommunities = await fetchData();
-  if (popularCommunities.length === 0) return NotFound();
+  if (popularCommunities.length === 0) return NoData();
 
   return (
     <div className='container mb-20 mt-[72px] flex flex-col gap-8'>
@@ -22,7 +22,11 @@ async function PopularCommunity() {
       <div className='flex flex-col gap-6'>
         {popularCommunities.map((community: CommunityType) => {
           return (
-            <CommunityCard key={community.collectionId} community={community} />
+            <CommunityCard
+              variant='mainPage'
+              key={community.collectionId}
+              community={community}
+            />
           );
         })}
       </div>

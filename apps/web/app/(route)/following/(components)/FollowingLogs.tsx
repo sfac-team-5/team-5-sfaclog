@@ -1,5 +1,5 @@
 import React from 'react';
-import NotFound from '../../../not-found';
+import { NoData } from '@/components/NoData';
 
 async function fetchData(user: string) {
   const response = await fetch(
@@ -12,7 +12,7 @@ async function fetchData(user: string) {
 async function FollowingLogs() {
   const user = 'an6xvwgrbnfcsu8';
   const followingLogs = await fetchData(user);
-  if (followingLogs.length === 0) return NotFound();
+  if (followingLogs.length === 0) return NoData();
 
   return <div>팔로잉</div>;
 }

@@ -7,12 +7,15 @@ import { CardViews } from './(components)/CardViews';
 import { CardLikes } from './(components)/CardLikes';
 import { CardDate } from './(components)/CardDate';
 import { LogType } from '@/types';
+import { LogCardMore } from './LogCardMore';
 
 interface LogCardProps {
+  variant: 'mainPage' | 'logPage';
   log: LogType;
+  more?: number;
 }
 
-export function LogCard({ log }: LogCardProps) {
+export function LogCard({ variant, log, more }: LogCardProps) {
   const series = log.expand?.series?.title
     ? log.expand.series.title
     : '카테고리명';
@@ -55,6 +58,11 @@ export function LogCard({ log }: LogCardProps) {
           </div>
         </div>
       </div>
+
+      {variant === 'logPage' &&
+        Array.from({ length: more }, (_, index) => (
+          <LogCardMore key={index} log={log} />
+        ))}
     </CardBox>
   );
 }

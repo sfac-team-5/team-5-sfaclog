@@ -9,6 +9,7 @@ import IconKakao from './IconKakao.svg';
 import IconNaver from './IconNaver.svg';
 import Logo from './logo.svg';
 import Complete from './complete.svg';
+import NotFoundImage from './404.svg';
 export {
   IconArrowRightSmall,
   IconSearch,
@@ -20,5 +21,4 @@ export {
   IconKakao,
   IconNaver,
   Logo,
-  Complete,
 };
