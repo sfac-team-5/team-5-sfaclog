@@ -1,7 +1,7 @@
 .custom-next{
-    @apply bg-white z-10 rounded-full w-[40px] h-[40px] absolute top-[140px] right-60 flex justify-center items-center
+    @apply bg-white z-20 rounded-full w-[40px] h-[40px] absolute top-[140px] right-60 flex justify-center items-center
 }
 
 .custom-prev {
-    @apply bg-white z-10 rounded-full w-[40px] h-[40px] absolute top-[140px] left-60 flex justify-center items-center 
+    @apply bg-white z-20 rounded-full w-[40px] h-[40px] absolute top-[140px] left-60 flex justify-center items-center 
 }
