@@ -106,6 +106,26 @@ const customConfig = {
           '12px',
           { fontWeight: 400, lineHeight: 'normal', letterSpacing: 0 },
         ],
+        B4B12: [
+          '12px',
+          { fontWeight: 700, lineHeight: '130%', letterSpacing: 0 },
+        ],
+        B4M12: [
+          '12px',
+          { fontWeight: 500, lineHeight: '130%', letterSpacing: 0 },
+        ],
+        B4R12: [
+          '12px',
+          { fontWeight: 400, lineHeight: '130%', letterSpacing: 0 },
+        ],
+        B5R10: [
+          '10px',
+          { fontWeight: 400, lineHeight: 'normal', letterSpacing: 0 },
+        ],
+        B6R8: [
+          '8px',
+          { fontWeight: 400, lineHeight: 'normal', letterSpacing: 0 },
+        ],
       },
       colors: {
         neutral: {

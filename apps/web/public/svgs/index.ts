@@ -14,6 +14,8 @@ import IconBookmarkGray from './IconBookmarkGray.svg';
 import IconReplyArrow from './IconReplyArrow.svg';
 
 import Logo from './logo.svg';
+import Complete from './complete.svg';
+import NotFoundImage from './404.svg';
 export {
   IconReplyArrow,
   IconArrowRightSmall,
@@ -30,4 +32,6 @@ export {
   IconKebob,
   IconBookmarkGray,
   Logo,
+  Complete,
+  NotFoundImage,
 };

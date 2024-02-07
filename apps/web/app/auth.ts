@@ -67,7 +67,7 @@ export const config = {
     session({ session, token }) {
       if (token && session) {
         session.user.id = token.id;
-        session.user.username = token.username;
+        session.user.email = token.email;
       }
       // console.log('session =', session);
       return session;

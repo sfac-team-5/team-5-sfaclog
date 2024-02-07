@@ -40,7 +40,7 @@ export async function NavAuthBtn() {
             <Link href={'/login'}>로그인</Link>
           </ButtonRound>
           <ButtonRound type='filled'>
-            <Link href={'/signup'}>회원가입</Link>
+            <Link href={'/signup/policy'}>회원가입</Link>
           </ButtonRound>
         </div>
       )}

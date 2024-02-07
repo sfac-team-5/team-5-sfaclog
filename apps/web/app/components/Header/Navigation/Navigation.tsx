@@ -8,6 +8,7 @@ import { Logo } from '@public/svgs';
 export async function Navigation() {
   const navClasses =
     'ui-selected:font-bold ui-selected:border-neutral-90 ui-selected:border-b-2 flex h-[64px] w-max items-center justify-center border-b-2 border-transparent px-[24px] py-[10px] text-[16px] outline-none duration-200 ease-in-out';
+
   return (
     <nav className='flex size-full items-center'>
       <Tabs>
@@ -15,7 +16,7 @@ export async function Navigation() {
           href='/'
           className='mr-[40px] flex h-[64px] items-center outline-none'
         >
-          <Logo className='h-[20px] w-[120px] fill-brand-100 ' />
+          <Logo className='fill-brand-100 h-[20px] w-[120px]' />
         </Link>
         <Link href={'/popular'} className={navClasses}>
           인기 로그

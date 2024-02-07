@@ -1,5 +1,5 @@
 import React from 'react';
-import NotFound from '../../../not-found';
+import { NoData } from '@/components/NoData';
 
 async function fetchData() {
   const response = await fetch(
@@ -11,7 +11,7 @@ async function fetchData() {
 
 async function RecentlyLogs() {
   const recentlyLogs = await fetchData();
-  if (recentlyLogs.length === 0) return NotFound();
+  if (recentlyLogs.length === 0) return NoData();
 
   return <div>RecentlyLogs</div>;
 }

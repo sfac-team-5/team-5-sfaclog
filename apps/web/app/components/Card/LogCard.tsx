@@ -8,12 +8,15 @@ import { CardLikes } from './(components)/CardLikes';
 import { CardDate } from './(components)/CardDate';
 import { LogType } from '@/types';
 import Link from 'next/link';
+import { LogCardMore } from './LogCardMore';
 
 interface LogCardProps {
+  variant: 'mainPage' | 'logPage';
   log: LogType;
+  more?: number;
 }
 
-export function LogCard({ log }: LogCardProps) {
+export function LogCard({ variant, log, more }: LogCardProps) {
   const series = log.expand?.series?.title
     ? log.expand.series.title
     : '카테고리명';
@@ -38,13 +41,13 @@ export function LogCard({ log }: LogCardProps) {
             />
           )}
         </div>
-        <div className='w-full'>
-          <div className='mb-2 flex items-center justify-between'>
-            <CardCategory category={series} />
-            <CardDate date={log.created} />
-          </div>
-          <div>
-            <CardTitle title={log.title} />
+        <div>
+          <CardTitle title={log.title} />
+        </div>
+        <div className='mt-5 flex w-full justify-between'>
+          <div className='flex items-center gap-2'>
+            <Avatar size='xs' />
+            <span className='text-B3R12'>{nickname}</span>
           </div>
           <div className='mt-5 flex w-full justify-between'>
             <div className='flex items-center gap-2'>
@@ -57,6 +60,12 @@ export function LogCard({ log }: LogCardProps) {
             </div>
           </div>
         </div>
+      </div>
+
+      {variant === 'logPage' &&
+        Array.from({ length: more }, (_, index) => (
+          <LogCardMore key={index} log={log} />
+        ))}
       </CardBox>
     </Link>
   );
