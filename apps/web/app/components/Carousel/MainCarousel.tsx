@@ -28,8 +28,8 @@ export function MainCarousel() {
     <>
       {loading && (
         <div className='relative mx-auto mt-[52px] w-full'>
-          <div className='absolute left-0 right-1/2 z-10 mr-[300px] h-[320px] cursor-pointer bg-white opacity-30' />
-          <div className='absolute left-1/2 right-0 z-10 ml-[300px] h-[320px]  cursor-pointer  bg-white opacity-30' />
+          <div className='absolute left-0 right-1/2 z-10 mr-[290px] h-[320px] cursor-pointer bg-white opacity-30' />
+          <div className='absolute left-1/2 right-0 z-10 ml-[290px] h-[320px]  cursor-pointer  bg-white opacity-30' />
           <Swiper
             modules={[Navigation]}
             slidesPerView={'auto'}
