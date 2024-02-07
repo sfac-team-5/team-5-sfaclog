@@ -1,25 +1,33 @@
 import PocketBase from 'pocketbase';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST(req: NextResponse) {
+export async function POST(req: NextRequest) {
   const data = await req.json();
 
   try {
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
 
     const newData = {
-      username: data.name,
+      username: data.username,
       email: data.email,
+      emailVisibility: true,
       password: data.password,
       passwordConfirm: data.passwordConfirm,
-      nickname: '',
+      nickname: data.nickname,
       isTerms: true,
+      interests: data.interests,
+      proposals: data.proposals,
     };
-
+    // console.log(newData);
     const record = await pb.collection('users').create(newData);
-
-    return NextResponse.json({ status: 200, ...record });
+    const verify = await pb
+      .collection('users')
+      .requestVerification(newData.email);
+    console.log(verify);
+    return NextResponse.json({ isCreated: true }, { status: 200 });
+    // return NextResponse.json({ status: 200, ...record });
   } catch (error: any) {
+    return NextResponse.json({ isCreated: false }, { status: 400 });
     const errorData = error.originalError.data.data;
     const firstKey = Object.keys(errorData)[0];
     const errorMessage = errorData[firstKey as string].message;

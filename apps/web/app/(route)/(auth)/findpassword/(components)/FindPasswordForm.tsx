@@ -6,36 +6,74 @@ import { useForm } from 'react-hook-form';
 import { InputBox } from '@repo/ui/InputBox';
 import Button from '@repo/ui/Button';
 
+interface FindPasswordType {
+  username: string;
+  email: string;
+}
+
 function FindPasswordForm() {
   const router = useRouter();
-
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm({
+    setError,
+  } = useForm<FindPasswordType>({
     defaultValues: {
-      name: '',
+      username: '',
       email: '',
-      verification: '',
     },
   });
 
+  const nameRegister = register('username', {
+    required: '이름을 입력해주세요',
+  });
+  const emailRegister = register('email', {
+    required: '이메일을 입력해주세요',
+    pattern: {
+      value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/i,
+      message: '이메일 형식을 확인해 주세요.',
+    },
+  });
+  const submitFindPassword = async (data: FindPasswordType) => {
+    //비빌번호 재설정 이메일 보내기
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/findpassword`,
+      {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    if (!response.ok) {
+      setError('email', { message: '이름 또는 이메일이 올바르지 않습니다.' });
+      setError('username', {
+        message: '이름 또는 이메일이 올바르지 않습니다.',
+      });
+      return;
+    }
+    return router.push(`/findpassword/verify?email=${data.email}`);
+  };
   return (
-    <form className='flex flex-col gap-8'>
+    <form
+      className='flex flex-col gap-8'
+      onSubmit={handleSubmit(submitFindPassword)}
+    >
       <div className='flex flex-col gap-3'>
         <p className='text-B1B16'>이름</p>
         <InputBox
           placeholder='이름을 입력해주세요.'
-          errorMessage={errors.name?.message}
-          onValueChange={name => setValue('name', name)}
+          errorMessage={errors.username?.message}
+          onValueChange={username => setValue('username', username)}
         />
       </div>
       <div className='flex flex-col gap-3'>
         <p className='text-B1M16'>이메일 인증</p>
         <div className='flex w-full gap-3'>
-          <div className='flex flex-col gap-2'>
+          <div className='flex grow flex-col gap-2'>
             <InputBox
               placeholder='이메일 주소를 입력해주세요.'
               errorMessage={errors.email?.message}
@@ -45,15 +83,7 @@ function FindPasswordForm() {
               이메일 예시: abcde123@gmail.com
             </p>
           </div>
-          <div>
-            <Button type='button' size='s' label='인증요청' />
-          </div>
         </div>
-        <InputBox
-          placeholder='인증 번호를 입력해주세요.'
-          errorMessage={errors.verification?.message}
-          onValueChange={verification => setValue('verification', verification)}
-        />
       </div>
       <div className='flex flex-col gap-2'>
         <Button type='submit' size='l' label='다음' />
