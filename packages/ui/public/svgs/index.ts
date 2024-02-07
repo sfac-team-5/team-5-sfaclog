@@ -46,6 +46,7 @@ import IconCancelBlack from './cancels/cancel_black.svg';
 import IconPlusBoxBlue from './plus/plus_box_blue.svg';
 import IconPlusBoxGray from './plus/plus_box_gray.svg';
 import IconPlusBlack from './plus/plus_black.svg';
+import IconPlusGray from './plus/plus_gray.svg';
 // radio icon import
 import IconRadioBoxBlue from './radios/radio_box_blue.svg';
 import IconRadioBoxGray from './radios/radio_box_gray.svg';
@@ -112,6 +113,7 @@ export {
   IconCancelBoxBlue,
   IconCancelBoxGray,
   IconPlusBlack,
+  IconPlusGray,
   IconPlusBoxBlue,
   IconPlusBoxGray,
   IconRadioBoxBlue,

@@ -9,15 +9,9 @@ export async function GET(
   const { id } = params;
   try {
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
-    const log = await pb.collection('logs').getOne(id);
-    if (log.isDelete as boolean) {
-      return NextResponse.json(
-        { message: 'This log is already deleted ' },
-        { status: 405 },
-      );
-    } else {
-      return NextResponse.json(log, { status: 200 });
-    }
+    const log = await pb.collection('logs').getOne(id, { expand: 'user' });
+
+    return NextResponse.json(log, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       {

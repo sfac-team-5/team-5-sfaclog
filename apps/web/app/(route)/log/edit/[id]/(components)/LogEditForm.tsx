@@ -9,7 +9,7 @@ import TagInput from '@/(route)/log/write/(components)/LogWriteForm/(components)
 import ImagesInput from '@/(route)/log/write/(components)/LogWriteForm/(components)/ImagesInput';
 import SeriesSetting from '@/(route)/log/write/(components)/LogWriteForm/(components)/SeriesSetting';
 import PublicScopeSetting from '@/(route)/log/write/(components)/LogWriteForm/(components)/PublicScopeSetting';
-import ActionButton from '@/(route)/log/write/(components)/LogWriteForm/(components)/ActionButton';
+// import ActionButton from '@/(route)/log/write/(components)/LogWriteForm/(components)/ActionButton';
 
 interface LogEditFormProps {
   log: any;
@@ -107,13 +107,13 @@ function LogEditForm({ log }: LogEditFormProps) {
 
   return (
     <Form onSubmit={onFormdataSubmit} control={control}>
-      <TitleInput register={titleRegister} />
+      {/* <TitleInput register={titleRegister} />
       <TagInput />
       <ImagesInput register={thumbnailRegister} />
       <ContentEditor setValue={setValue} prevContent={prevContent} />
       <PublicScopeSetting register={publicScopeRegister} />
       <SeriesSetting />
-      <ActionButton />
+      <ActionButton /> */}
     </Form>
   );
 }

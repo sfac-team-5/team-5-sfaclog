@@ -23,12 +23,15 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
+  modal,
 }: {
   children: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   return (
     <html lang='ko'>
       <body className={`${pretendard.variable} font-pretendard`}>
+        {modal}
         <Header />
         <ClientSessionProvider>{children}</ClientSessionProvider>
         <Footer />

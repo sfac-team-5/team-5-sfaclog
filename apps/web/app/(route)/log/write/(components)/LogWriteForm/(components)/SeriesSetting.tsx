@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
+import { Selectbox } from '@repo/ui/SelectBox';
+// import { UseFormSetValue } from 'react-hook-form';
+// import { LogFormData } from '../LogWriteForm';
+// import { CommunityFormData } from '@/(route)/community/write/(components)/CommunityWriteForm';
 
-function SeriesSetting() {
-  const { data: session } = useSession();
-  const [series, setSeries] = useState();
+interface SeriesSettingProps {
+  setValue: any;
+  selectList: Array<any>;
+}
 
-  useEffect(() => {
-    if (!session) return;
+function SeriesSetting({ setValue, selectList }: SeriesSettingProps) {
+  const handleSelectChange = (data: any) => {
+    setValue('series', data.value);
+  };
 
-    const fetchData = async (id: string) => {
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/series/${id}`,
-        );
-        const data = await response.json();
-        setSeries(data);
-      } catch (error) {}
-    };
-    fetchData(session.user.id);
-  }, [session]);
-
-  return <div>SeriesSetting</div>;
+  return (
+    <Selectbox
+      width='short'
+      placeholder='시리즈를 선택하세요'
+      selectList={selectList}
+      onChange={data => handleSelectChange(data)}
+    />
+  );
 }
 
 export default SeriesSetting;
