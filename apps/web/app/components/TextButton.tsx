@@ -10,7 +10,7 @@ function TextButton({ link }: TextButtonProps) {
   return (
     <Link
       href={link}
-      className='flex h-[28px] w-[83px] cursor-pointer items-center gap-2 px-3 text-B2R14 text-neutral-80'
+      className='text-B2R14 text-neutral-80 flex h-[28px] w-[83px] cursor-pointer items-center gap-2 px-3'
     >
       더보기
       <IconArrowRightSmall />
