@@ -61,7 +61,7 @@ export function NotificationWidget({
 
   if (isLoading) {
     return (
-      <div className='absolute right-0 z-[100] mt-4 h-[720px] w-[360px] rounded-md bg-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)]'>
+      <div className='absolute right-0 z-[2] mt-4 h-[720px] w-[360px] rounded-md bg-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)]'>
         <WidgetHeader type={'알림'} onClose={onClose} />
         <div className='border-neutral-10 flex h-[calc(100%-90px)] items-center justify-center border-t'>
           <svg
@@ -87,7 +87,7 @@ export function NotificationWidget({
   }
 
   return (
-    <div className='absolute right-0 z-[100] mt-4 h-[720px] w-[360px] rounded-md bg-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)]'>
+    <div className='absolute right-0 z-[2] mt-4 h-[720px] w-[360px] rounded-md bg-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)]'>
       <WidgetHeader type={'알림'} onClose={onClose} />
 
       {notifications.length === 0 ? (
