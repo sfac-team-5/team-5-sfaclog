@@ -1,4 +1,5 @@
 import { auth } from '@/auth';
+import { revalidatePath } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 import PocketBase from 'pocketbase';
 
@@ -30,7 +31,7 @@ export async function POST(
     await pb
       .collection('comments')
       .update(comments.id, { comment: JSON.stringify(newData) });
-
+    revalidatePath(`/log/${id}`);
     return NextResponse.json({ status: 201 });
   } catch (error) {
     return NextResponse.json(
