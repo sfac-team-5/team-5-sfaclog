@@ -13,13 +13,11 @@ Quill.register('modules/ImageResize', ImageResize);
 interface ContentInputProps {
   setValue: any;
   getValues: any;
-  prevContent?: string;
 }
 
 export default function ContentInput({
   setValue,
   getValues,
-  prevContent,
 }: ContentInputProps) {
   const content = getValues('content');
   const quillRef = useRef<any>();
