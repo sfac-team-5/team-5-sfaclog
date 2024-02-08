@@ -7,8 +7,8 @@ import { CardViews } from './(components)/CardViews';
 import { CardLikes } from './(components)/CardLikes';
 import { CardDate } from './(components)/CardDate';
 import { LogType } from '@/types';
-import Link from 'next/link';
 import { LogCardMore } from './LogCardMore';
+import Link from 'next/link';
 
 interface LogCardProps {
   variant: 'mainPage' | 'logPage';
@@ -29,7 +29,7 @@ export function LogCard({ variant, log, more }: LogCardProps) {
       <CardBox type='log'>
         <div className='h-[280px] w-full overflow-hidden rounded-md'>
           {log.thumbnailUrl === '' ? (
-            <div className='size-full bg-background-5' />
+            <div className='bg-background-5 size-full' />
           ) : (
             <Image
               src={log.thumbnailUrl}
@@ -60,12 +60,11 @@ export function LogCard({ variant, log, more }: LogCardProps) {
             </div>
           </div>
         </div>
-      </div>
-
-      {variant === 'logPage' &&
-        Array.from({ length: more }, (_, index) => (
-          <LogCardMore key={index} log={log} />
-        ))}
+        {variant === 'logPage' &&
+          more &&
+          Array.from({ length: more }, (_, index) => (
+            <LogCardMore key={index} log={log} />
+          ))}
       </CardBox>
     </Link>
   );
