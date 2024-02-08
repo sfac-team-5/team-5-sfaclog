@@ -26,7 +26,7 @@ export function MessageChat({ isChatOpen, setIsChatOpen }: MessageChatProps) {
           onClick={() => setIsChatOpen(false)}
         />
         <div className='flex items-center gap-2.5'>
-          <Avatar size={25} />
+          <Avatar size='xs' />
           <span className='text-B2B14 text-neutral-90'>Name</span>
         </div>
         <div className=''>

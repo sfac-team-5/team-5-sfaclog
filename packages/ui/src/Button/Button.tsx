@@ -8,6 +8,7 @@ interface ButtonProps {
   label: string;
   disabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  icon?: React.ReactNode;
 }
 
 const btnSize = {
@@ -16,7 +17,7 @@ const btnSize = {
   l: 'w-[400px] h-[50px] text-B1B16',
 };
 
-function Button({ type, size, label, disabled, onClick }: ButtonProps) {
+function Button({ type, size, label, disabled, onClick, icon }: ButtonProps) {
   return (
     <button
       type={type}
@@ -24,7 +25,10 @@ function Button({ type, size, label, disabled, onClick }: ButtonProps) {
       onClick={onClick}
       className={`${btnSize[size]} bg-brand-70 hover:bg-brand-90 active:bg-brand-90 disabled:bg-neutral-10 disabled:text-neutral-30 rounded-[6px] text-white duration-200 ease-in-out`}
     >
-      {label}
+      <div className='flex items-center justify-center gap-1.5'>
+        <span>{label}</span>
+        {icon && icon}
+      </div>
     </button>
   );
 }

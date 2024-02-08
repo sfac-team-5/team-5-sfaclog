@@ -4,12 +4,12 @@ import React, { useState } from 'react';
 const recent = [
   '부트캠프1',
   '부트캠프2',
-  '부트캠프3',
+  '가나',
   '부트캠프4',
   '부트캠프5',
-  '부트캠프6',
+  '가나다',
   '부트캠프7',
-  '부트캠프8',
+  '123가나',
   '부트캠프9',
 ];
 
@@ -47,11 +47,11 @@ export function RecentSearches() {
           };
           return (
             <div
-              className={`flex cursor-pointer items-center gap-[1px] transition-opacity duration-300 ease-in-out ${removeAll ? 'opacity-0' : isRemove === idx ? 'opacity-0' : '!duration-0'}`}
+              className={`border-neutral-10 flex h-6 w-fit cursor-pointer items-center gap-[1px] rounded-md border-[1px] px-2 py-1 transition-opacity duration-300 ease-in-out ${removeAll ? 'opacity-0' : isRemove === idx ? 'opacity-0' : '!duration-0'}`}
               key={idx}
               onClick={handleRemove}
             >
-              <span className='text-B3R12'>{word}</span>
+              <span className='text-B4R12'>{word}</span>
               <IconCancelBlack className='stroke-neutral-40 size-[10px]' />
             </div>
           );

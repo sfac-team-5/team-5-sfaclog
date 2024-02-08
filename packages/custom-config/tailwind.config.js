@@ -157,6 +157,7 @@ const customConfig = {
         highlight: {
           warning: '#FF0000',
           success: '#07A320',
+          popup: '#E5E9F2',
         },
         text: {
           primary: '#1A1A1A',
@@ -181,6 +182,9 @@ const customConfig = {
           white: '#FFFFFF',
           10: '#E6E6E6',
           5: '#F3F3F3',
+        },
+        tag: {
+          tag: '#EFF3FA',
         },
       },
     },

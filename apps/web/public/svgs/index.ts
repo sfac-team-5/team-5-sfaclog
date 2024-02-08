@@ -7,9 +7,17 @@ import IconYoutube from './IconYoutube.svg';
 import IconGoogle from './IconGoogle.svg';
 import IconKakao from './IconKakao.svg';
 import IconNaver from './IconNaver.svg';
+import IconCancelGray from './IconCancelGray.svg';
+import IconShare from './IconShare.svg';
+import IconKebob from './IconKebob.svg';
+import IconBookmarkGray from './IconBookmarkGray.svg';
+import IconReplyArrow from './IconReplyArrow.svg';
+
 import Logo from './logo.svg';
+import Complete from './complete.svg';
 import NotFoundImage from './404.svg';
 export {
+  IconReplyArrow,
   IconArrowRightSmall,
   IconSearch,
   LogoFooter,
@@ -19,6 +27,11 @@ export {
   IconGoogle,
   IconKakao,
   IconNaver,
+  IconCancelGray,
+  IconShare,
+  IconKebob,
+  IconBookmarkGray,
   Logo,
+  Complete,
   NotFoundImage,
 };

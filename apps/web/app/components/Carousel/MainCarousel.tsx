@@ -35,6 +35,7 @@ export function MainCarousel() {
             slidesPerView={'auto'}
             centeredSlides
             spaceBetween={18}
+            observer
             loop
             speed={600}
             navigation={{
@@ -42,7 +43,6 @@ export function MainCarousel() {
               nextEl: '.custom-next',
             }}
             // onSlideChange={swiper => handleSlideChange(swiper)}
-            // onBeforeTransitionStart={swiper => handleSlideChange(swiper)}
           >
             {random.map((v, idx) => (
               <SwiperSlide

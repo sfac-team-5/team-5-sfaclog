@@ -29,7 +29,7 @@ export function CommunityCard({ variant, community }: CommunityCardProps) {
       {variant === 'mainPage' && (
         <>
           <div className='flex size-[150px] flex-col items-center justify-center gap-3 overflow-hidden'>
-            <Avatar size={80} />
+            <Avatar size='l' />
             <span className='text-B2B14'>{nickname}</span>
           </div>
 

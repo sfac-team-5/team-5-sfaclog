@@ -11,6 +11,10 @@ module.exports = {
         protocol: 'https',
         hostname: 'placehold.co',
       },
+      {
+        protocol: 'https',
+        hostname: 's3-alpha-sig.figma.com',
+      },
     ],
   },
   typescript: {

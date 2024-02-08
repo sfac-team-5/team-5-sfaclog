@@ -8,12 +8,12 @@ export function NavSearch() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className='group '>
+    <div className='group'>
       <button
         onClick={() => setIsModalOpen(true)}
-        className='group-hover:border-primary-50 rounded-full border-[1px] border-transparent p-[6px] duration-100 ease-in-out'
+        className='group-hover:border-primary-50 fill-neutral-90 bg-brand-10 rounded-full border-[1px] border-transparent p-[6px]  duration-100 ease-in-out'
       >
-        <IconSearch />
+        <IconSearch className='size-5' />
       </button>
       {isModalOpen && <ModalSearch setIsModalOpen={setIsModalOpen} />}
     </div>

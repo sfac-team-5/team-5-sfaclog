@@ -34,9 +34,8 @@ export default function LoginForm() {
     const { loginSuccess } = await submitAction(data);
 
     if (loginSuccess) {
-      router.refresh();
       alert('로그인되었습니다.');
-      router.back();
+      router.refresh();
     } else {
       console.log('다시 로그인해 주세요.');
     }
@@ -44,6 +43,10 @@ export default function LoginForm() {
 
   const emailRegister = register('email', {
     required: '아이디를 입력해 주세요.',
+    pattern: {
+      value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i,
+      message: '이메일 형식을 확인해 주세요.',
+    },
   });
 
   const passwordRegister = register('password', {
@@ -73,7 +76,7 @@ export default function LoginForm() {
       </div>
       <Button type='submit' size='l' label='로그인' />
       <div className='mb-3 mt-10 flex items-center before:flex-1 before:border-t before:border-black/20 after:flex-1 after:border-t after:border-black/20 '>
-        <p className='mx-2 text-center text-sm text-text-secondary'>또는</p>
+        <p className='text-text-secondary mx-2 text-center text-sm'>또는</p>
       </div>
       <div className='flex flex-col gap-[13px]'>
         <SNSButton

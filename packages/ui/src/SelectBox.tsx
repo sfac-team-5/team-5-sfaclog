@@ -28,7 +28,7 @@ export function Selectbox({
   };
 
   return (
-    <div className={`mt-10 ${widthClass}`}>
+    <div className={`${widthClass}`}>
       <Listbox value={selected} onChange={handleValChange}>
         <div className='relative mt-1'>
           <Listbox.Button

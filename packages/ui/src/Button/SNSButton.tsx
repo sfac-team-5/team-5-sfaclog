@@ -37,12 +37,12 @@ function SNSButton({
       type={type}
       disabled={disabled}
       onClick={onClick}
-      className={`${btnSize[size]} ${bgColor} ${labelColor} ${borderColor && `${borderColor} border`} rounded-[6px] duration-200 ease-in-out disabled:bg-neutral-10 disabled:text-neutral-30`}
+      className={`${btnSize[size]} ${bgColor} ${labelColor} ${borderColor && `${borderColor} border`} disabled:bg-neutral-10 disabled:text-neutral-30 rounded-[6px] duration-200 ease-in-out`}
     >
       <div className='flex items-center justify-center gap-1.5'>
         {/* 아이콘 */}
         {icon}
-        {label}
+        <span>{label}</span>
       </div>
     </button>
   );
