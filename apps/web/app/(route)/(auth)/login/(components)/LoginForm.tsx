@@ -43,6 +43,10 @@ export default function LoginForm() {
 
   const emailRegister = register('email', {
     required: '아이디를 입력해 주세요.',
+    pattern: {
+      value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i,
+      message: '이메일 형식을 확인해 주세요.',
+    },
   });
 
   const passwordRegister = register('password', {

@@ -30,7 +30,7 @@ export function ModalSearch({ setIsModalOpen }: ModalSearchProps) {
             leave='transition-transform duration-300 ease-in-out'
             leaveFrom='transform opacity-100 translate-y-0'
             leaveTo='transform opacity-0 translate-y-[-200px]'
-            className='absolute top-[46px] z-30 h-[198px] w-full bg-white opacity-95'
+            className='absolute top-[46px] z-40 h-[198px] w-full bg-white opacity-95'
           >
             <Dialog.Panel>
               <div>
@@ -62,7 +62,7 @@ export function ModalSearch({ setIsModalOpen }: ModalSearchProps) {
             leaveTo='opacity-0'
           >
             <div
-              className='fixed inset-0 z-10 cursor-pointer bg-black/30'
+              className='fixed inset-0 z-30 cursor-pointer bg-black/30'
               aria-hidden='true'
             />
           </Transition.Child>
