@@ -1,7 +1,7 @@
 'use client';
 import { ModalSearch } from '@/components/Modal/ModalSearch';
 
-import { IconSearch } from '@repo/ui/Icon';
+import { IconSearchBlack } from '@repo/ui/Icon';
 import React, { useState } from 'react';
 
 export function NavSearch() {
@@ -11,9 +11,9 @@ export function NavSearch() {
     <div className='group'>
       <button
         onClick={() => setIsModalOpen(true)}
-        className='group-hover:border-primary-50 fill-neutral-90 bg-brand-10 rounded-full border-[1px] border-transparent p-[6px]  duration-100 ease-in-out'
+        className='group-hover:border-primary-50 bg-brand-10 rounded-full border-[1px] border-transparent p-[6px] duration-100 ease-in-out'
       >
-        <IconSearch className='size-5' />
+        <IconSearchBlack />
       </button>
       {isModalOpen && <ModalSearch setIsModalOpen={setIsModalOpen} />}
     </div>
