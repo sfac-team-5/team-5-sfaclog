@@ -6,6 +6,7 @@ import { ReplyCommentType } from './LogComment';
 import { formatDateToYMDHM } from '@/utils/formatDateToYMDHM';
 import { IconReplyArrow } from '@public/svgs';
 import { useRouter } from 'next/navigation';
+import { useModalDataActions } from '@/hooks/stores/useModalDataStore';
 
 interface ReplyCommentItemProps {
   item: ReplyCommentType;
@@ -14,6 +15,20 @@ interface ReplyCommentItemProps {
 
 function ReplyCommentItem({ item, logId }: ReplyCommentItemProps) {
   const router = useRouter();
+  const { onChange: changeModalData } = useModalDataActions();
+
+  const onDelete = () => {
+    changeModalData({
+      type: 'reply-comment-delete',
+      logId,
+      commentId: item.id.toString(),
+      userId: item.userId,
+    });
+    router.push(`/modal?type=reply-comment-delete`, {
+      scroll: false,
+    });
+  };
+
   return (
     <li className='border-b border-neutral-10'>
       <div className='flex flex-col gap-3 px-5 py-6'>
@@ -37,17 +52,7 @@ function ReplyCommentItem({ item, logId }: ReplyCommentItemProps) {
               </span>
             </div>
           </div>
-          <button
-            onClick={() =>
-              router.push(
-                `/modal?type=reply-comment-delete&id=${logId}&comment-id=${item.id}&user-id=${item.userId}`,
-                {
-                  scroll: false,
-                },
-              )
-            }
-            className='text-B3R12 text-text-gray'
-          >
+          <button onClick={onDelete} className='text-B3R12 text-text-gray'>
             삭제하기
           </button>
         </div>
