@@ -12,6 +12,7 @@ import IconShare from './IconShare.svg';
 import IconKebob from './IconKebob.svg';
 import IconBookmarkGray from './IconBookmarkGray.svg';
 import IconReplyArrow from './IconReplyArrow.svg';
+import IconComment from './IconComment.svg';
 
 import Logo from './logo.svg';
 import Complete from './complete.svg';
@@ -34,4 +35,5 @@ export {
   Logo,
   Complete,
   NotFoundImage,
+  IconComment,
 };
