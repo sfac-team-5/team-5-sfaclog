@@ -1,23 +1,15 @@
-'use client';
-import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
 import { LogoutAction } from './action';
 
 interface NavProfileProps {
   image: string;
+  isOpen: boolean;
+  onToggle: () => void;
 }
 
-export function NavProfile({ image }: NavProfileProps) {
-  const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
-
+export function NavProfile({ image, isOpen, onToggle }: NavProfileProps) {
   return (
     <div className='relative'>
       <Image
@@ -26,9 +18,7 @@ export function NavProfile({ image }: NavProfileProps) {
         height={30}
         alt='avatar'
         className='cursor-pointer rounded-full'
-        onClick={() => {
-          setIsOpen(!isOpen);
-        }}
+        onClick={onToggle}
       />
 
       {isOpen && (

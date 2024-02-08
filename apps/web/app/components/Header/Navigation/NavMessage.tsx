@@ -1,24 +1,16 @@
-'use client';
-import { useState } from 'react';
-
 import { IconMessageLine } from '@repo/ui/Icon';
 import { MessageWidget } from '@/components/Widget/MessageWidget';
 
-export function NavMessage() {
-  const [isOpen, setIsOpen] = useState(false);
+interface NavMessageProps {
+  isOpen: boolean;
+  onToggle: () => void;
+  onClose: () => void;
+}
 
-  const onClose = () => {
-    setIsOpen(false);
-  };
-
+export function NavMessage({ isOpen, onToggle, onClose }: NavMessageProps) {
   return (
     <div className='relative'>
-      <IconMessageLine
-        className='cursor-pointer'
-        onClick={() => {
-          setIsOpen(!isOpen);
-        }}
-      />
+      <IconMessageLine className='cursor-pointer' onClick={onToggle} />
       {isOpen && <MessageWidget onClose={onClose} />}
     </div>
   );
