@@ -13,7 +13,7 @@ function ContentSection({ log }: ContentSectionProps) {
   return (
     <div className='w-full'>
       <ContentHeader log={log} />
-      <div className='space-y-[41px] border-b border-stroke-30 py-10'>
+      <div className='border-stroke-30 space-y-[41px] border-b py-10'>
         <ContentThumbnail logId={log.id} logThumbnail={log.thumbnail} />
         <ContentArea logContent={log.content} />
 
@@ -22,7 +22,7 @@ function ContentSection({ log }: ContentSectionProps) {
             {log.tags.map((tag: string, i: number) => (
               <li
                 key={i}
-                className='rounded-full bg-tag-tag px-3 py-[10px] text-B3R12 text-neutral-70'
+                className='bg-tag-tag text-B3R12 text-neutral-70 rounded-full px-3 py-[10px]'
               >
                 #{tag}
               </li>
@@ -30,7 +30,7 @@ function ContentSection({ log }: ContentSectionProps) {
           </ul>
           <HeartButton logId={log.id} />
         </div>
-        <ContentButton />
+        <ContentButton logId={log.id} />
       </div>
     </div>
   );

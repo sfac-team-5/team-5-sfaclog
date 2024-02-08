@@ -6,7 +6,6 @@ import { MainCarousel } from './components/Carousel/MainCarousel';
 export default async function Page() {
   return (
     <main>
-      <Link href={'/modal'}>modal</Link>
       <MainCarousel />
       <PopularLogs />
       <PopularCommunity />

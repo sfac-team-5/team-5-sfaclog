@@ -18,8 +18,9 @@ async function LogEditPage({ params }: { params: { id: string } }) {
 
   return (
     <main>
+      <h1 className='text-H0M32 my-[46px] text-center'>로그 수정</h1>
       <LogEditForm log={log} />
-      <LogDeleteButton logId={id} />
+      {/* <LogDeleteButton logId={id} /> */}
     </main>
   );
 }

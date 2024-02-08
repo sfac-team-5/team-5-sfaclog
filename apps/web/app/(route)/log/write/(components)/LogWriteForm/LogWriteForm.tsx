@@ -19,7 +19,7 @@ const selectList = [
 
 const ContentEditor = dynamic(() => import('./(components)/ContentInput'), {
   loading: () => (
-    <div className='h-[400px] w-[670px] rounded-md border border-stroke-30'></div>
+    <div className='border-stroke-30 h-[400px] w-[670px] rounded-md border'></div>
   ),
   ssr: false,
 });
@@ -77,6 +77,10 @@ function LogWriteForm() {
         body: formData,
       },
     );
+    const newLog = await response.json();
+    if (newLog) {
+      router.push(`/log/${newLog.id}`);
+    }
   };
 
   const titleRegister = register('title', {
@@ -121,7 +125,12 @@ function LogWriteForm() {
       >
         <div className='mb-10 flex gap-6'>
           <div className='flex w-full flex-col gap-[22px]'>
-            <TitleInput label='제목' setValue={setValue} errors={errors} />
+            <TitleInput
+              label='제목'
+              setValue={setValue}
+              errors={errors}
+              watch={watch}
+            />
             <TagInput
               setValue={setValue}
               setError={setError}
@@ -136,7 +145,7 @@ function LogWriteForm() {
           <PublicScopeSetting setValue={setValue} />
           <SeriesSetting setValue={setValue} selectList={selectList} />
         </div>
-        <div className='fixed bottom-0 left-0 flex w-full items-center justify-end gap-5 bg-neutral-5 px-[60px] py-3'>
+        <div className='bg-neutral-5 fixed bottom-0 left-0 flex w-full items-center justify-end gap-5 px-[60px] py-3'>
           <p className='text-B3R12 text-neutral-40'>자동 저장 완료 00:00:00</p>
           <Button type='button' size='s' label='임시저장' disabled={true} />
           <Button
