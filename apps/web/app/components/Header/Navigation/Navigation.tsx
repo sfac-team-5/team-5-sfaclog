@@ -31,7 +31,7 @@ export async function Navigation() {
           커뮤니티
         </Link>
       </Tabs>
-      <div className='ml-auto flex items-center gap-3'>
+      <div className='ml-auto flex items-center gap-14'>
         <NavSearch />
         <NavAuthBtn />
       </div>

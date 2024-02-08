@@ -15,12 +15,12 @@
     "./Button": "./src/Button/Button.tsx",
     "./SNSButton": "./src/Button/SNSButton.tsx",
     "./InputBox": "./src/InputBox.tsx",
-    "./Check":"./src/Check.tsx",
-    "./Radio":"./src/Radio.tsx",
+    "./Check": "./src/Check.tsx",
+    "./Radio": "./src/Radio.tsx",
     "./CapsuleButton": "./src/Button/CapsuleButton.tsx",
     "./HeartCapsuleButton": "./src/Button/HeartCapsuleButton.tsx",
     "./IconButton": "./src/Button/IconButton.tsx",
-    "./RoundIconButton": "./src/Button/RoundIconButton.tsx",
+    "./RoundIconButton": "./src/Button/RoundIconButton.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

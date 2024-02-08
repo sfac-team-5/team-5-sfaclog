@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import { ClientSessionProvider } from './components/Providers/ClientSessionProvider';
-import Footer from './components/Footer/Footer';
 
-import { Navigation } from '@/components/Header/Navigation/Navigation';
+import { ClientSessionProvider } from '@/components/Providers/ClientSessionProvider';
+import { Header } from '@/components/Header/Header';
+import Footer from '@/components/Footer/Footer';
 import './globals.css';
-import { Header } from './components/Header/Header';
 
 const pretendard = localFont({
   src: [
