@@ -4,21 +4,23 @@ import { NoData } from '@/components/NoData';
 import React from 'react';
 import PocketBase from 'pocketbase';
 import { LogType } from '@/types';
+import { Session } from 'next-auth';
 
-const fetchData = async () => {
+const fetchData = async (session: Session | null) => {
   try {
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
-    const logs = await pb.collection('logs').getList(1, 3, {
-      sort: '-likes',
+    const myLogs = await pb.collection('logs').getFullList({
+      expand: 'user',
+      filter: `user="${session?.user.id}"`,
     });
 
-    logs.items.forEach(log => {
+    myLogs.forEach(log => {
       const thumbnailFilename = log.thumbnail;
       log.thumbnailUrl = pb.files.getUrl(log, thumbnailFilename, {
         thumb: '300x300',
       });
     });
-    return logs.items as LogType[];
+    return myLogs as LogType[];
   } catch (error) {
     return [];
   }
@@ -27,7 +29,7 @@ const fetchData = async () => {
 async function MyLogList() {
   const session = await auth();
   if (!session) return;
-  const myLog = await fetchData();
+  const myLog = await fetchData(session);
   if (myLog.length === 0) return NoData();
 
   return (
