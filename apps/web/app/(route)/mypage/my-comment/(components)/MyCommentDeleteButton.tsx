@@ -9,19 +9,21 @@ interface MyCommentDeleteButtonProps {
   logId: string;
   commentId: number;
   userId: string;
+  type: string;
 }
 
 function MyCommentDeleteButton({
   logId,
   commentId,
   userId,
+  type,
 }: MyCommentDeleteButtonProps) {
   const router = useRouter();
   const { onChange: changeModalData } = useModalDataActions();
 
   const onClick = () => {
     changeModalData({
-      type: 'comment-delete',
+      type: type ? 'reply-comment-delete' : 'comment-delete',
       logId,
       commentId: commentId.toString(),
       userId,

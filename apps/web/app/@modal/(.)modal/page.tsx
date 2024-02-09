@@ -22,6 +22,10 @@ function Modal() {
   const router = useRouter();
   const { type, logId, commentId, userId, userName } = useModalData();
 
+  console.log(type);
+  console.log(logId);
+  console.log(commentId);
+
   let modalState: ModalStateType = {
     title: '',
     description: '',
