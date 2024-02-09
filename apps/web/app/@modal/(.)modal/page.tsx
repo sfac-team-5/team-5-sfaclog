@@ -2,13 +2,15 @@
 
 import React from 'react';
 import ModalBox from './(components)/ModalBox';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import {
   modalLogDelete,
   modalUserBlock,
   modalLogCancel,
   modalReplyCommentDelete,
+  modalCommentDelete,
 } from './index';
+import { useModalData } from '@/hooks/stores/useModalDataStore';
 
 interface ModalStateType {
   title: string;
@@ -18,12 +20,7 @@ interface ModalStateType {
 
 function Modal() {
   const router = useRouter();
-  const params = useSearchParams();
-  const type = params.get('type');
-  const id = params.get('id');
-  const name = params.get('username');
-  const commentId = params.get('comment-id');
-  const userId = params.get('user-id');
+  const { type, logId, commentId, userId, userName } = useModalData();
 
   let modalState: ModalStateType = {
     title: '',
@@ -36,17 +33,16 @@ function Modal() {
         title: modalLogDelete.title,
         description: modalLogDelete.description,
         action: () => {
-          id && modalLogDelete.logDelete(id);
+          logId && modalLogDelete.logDelete(logId);
         },
       };
-
       break;
     case 'user-block':
       modalState = {
-        title: name ? name + modalUserBlock.title : '',
-        description: name ? name + modalUserBlock.description : '',
+        title: userName + modalUserBlock.title,
+        description: userName + modalUserBlock.description,
         action: () => {
-          id && modalUserBlock.userBlock(id);
+          userId && modalUserBlock.userBlock(userId);
         },
       };
       break;
@@ -54,7 +50,23 @@ function Modal() {
       modalState = {
         title: modalLogCancel.title,
         description: modalLogCancel.description,
-        action: () => router.push(modalLogCancel.link),
+        action: () => {
+          router.push(modalLogCancel.link);
+        },
+      };
+      break;
+    case 'comment-delete':
+      modalState = {
+        title: modalCommentDelete.title,
+        description: modalCommentDelete.description,
+        action: () => {
+          logId &&
+            commentId &&
+            userId &&
+            modalCommentDelete.commentDelete(logId, commentId, userId);
+          router.back();
+          setTimeout(() => router.refresh(), 100);
+        },
       };
       break;
     case 'reply-comment-delete':
@@ -62,10 +74,10 @@ function Modal() {
         title: modalReplyCommentDelete.title,
         description: modalReplyCommentDelete.description,
         action: () => {
-          id &&
+          logId &&
             commentId &&
             userId &&
-            modalReplyCommentDelete.commentDelete(id, commentId, userId);
+            modalReplyCommentDelete.commentDelete(logId, commentId, userId);
           router.back();
           setTimeout(() => router.refresh(), 100);
         },
@@ -73,7 +85,7 @@ function Modal() {
       break;
   }
 
-  if (!modalState.action) return null;
+  if (type === null) return;
 
   return (
     <div className='size-screen fixed inset-0 z-[100] flex items-center justify-center bg-black/30'>

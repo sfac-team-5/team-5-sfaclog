@@ -10,6 +10,7 @@ import { Form, useForm } from 'react-hook-form';
 import dynamic from 'next/dynamic';
 import Button from '@repo/ui/Button';
 import { useRouter } from 'next/navigation';
+import { useModalDataActions } from '@/hooks/stores/useModalDataStore';
 
 const selectList = [
   { value: '카테고리1' },
@@ -19,7 +20,7 @@ const selectList = [
 
 const ContentEditor = dynamic(() => import('./(components)/ContentInput'), {
   loading: () => (
-    <div className='border-stroke-30 h-[400px] w-[670px] rounded-md border'></div>
+    <div className='h-[400px] w-[670px] rounded-md border border-stroke-30'></div>
   ),
   ssr: false,
 });
@@ -34,6 +35,7 @@ export interface LogFormData {
 }
 
 function LogWriteForm() {
+  const { onChange: changeModalData } = useModalDataActions();
   const {
     register,
     setValue,
@@ -104,6 +106,7 @@ function LogWriteForm() {
     history.pushState(null, '', location.href);
     const browserPreventEvent = () => {
       history.pushState(null, '', location.href);
+      changeModalData({ type: 'log-cancel' });
       router.push('/modal?type=log-cancel');
     };
     window.addEventListener('popstate', () => {
@@ -145,7 +148,7 @@ function LogWriteForm() {
           <PublicScopeSetting setValue={setValue} />
           <SeriesSetting setValue={setValue} selectList={selectList} />
         </div>
-        <div className='bg-neutral-5 fixed bottom-0 left-0 flex w-full items-center justify-end gap-5 px-[60px] py-3'>
+        <div className='fixed bottom-0 left-0 flex w-full items-center justify-end gap-5 bg-neutral-5 px-[60px] py-3'>
           <p className='text-B3R12 text-neutral-40'>자동 저장 완료 00:00:00</p>
           <Button type='button' size='s' label='임시저장' disabled={true} />
           <Button

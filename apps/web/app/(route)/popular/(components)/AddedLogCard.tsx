@@ -44,7 +44,6 @@ export default function AddedLogCard({ category }: AddedBookListProps) {
         await fetch(`/api/log-popular?category=${category}&page=${page}`)
           .then(res => res.json())
           .then(result => {
-            console.log(result);
             if (result.length === 0) return;
             setAddedLogCard(prev => [...prev, ...result]);
           });
