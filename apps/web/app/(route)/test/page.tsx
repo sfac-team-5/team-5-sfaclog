@@ -4,6 +4,7 @@ import { auth, signIn, signOut } from '../../auth';
 import { Client } from './Client';
 import { ClientSessionProvider } from '../../components/Providers/ClientSessionProvider';
 import { Avatar } from '@/components/Avatar';
+import { MypageNotFound } from '../mypage/(components)/MypageNotFound';
 
 async function Page({ params }: { params: { id: string } }) {
   // const response = await fetch(
@@ -17,6 +18,12 @@ async function Page({ params }: { params: { id: string } }) {
   const session = await auth();
   return (
     <div>
+      <MypageNotFound
+        title='아직 작성한 로그가 없어요'
+        description='나만의 로그를 작성해보세요'
+        buttonLabel='로그 작성하기'
+        href='#'
+      />
       <Avatar size='l' type='all' />
       <Avatar size='m' />
       <Avatar size='s' />

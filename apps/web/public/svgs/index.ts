@@ -18,6 +18,7 @@ import IconComment from './IconComment.svg';
 import Logo from './logo.svg';
 import Complete from './complete.svg';
 import NotFoundImage from './404.svg';
+import NotFoundMypageItem from './NotFoundMypageItem.svg';
 export {
   IconReplyArrow,
   IconArrowRightSmall,
@@ -39,4 +40,5 @@ export {
   Complete,
   NotFoundImage,
   IconComment,
+  NotFoundMypageItem,
 };
