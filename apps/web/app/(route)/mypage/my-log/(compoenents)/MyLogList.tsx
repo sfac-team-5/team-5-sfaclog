@@ -47,7 +47,7 @@ async function MyLogList({ page }: MyLogListProps) {
     <div>
       <div className='mb-10 grid grid-cols-2 gap-6'>
         {myLogs.map(log => (
-          <LogCard variant='logPage' key={log.collectionId} log={log} />
+          <LogCard variant='logPage' key={log.id} log={log} />
         ))}
       </div>
       <MyPagePagination
