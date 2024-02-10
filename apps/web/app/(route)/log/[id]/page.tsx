@@ -3,6 +3,7 @@ import NotFound from '../../../not-found';
 import CommentSection from './(components)/CommentSection/CommentSection';
 import ProfileSection from './(components)/ProfileSection/ProfileSection';
 import ContentSection from './(components)/ContentSection/ContentSection';
+import ViewObserver from './(components)/ViewObserver';
 
 export const revalidate = 1;
 
@@ -29,6 +30,7 @@ async function LogDetailPage({ params }: { params: { id: string } }) {
         <ContentSection log={log} />
         <CommentSection logId={log.id} />
       </div>
+      <ViewObserver logId={id} />
     </main>
   );
 }

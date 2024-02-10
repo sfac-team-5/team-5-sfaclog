@@ -10,6 +10,7 @@ import { Form, useForm } from 'react-hook-form';
 import dynamic from 'next/dynamic';
 import Button from '@repo/ui/Button';
 import { useRouter } from 'next/navigation';
+import { useModalDataActions } from '@/hooks/stores/useModalDataStore';
 
 const selectList = [
   { value: '카테고리1' },
@@ -34,6 +35,7 @@ export interface LogFormData {
 }
 
 function LogWriteForm() {
+  const { onChange: changeModalData } = useModalDataActions();
   const {
     register,
     setValue,
@@ -77,6 +79,10 @@ function LogWriteForm() {
         body: formData,
       },
     );
+    const newLog = await response.json();
+    if (newLog) {
+      router.push(`/log/${newLog.id}`);
+    }
   };
 
   const titleRegister = register('title', {
@@ -100,6 +106,7 @@ function LogWriteForm() {
     history.pushState(null, '', location.href);
     const browserPreventEvent = () => {
       history.pushState(null, '', location.href);
+      changeModalData({ type: 'log-cancel' });
       router.push('/modal?type=log-cancel');
     };
     window.addEventListener('popstate', () => {
@@ -121,7 +128,12 @@ function LogWriteForm() {
       >
         <div className='mb-10 flex gap-6'>
           <div className='flex w-full flex-col gap-[22px]'>
-            <TitleInput label='제목' setValue={setValue} errors={errors} />
+            <TitleInput
+              label='제목'
+              setValue={setValue}
+              errors={errors}
+              watch={watch}
+            />
             <TagInput
               setValue={setValue}
               setError={setError}

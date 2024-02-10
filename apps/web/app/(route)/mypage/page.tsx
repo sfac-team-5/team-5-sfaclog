@@ -1,16 +1,11 @@
 import React from 'react';
-import MyLog from './(components)/MyLog';
-import MyProfile from './(components)/MyProfile';
+import MyLog from './my-log/(compoenents)/MyLog';
 
-function MyPage() {
-  // next authr가 Id줄거에요
-  const nextAuthId = 'an6xvwgrbnfcsu8';
-  return (
-    <main>
-      <MyLog userId={nextAuthId} />
-      <MyProfile userId={nextAuthId} />
-    </main>
-  );
+async function MyPage() {
+  const PAGE = 1;
+  const CATEGORY = 'my-log';
+
+  return <MyLog page={PAGE} category={CATEGORY} />;
 }
 
 export default MyPage;

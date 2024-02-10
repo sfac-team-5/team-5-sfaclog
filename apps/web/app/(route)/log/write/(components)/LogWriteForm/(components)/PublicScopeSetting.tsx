@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RadioButtons } from '@repo/ui/RadioButtons';
 // import { UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
 // import { LogFormData } from '../LogWriteForm';
@@ -6,6 +6,7 @@ import { RadioButtons } from '@repo/ui/RadioButtons';
 
 interface PublicScopeSettingProps {
   setValue: any;
+  publicScope?: boolean;
 }
 
 const radioValue = [
@@ -13,8 +14,12 @@ const radioValue = [
   { id: 2, value: '비공개' },
 ];
 
-function PublicScopeSetting({ setValue }: PublicScopeSettingProps) {
+function PublicScopeSetting({
+  setValue,
+  publicScope = true,
+}: PublicScopeSettingProps) {
   const [radioData, setRadioData] = useState(radioValue);
+
   const handleRadioButton = (value: string) => {
     const newRadioValue = radioData.map(data => {
       if (data.value === value) {
@@ -31,6 +36,33 @@ function PublicScopeSetting({ setValue }: PublicScopeSettingProps) {
     }
     setRadioData(newRadioValue);
   };
+
+  useEffect(() => {
+    if (publicScope) {
+      setRadioData(pre =>
+        pre.map(item => {
+          if (item.value === '전체공개') {
+            item.isChecked = true;
+          } else {
+            item.isChecked = false;
+          }
+          return item;
+        }),
+      );
+    } else {
+      setRadioData(pre =>
+        pre.map(item => {
+          if (item.value === '비공개') {
+            item.isChecked = true;
+          } else {
+            item.isChecked = false;
+          }
+          return item;
+        }),
+      );
+    }
+  }, []);
+
   return (
     <div className='flex gap-[26px]'>
       <span className='text-text-secondary'>공개 범위</span>

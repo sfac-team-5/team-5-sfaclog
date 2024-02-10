@@ -8,6 +8,7 @@ interface TagInputProps {
   setError: any;
   clearErrors: any;
   errorMessage?: string;
+  tag?: string[];
 }
 
 export default function TagInput({
@@ -15,6 +16,7 @@ export default function TagInput({
   setError,
   clearErrors,
   errorMessage,
+  tag,
 }: TagInputProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [hashtags, setHashtags] = useState<string[]>([]);
@@ -47,6 +49,12 @@ export default function TagInput({
   };
 
   useEffect(() => {
+    if (tag) {
+      setHashtags(tag);
+    }
+  }, []);
+
+  useEffect(() => {
     setValue('tag', hashtags);
     clearErrors('tag');
   }, [hashtags]);
@@ -73,7 +81,7 @@ export default function TagInput({
         태그
       </label>
       <div
-        className='hide-scroll mb-1 h-[74px] cursor-text overflow-x-hidden overflow-y-scroll rounded-[6px] border border-neutral-30 text-B2M14 text-text-secondary'
+        className='hide-scroll border-neutral-30 text-B2M14 text-text-secondary mb-1 h-[74px] cursor-text overflow-x-hidden overflow-y-scroll rounded-[6px] border'
         onClick={handleTagBoxClick}
       >
         <div className='flex size-full items-start px-4 py-2'>
@@ -83,7 +91,7 @@ export default function TagInput({
             {hashtags.map((tag, i) => (
               <li
                 key={i}
-                className='flex max-w-[400px] items-center gap-2 rounded-full bg-tag-tag py-1 pl-3 pr-[9.5px] text-B2M14 text-text-secondary'
+                className='bg-tag-tag text-B2M14 text-text-secondary flex max-w-[400px] items-center gap-2 rounded-full py-1 pl-3 pr-[9.5px]'
               >
                 #{tag}
                 <span onClick={() => onDelete(tag)}>
@@ -99,7 +107,7 @@ export default function TagInput({
               onChange={onChange}
               onKeyDown={onKeyDown}
               placeholder='#태그 입력 (최대 3개 입력)'
-              className='shrink-0 outline-none placeholder:text-B2R14 placeholder:text-text-gray'
+              className='placeholder:text-B2R14 placeholder:text-text-gray shrink-0 outline-none'
               ref={inputRef}
             />
           </ul>

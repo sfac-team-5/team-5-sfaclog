@@ -7,9 +7,10 @@ interface TitleInputProps {
   label: string;
   setValue: any;
   errors: any;
+  watch: any;
 }
 
-function TitleInput({ label, setValue, errors }: TitleInputProps) {
+function TitleInput({ label, setValue, errors, watch }: TitleInputProps) {
   const handleTitleChange = (title: string) => {
     setValue('title', title);
   };
@@ -23,6 +24,7 @@ function TitleInput({ label, setValue, errors }: TitleInputProps) {
         id={label}
         errorMessage={errors.title?.message}
         onValueChange={handleTitleChange}
+        value={watch('title')}
       />
     </div>
   );
