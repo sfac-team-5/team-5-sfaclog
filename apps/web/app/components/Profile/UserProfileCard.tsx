@@ -7,9 +7,8 @@ import {
   ProfileSNS,
   ProfileCareer,
   UserProfileLogs,
-} from './components';
+} from './(components)';
 import PocketBase from 'pocketbase';
-import NotFound from '@/(route)/test/carousel/not-found';
 import { UserType } from '@/types';
 import { ButtonRound } from '@repo/ui/ButtonRound';
 interface UserProfileProps {
@@ -38,7 +37,6 @@ const getRecentLogs = async (id: string) => {
 };
 export async function UserProfileCard({ user }: UserProfileProps) {
   const userLogs = await getRecentLogs(user.id);
-  // if (!userLogs) return NotFound();
   return (
     <ProfileContainer>
       <ProfileIntro
