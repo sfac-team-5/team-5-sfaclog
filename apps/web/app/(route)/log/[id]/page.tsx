@@ -3,6 +3,7 @@ import NotFound from '../../../not-found';
 import CommentSection from './(components)/CommentSection/CommentSection';
 import ProfileSection from './(components)/ProfileSection/ProfileSection';
 import ContentSection from './(components)/ContentSection/ContentSection';
+import { UserProfileCard } from '@/components/Profile/UserProfileCard';
 
 export const revalidate = 1;
 
@@ -22,7 +23,8 @@ async function LogDetailPage({ params }: { params: { id: string } }) {
   return (
     <main className='container flex gap-16'>
       <div>
-        <ProfileSection user={log.expand.user} />
+        {/* <ProfileSection user={log.expand.user} /> 나중에 확인하고 삭제바랍니다 */}
+        <UserProfileCard user={log.expand.user} />
         <div>함께보면 좋은 로그</div>
       </div>
       <div className='w-full'>

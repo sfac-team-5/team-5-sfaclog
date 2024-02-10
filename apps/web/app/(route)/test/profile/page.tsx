@@ -1,9 +1,8 @@
 import React from 'react';
-import MyLog from './(components)/MyLog';
-import MyProfile from './(components)/MyProfile';
+import { UserProfileCard } from '@/components/Profile/UserProfileCard';
 import { MyProfileCard } from '@/components/Profile/MyProfileCard';
+
 const getUserInfo = async (id: string) => {
-  //임시 profile 용도
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${id}`,
     { cache: 'no-cache' },
@@ -13,17 +12,12 @@ const getUserInfo = async (id: string) => {
   return result;
 };
 
-async function MyPage() {
-  // next authr가 Id줄거에요
-  const nextAuthId = 'an6xvwgrbnfcsu8';
+export default async function page() {
   const user = await getUserInfo('an6xvwgrbnfcsu8');
   return (
-    <main className='mx-auto my-20 flex w-[1080px]'>
+    <div className='flex justify-center gap-40'>
+      <UserProfileCard user={user} />
       <MyProfileCard user={user} />
-      <MyLog userId={nextAuthId} />
-      <MyProfile userId={nextAuthId} />
-    </main>
+    </div>
   );
 }
-
-export default MyPage;

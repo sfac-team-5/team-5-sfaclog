@@ -24,18 +24,9 @@ export async function NavAuthBtn() {
           <form action={LogoutAction}>
             <button type='submit'>로그아웃</button>
           </form>
-          {/* <form
-          action={async () => {
-            'use server';
-            await userDeleteAction(session.user.id);
-            await signOut();
-          }}
-          >
-            <button>회원 탈퇴</button>
-          </form> */}
         </div>
       ) : (
-        <div className='flex gap-2'>
+        <div className='flex w-[171px] grow items-center gap-2'>
           <ButtonRound type='outline'>
             <Link href={'/login'}>로그인</Link>
           </ButtonRound>
