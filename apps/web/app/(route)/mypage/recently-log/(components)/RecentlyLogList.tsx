@@ -1,40 +1,44 @@
-import { auth } from '@/auth';
+'use client';
+
 import { LogCard } from '@/components/Card/LogCard';
-import { NoData } from '@/components/NoData';
-import React from 'react';
-import PocketBase from 'pocketbase';
+import React, { useEffect, useState } from 'react';
 import { LogType } from '@/types';
+import MyPagePagination from '@/components/Pagination/MyPagePagination';
 
-const fetchData = async () => {
-  try {
-    const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
-    const logs = await pb.collection('logs').getList(1, 3, {
-      sort: '-likes',
-    });
+interface RecentlyLogListProps {
+  page: number;
+}
 
-    logs.items.forEach(log => {
-      const thumbnailFilename = log.thumbnail;
-      log.thumbnailUrl = pb.files.getUrl(log, thumbnailFilename, {
-        thumb: '300x300',
-      });
-    });
-    return logs.items as LogType[];
-  } catch (error) {
-    return [];
-  }
-};
+function RecentlyLogList({ page }: RecentlyLogListProps) {
+  const [recentlyLogs, setRecentlyLogs] = useState<LogType[]>([]);
+  const [totalItems, setTotalItems] = useState(0);
 
-async function RecentlyLogList() {
-  const session = await auth();
-  if (!session) return;
-  const myLog = await fetchData();
-  if (myLog.length === 0) return NoData();
+  useEffect(() => {
+    const recentlyData = localStorage.getItem('watch');
+    const fetchData = async () => {
+      const response = await fetch(
+        `/api/recently-log?recently=${recentlyData}&page=${page}`,
+      );
+      if (!response.ok) return alert('데이터를 불러오는데 실패했습니다!');
+      const { recentlyLogs, totalItems } = await response.json();
+      setRecentlyLogs(recentlyLogs);
+      setTotalItems(totalItems);
+    };
+    fetchData();
+  }, []);
 
   return (
-    <div className='grid grid-cols-2 gap-6'>
-      {myLog.map(log => (
-        <LogCard variant='logPage' key={log.collectionId} log={log} />
-      ))}
+    <div>
+      <div className='mb-10 grid grid-cols-2 gap-6'>
+        {recentlyLogs?.map(log => (
+          <LogCard variant='logPage' key={log.id} log={log} />
+        ))}
+      </div>
+      <MyPagePagination
+        totalItems={totalItems}
+        page={page}
+        category='recently-log'
+      />
     </div>
   );
 }

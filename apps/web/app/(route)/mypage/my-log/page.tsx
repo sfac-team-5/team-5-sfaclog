@@ -1,11 +1,11 @@
 import React from 'react';
-import MyLog from './my-log/(compoenents)/MyLog';
+import MyLog from './(compoenents)/MyLog';
 
-async function MyPage() {
+function page() {
   const PAGE = 1;
   const CATEGORY = 'my-log';
 
   return <MyLog page={PAGE} category={CATEGORY} />;
 }
 
-export default MyPage;
+export default page;

@@ -2,37 +2,85 @@ import React from 'react';
 import PocketBase from 'pocketbase';
 import { auth } from '@/auth';
 import { NoData } from '@/components/NoData';
-import { CommentType } from '@/(route)/log/[id]/(components)/CommentSection/LogComment';
 import { formatDateToYMDHM } from '@/utils/formatDateToYMDHM';
 import { IconComment, IconReplyArrow } from '@public/svgs';
 import MyCommentDeleteButton from './MyCommentDeleteButton';
+import { Session } from 'next-auth';
+import CommentCount from './CommentCount';
+import MyPagePagination from '@/components/Pagination/MyPagePagination';
 
-const fetchData = async (userId?: string) => {
+interface MyCommentListProps {
+  page: number;
+}
+
+// 제대로 짜려면 대공사가 필요해서 성능 신경안쓰고 작성했습니다..
+const fetchData = async (session: Session | null, page: number) => {
   try {
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
-    const comments = await pb
+    const commentList = await pb
       .collection('comments')
-      .getFirstListItem(`log="adufowmt2hsfubh"`);
+      .getFullList({ expand: 'log' });
 
-    // const replyComments = await pb
-    //   .collection('replyComments')
-    //   .getFirstListItem(`log="${userId}"`);
+    const replyCommentList = await pb
+      .collection('replyComments')
+      .getFullList({ expand: 'log' });
 
-    return { myCommentList: comments.comment, logId: comments.log };
+    const filteredCommentList: any = [];
+    commentList.forEach(comments => {
+      comments.comment.forEach(
+        (item: any) => (
+          (item.logId = comments.expand?.log.id),
+          (item.logTitle = comments.expand?.log.title)
+        ),
+      );
+
+      comments.comment.length !== 0 &&
+        filteredCommentList.push(
+          ...comments.comment.filter(
+            (item: any) => item.userId === session?.user.id,
+          ),
+        );
+    });
+
+    const filteredReplyCommentList: any = [];
+    replyCommentList.forEach(replyComments => {
+      replyComments.comment.forEach(
+        (item: any) => (
+          (item.logId = replyComments.expand?.log.id),
+          (item.logTitle = replyComments.expand?.log.title)
+        ),
+      );
+
+      replyComments.comment.length !== 0 &&
+        filteredReplyCommentList.push(
+          ...replyComments.comment.filter(
+            (item: any) => item.userId === session?.user.id,
+          ),
+        );
+    });
+
+    const myCommentList = [...filteredCommentList, ...filteredReplyCommentList];
+    const sortedMyCommentList = myCommentList.sort(
+      (a, b) => new Date(b.createAt).getTime() - new Date(a.createAt).getTime(),
+    );
+
+    const result = sortedMyCommentList.slice(6 * (page - 1), 6 * page);
+
+    return { myCommentList: result, totalItems: sortedMyCommentList.length };
   } catch (error) {
-    return {};
+    return { myCommentList: [], totalItems: 0 };
   }
 };
 
-async function MyCommentList() {
+async function MyCommentList({ page }: MyCommentListProps) {
   const session = await auth();
   if (!session) return;
-  const { myCommentList, logId } = await fetchData(session?.user.id);
+  const { myCommentList, totalItems } = await fetchData(session, page);
   if (myCommentList.length === 0) return NoData();
 
   return (
     <div>
-      {myCommentList.map((comment: CommentType) => {
+      {myCommentList.map((comment: any) => {
         return (
           <div
             key={comment.id}
@@ -46,22 +94,28 @@ async function MyCommentList() {
                 {formatDateToYMDHM(comment.createAt)}
               </p>
               <MyCommentDeleteButton
-                logId={logId}
+                logId={comment.logId}
                 commentId={comment.id}
                 userId={comment.userId}
+                type={comment.commentId}
               />
             </div>
             <div className='flex h-[53px] items-center bg-tag-tag pl-[64px]'>
               <IconReplyArrow className='mr-3' />
               <p className='mr-2 text-B2R14 text-text-primary'>
-                [원문] API 좀 작성해주세요😓
+                [원문] {comment.logTitle}
               </p>
               <IconComment className='mr-[3px]' />
-              <span className='text-B3R12'>20</span>
+              <CommentCount logId={comment.logId} />
             </div>
           </div>
         );
       })}
+      <MyPagePagination
+        totalItems={totalItems}
+        page={page}
+        category='my-comment'
+      />
     </div>
   );
 }

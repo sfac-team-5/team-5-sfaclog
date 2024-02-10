@@ -1,4 +1,6 @@
 import IconArrowRightSmall from './arrows/IconArrowRightSmall.svg';
+import IconArrowRightSmallGray from './arrows/IconArrowRightSmallGray.svg';
+import IconArrowLeftSmallGray from './arrows/IconArrowLeftSmallGray.svg';
 import IconSearch from './search.svg';
 import LogoFooter from './LogoFooter.svg';
 import IconFacebook from './IconFacebook.svg';
@@ -13,13 +15,14 @@ import IconKebob from './IconKebob.svg';
 import IconBookmarkGray from './IconBookmarkGray.svg';
 import IconReplyArrow from './IconReplyArrow.svg';
 import IconComment from './IconComment.svg';
-
 import Logo from './logo.svg';
 import Complete from './complete.svg';
 import NotFoundImage from './404.svg';
 export {
   IconReplyArrow,
   IconArrowRightSmall,
+  IconArrowRightSmallGray,
+  IconArrowLeftSmallGray,
   IconSearch,
   LogoFooter,
   IconFacebook,
