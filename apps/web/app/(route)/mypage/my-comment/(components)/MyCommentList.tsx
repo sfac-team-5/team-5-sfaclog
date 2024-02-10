@@ -7,9 +7,14 @@ import { IconComment, IconReplyArrow } from '@public/svgs';
 import MyCommentDeleteButton from './MyCommentDeleteButton';
 import { Session } from 'next-auth';
 import CommentCount from './CommentCount';
+import MyPagePagination from '@/components/Pagination/MyPagePagination';
+
+interface MyCommentListProps {
+  page: number;
+}
 
 // 제대로 짜려면 대공사가 필요해서 성능 신경안쓰고 작성했습니다..
-const fetchData = async (session: Session | null) => {
+const fetchData = async (session: Session | null, page: number) => {
   try {
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
     const commentList = await pb
@@ -59,16 +64,18 @@ const fetchData = async (session: Session | null) => {
       (a, b) => new Date(b.createAt).getTime() - new Date(a.createAt).getTime(),
     );
 
-    return sortedMyCommentList;
+    const result = sortedMyCommentList.slice(6 * (page - 1), 6 * page);
+
+    return { myCommentList: result, totalItems: sortedMyCommentList.length };
   } catch (error) {
-    return [];
+    return { myCommentList: [], totalItems: 0 };
   }
 };
 
-async function MyCommentList() {
+async function MyCommentList({ page }: MyCommentListProps) {
   const session = await auth();
   if (!session) return;
-  const myCommentList = await fetchData(session);
+  const { myCommentList, totalItems } = await fetchData(session, page);
   if (myCommentList.length === 0) return NoData();
 
   return (
@@ -104,6 +111,11 @@ async function MyCommentList() {
           </div>
         );
       })}
+      <MyPagePagination
+        totalItems={totalItems}
+        page={page}
+        category='my-comment'
+      />
     </div>
   );
 }
