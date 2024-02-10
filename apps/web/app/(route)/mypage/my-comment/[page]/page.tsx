@@ -4,11 +4,12 @@ import MyCommentList from '../(components)/MyCommentList';
 
 function page({ params }: { params: { page: string } }) {
   const { page } = params;
+  const CATEGORY = 'my-comment';
 
   return (
     <div className='size-full'>
       <h1 className='text-primary mb-8 text-H1M24'>나의 활동</h1>
-      <MyPageCategory />
+      <MyPageCategory category={CATEGORY} />
       <MyCommentList page={Number(page)} />
     </div>
   );
