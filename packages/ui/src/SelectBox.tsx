@@ -30,7 +30,7 @@ export function Selectbox({
   return (
     <div className={`${widthClass}`}>
       <Listbox value={selected} onChange={handleValChange}>
-        <div className='relative mt-1'>
+        <div className='relative'>
           <Listbox.Button
             className={`ui-open:border-stroke-50 relative w-full cursor-pointer rounded-md border-[1px] bg-white py-2 pl-3 pr-10 text-left focus:outline-none sm:text-sm`}
           >
@@ -54,12 +54,12 @@ export function Selectbox({
             leaveFrom='opacity-100'
             leaveTo='opacity-0'
           >
-            <Listbox.Options className='shadow-custom absolute z-10 mt-2 max-h-60 w-full overflow-auto rounded-md bg-white p-2 text-base focus:outline-none sm:text-sm'>
+            <Listbox.Options className='shadow-custom scrollbar-hide absolute z-10 mt-2 max-h-60 w-full overflow-auto rounded-md bg-white p-2 text-base focus:outline-none sm:text-sm'>
               {selectList.map((item, itemIdx) => (
                 <Listbox.Option
                   key={itemIdx}
                   className={({ active }) =>
-                    `relative text-B1R16  rounded-md cursor-pointer select-none ${width === 'long' ? 'py-2 pl-6 pr-4' : 'py-2 pl-4 pr-2'} ${
+                    `relative text-B1R16  rounded-md cursor-pointer select-none ${width === 'long' ? 'py-2 pl-6 pr-4' : 'py-2 pl-3 pr-2'} ${
                       active ? 'bg-brand-10 text-brand-100' : 'text-neutral-40'
                     }`
                   }
