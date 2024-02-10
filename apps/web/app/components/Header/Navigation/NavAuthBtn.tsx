@@ -1,29 +1,58 @@
-import React from 'react';
+'use client';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import { Session } from 'next-auth';
 
-import { auth } from '@/auth';
-import { LogoutAction, userDeleteAction } from './action';
 import { ButtonRound } from '@repo/ui/ButtonRound';
-export async function NavAuthBtn() {
-  const session = await auth();
+import { NavNotification } from './NavNotification';
+import { NavProfile } from './NavProfile';
+import { NavMessage } from './NavMessage';
+import { usePathname } from 'next/navigation';
+
+interface NavAuthBtnProps {
+  session: Session | null;
+}
+
+export function NavAuthBtn({ session }: NavAuthBtnProps) {
+  const pathname = usePathname();
+  const [openWidget, setOpenWidget] = useState<
+    '알림' | '메시지' | '드롭다운' | null
+  >(null);
+
+  const handleOpenWidget = (
+    widgetName: '알림' | '메시지' | '드롭다운' | null,
+  ) => {
+    setOpenWidget(current => (current === widgetName ? null : widgetName));
+  };
+
+  const handleCloseWidget = () => {
+    setOpenWidget(null);
+  };
+
+  useEffect(() => {
+    setOpenWidget(null);
+  }, [pathname]);
 
   return (
     <div>
       {session?.user ? (
-        <div className='flex'>
-          <Image
-            src={session.user.image || ''}
-            width={30}
-            height={30}
-            alt='avatar'
-            className='rounded-full'
+        <div className='flex items-center gap-5'>
+          <NavNotification
+            userid={session.user.id}
+            isOpen={openWidget === '알림'}
+            onToggle={() => handleOpenWidget('알림')}
+            onClose={handleCloseWidget}
           />
-          <div className='mx-2 '>{session?.user.name}</div>
-          <div className='mx-2 '>{session?.user.email}</div>
-          <form action={LogoutAction}>
-            <button type='submit'>로그아웃</button>
-          </form>
+          <NavMessage
+            isOpen={openWidget === '메시지'}
+            onToggle={() => handleOpenWidget('메시지')}
+            onClose={handleCloseWidget}
+          />
+          <NavProfile
+            image={session.user.image || ''}
+            isOpen={openWidget === '드롭다운'}
+            onToggle={() => handleOpenWidget('드롭다운')}
+          />
         </div>
       ) : (
         <div className='flex w-[171px] grow items-center gap-2'>

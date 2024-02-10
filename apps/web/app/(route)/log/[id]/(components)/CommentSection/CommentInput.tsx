@@ -10,7 +10,7 @@ interface CommentInputProps {
   logId: string;
 }
 
-interface CommentFormData {
+export interface CommentFormData {
   text: string;
   publicScope: boolean;
 }
@@ -31,7 +31,6 @@ function CommentInput({ logId }: CommentInputProps) {
       body: JSON.stringify(data),
     }).then(() => {
       reset();
-
       router.refresh();
     });
   };
@@ -49,7 +48,7 @@ function CommentInput({ logId }: CommentInputProps) {
     <form className='flex flex-col gap-3' onSubmit={handleSubmit(onSubmit)}>
       <textarea
         {...textRegister}
-        className='h-[80px] resize-none rounded-[6px] border px-4 py-2 placeholder:text-B2R14 placeholder:text-neutral-40'
+        className='placeholder:text-B2R14 placeholder:text-neutral-40 h-[80px] resize-none rounded-[6px] border px-4 py-2'
         placeholder='댓글을 입력해보세요.'
       />
       <div className='flex items-center justify-between'>
@@ -60,7 +59,9 @@ function CommentInput({ logId }: CommentInputProps) {
             className='hidden'
             onClick={handleScopeClick}
           />
-          {!isChecked ? <IconCheckBoxBlue /> : <IconCheckBoxGray />}
+          <div className='size-6'>
+            {!isChecked ? <IconCheckBoxBlue /> : <IconCheckBoxGray />}
+          </div>
           <span className='text-B3R12'>댓글 비공개</span>
         </label>
         <Button type='submit' size='s' label='댓글 등록' />

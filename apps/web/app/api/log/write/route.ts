@@ -2,15 +2,15 @@ import { auth } from '@/auth';
 import { NextRequest, NextResponse } from 'next/server';
 import PocketBase from 'pocketbase';
 
-interface LogDataType {
+export interface LogDataType {
   user: string | undefined;
   series: FormDataEntryValue | null;
   title: FormDataEntryValue | null;
   tags: string;
   thumbnail?: FormDataEntryValue | null;
   content: FormDataEntryValue | null;
-  views: number;
-  likes: number;
+  views?: number;
+  likes?: number;
   isVisibility: boolean;
 }
 
@@ -43,6 +43,12 @@ export async function POST(request: NextRequest) {
     await pb
       .collection('replyComments')
       .create({ log: newLog.id, comment: JSON.stringify([]) });
+    await pb
+      .collection('likeLogs')
+      .create({ log: newLog.id, user: JSON.stringify([]) });
+    await pb
+      .collection('bookmarks')
+      .create({ log: newLog.id, user: JSON.stringify([]) });
 
     return NextResponse.json(newLog);
   } catch (error) {

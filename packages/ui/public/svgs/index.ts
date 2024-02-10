@@ -16,6 +16,7 @@ import IconArrowRightBlack from './arrows/arrow_right_black.svg';
 //message icon import
 import IconMessageBlue from './messages/message_blue.svg';
 import IconMessageGray from './messages/message_gray.svg';
+import IconMessageLine from './messages/massage_line.svg';
 //view icon import
 import IconViewBlue from './views/view_blue.svg';
 import IconViewGray from './views/view_gray.svg';
@@ -28,11 +29,12 @@ import IconHeartGary from './hearts/heart_gray.svg';
 import IconHeartBoxBlue from './hearts/heart_box_blue.svg';
 import IconHeartBoxGray from './hearts/heart_box_gray.svg';
 // alarm icon import
-import IconAlaramBlue from './alarms/alarm_blue.svg';
-import IconAlaramBlack from './alarms/alarm_black.svg';
-import IconAlaramGray from './alarms/alarm_gray.svg';
-import IconAlarmBoxBlue from './alarms/alarm_box_blue.svg';
-import IconAlarmBoxGray from './alarms/alarm_box_gray.svg';
+import IconAlramBlue from './alarms/alarm_blue.svg';
+import IconAlramBlack from './alarms/alarm_black.svg';
+import IconAlramGray from './alarms/alarm_gray.svg';
+import IconAlramBoxBlue from './alarms/alarm_box_blue.svg';
+import IconAlramLineBlack from './alarms/alarm_line_black.svg';
+import IconAlramBoxGray from './alarms/alarm_box_gray.svg';
 // check icon import
 import IconCheckBoxBlue from './checks/check_box_blue.svg';
 import IconCheckBoxGray from './checks/check_box_gray.svg';
@@ -91,6 +93,7 @@ export {
   IconArrowUpBlack,
   IconMessageBlue,
   IconMessageGray,
+  IconMessageLine,
   IconViewBlack,
   IconViewBlue,
   IconViewCancel,
@@ -100,11 +103,12 @@ export {
   IconHeartGary,
   IconHeartBoxBlue,
   IconHeartBoxGray,
-  IconAlaramBlack,
-  IconAlaramBlue,
-  IconAlaramGray,
-  IconAlarmBoxBlue,
-  IconAlarmBoxGray,
+  IconAlramBlack,
+  IconAlramBlue,
+  IconAlramGray,
+  IconAlramBoxBlue,
+  IconAlramBoxGray,
+  IconAlramLineBlack,
   IconCheckBlack,
   IconCheckBoxBlue,
   IconCheckBoxGray,

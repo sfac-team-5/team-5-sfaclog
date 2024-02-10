@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { auth } from '@/auth';
 
 import { NavAuthBtn } from './NavAuthBtn';
 import { NavSearch } from './NavSearch';
@@ -6,6 +7,8 @@ import { Tabs } from '@repo/ui/Tabs';
 import { Logo } from '@public/svgs';
 
 export async function Navigation() {
+  const session = await auth();
+
   const navClasses =
     'ui-selected:font-bold ui-selected:border-neutral-90 ui-selected:border-b-2 flex h-[64px] w-max items-center justify-center border-b-2 border-transparent px-[24px] py-[10px] text-[16px] outline-none duration-200 ease-in-out';
 
@@ -31,9 +34,9 @@ export async function Navigation() {
           커뮤니티
         </Link>
       </Tabs>
-      <div className='ml-auto flex items-center gap-3'>
+      <div className='ml-auto flex items-center gap-14'>
         <NavSearch />
-        <NavAuthBtn />
+        <NavAuthBtn session={session} />
       </div>
     </nav>
   );

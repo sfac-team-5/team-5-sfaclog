@@ -28,7 +28,7 @@ async function ProfileSection({ user }: ProfileSectionProps) {
   if (!userLogs) return NotFound();
 
   return (
-    <div className='shadow-custom w-[245px] px-5 pt-5'>
+    <div className='shadow-custom w-[245px]  p-5'>
       <div className='border-neutral-10 mb-6 space-y-6 border-b pb-4'>
         <div className='overflow-hidden rounded-md'>
           {/* <Image
@@ -38,10 +38,10 @@ async function ProfileSection({ user }: ProfileSectionProps) {
           height={185}
         /> */}
           <Image
-            src={`${process.env.POCKETBASE_URL}/api/files/users/${user.id}/${user.avatar}?thumb=185x185`}
+            src={`${process.env.POCKETBASE_URL}/api/files/users/${user.id}/${user.avatar}?thumb=205x205`}
             alt='avatar'
-            width={185}
-            height={185}
+            width={205}
+            height={205}
           />
         </div>
         <div className='text-text-primary space-y-3'>

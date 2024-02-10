@@ -7,26 +7,40 @@ import { LogFormData } from '../LogWriteForm';
 interface ImagesInputProps {
   register: UseFormRegisterReturn<'thumbnail'>;
   watch: UseFormWatch<LogFormData>;
+  thumbnail?: string;
+  logId?: string;
 }
 
-function ImagesInput({ register, watch }: ImagesInputProps) {
+function ImagesInput({ register, watch, thumbnail, logId }: ImagesInputProps) {
   const [newPrevImage, setNewPrevImage] = useState('');
   const previewImage = watch('thumbnail');
 
   useEffect(() => {
-    if (previewImage && previewImage.length > 0) {
+    if (
+      previewImage &&
+      typeof previewImage === 'object' &&
+      previewImage.length > 0
+    ) {
       const file = previewImage[0];
       const previewURL = URL.createObjectURL(file as File);
       setNewPrevImage(previewURL);
     }
   }, [previewImage]);
 
+  useEffect(() => {
+    if (thumbnail && thumbnail?.length > 0 && logId) {
+      setNewPrevImage(
+        `http://3.35.176.72:8090/api/files/logs/${logId}/${thumbnail}`,
+      );
+    }
+  }, []);
+
   return (
     <div>
       <div>
         <label
           htmlFor='thumbnail'
-          className='relative flex aspect-square w-[198px] cursor-pointer flex-col items-center justify-center gap-2 overflow-hidden rounded-md border border-stroke-30 bg-neutral-5'
+          className='border-stroke-30 bg-neutral-5 relative flex aspect-square w-[198px] cursor-pointer flex-col items-center justify-center gap-2 overflow-hidden rounded-md border'
         >
           {newPrevImage.length !== 0 ? (
             <Image src={newPrevImage} alt='preview' fill objectFit='cover' />

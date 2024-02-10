@@ -15,15 +15,22 @@ export async function MyProfileCard({ user }: { user: UserType }) {
     <ProfileContainer>
       <MyProfileHeader updateMyPofileLink='#' />
       <ProfileIntro
-        username={user.nickname}
-        userintro={user.intro}
-        imageUrl={`${process.env.POCKETBASE_URL}/api/files/users/${user.id}/${user.avatar}?thumb=185x185`}
+        username={user.nickname || 'error'}
+        userintro={user.intro || 'error'}
+        imageUrl={
+          `${process.env.POCKETBASE_URL}/api/files/users/${user.id}/${user.avatar}?thumb=185x185` ||
+          'error'
+        }
       />
       <div className='mt-6'>
         <ProfileFlwFlwer follow={24} follower={999} />
       </div>
-      <Hr />
-      <ProfileCareer career={user.career} />
+      {Object.entries(user.career).length !== 0 && (
+        <>
+          <Hr />
+          <ProfileCareer career={user.career} />
+        </>
+      )}
       <Hr />
       <div className='flex flex-col gap-3'>
         <div className='text-B1B16'>나의 활동</div>

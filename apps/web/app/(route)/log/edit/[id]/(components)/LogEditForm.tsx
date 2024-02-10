@@ -9,7 +9,17 @@ import TagInput from '@/(route)/log/write/(components)/LogWriteForm/(components)
 import ImagesInput from '@/(route)/log/write/(components)/LogWriteForm/(components)/ImagesInput';
 import SeriesSetting from '@/(route)/log/write/(components)/LogWriteForm/(components)/SeriesSetting';
 import PublicScopeSetting from '@/(route)/log/write/(components)/LogWriteForm/(components)/PublicScopeSetting';
+import Button from '@repo/ui/Button';
+import { useRouter } from 'next/navigation';
+import { editLogApi } from '@/utils/editLogApi';
+
 // import ActionButton from '@/(route)/log/write/(components)/LogWriteForm/(components)/ActionButton';
+
+const selectList = [
+  { value: '카테고리1' },
+  { value: '카테고리2' },
+  { value: '카테고리3' },
+];
 
 interface LogEditFormProps {
   log: any;
@@ -21,7 +31,9 @@ const ContentEditor = dynamic(
       '@/(route)/log/write/(components)/LogWriteForm/(components)/ContentInput'
     ),
   {
-    loading: () => <p>Loading...</p>,
+    loading: () => (
+      <div className='border-stroke-30 h-[400px] w-[670px] rounded-md border'></div>
+    ),
     ssr: false,
   },
 );
@@ -40,28 +52,49 @@ function LogEditForm({ log }: LogEditFormProps) {
     id,
     title,
     user,
-    tag,
+    tags,
     thumbnail,
     content: prevContent,
-    publicScope,
+    isVisibility,
     series,
   } = log;
-  console.log(thumbnail);
+
   const {
     register,
     setValue,
+    getValues,
     formState: { errors },
     control,
+    watch,
+    setError,
+    clearErrors,
   } = useForm<LogFormData>({
     defaultValues: {
       title,
-      tag,
+      tag: tags,
       thumbnail,
       content: prevContent,
-      publicScope,
+      publicScope: isVisibility,
       series,
     },
   });
+  const router = useRouter();
+  // const onFormdataSubmit = async ({
+  //   formData,
+  //   data,
+  // }: {
+  //   formData: FormData;
+  //   data: LogFormData;
+  // }) => {
+  //   formData.set('thumbnail', data.thumbnail && (data.thumbnail[0] as any));
+  //   const response = await fetch(
+  //     `${process.env.NEXT_PUBLIC_BASE_URL}/api/log/${id}`,
+  //     {
+  //       method: 'PUT',
+  //       body: formData,
+  //     },
+  //   );
+  // };
 
   const onFormdataSubmit = async ({
     formData,
@@ -70,14 +103,31 @@ function LogEditForm({ log }: LogEditFormProps) {
     formData: FormData;
     data: LogFormData;
   }) => {
+    // 리펙토링 필요 T_T
+    if (data.tag) {
+      for (const tag of data.tag) {
+        formData.append('tags', tag);
+      }
+    }
+
     formData.set('thumbnail', data.thumbnail && (data.thumbnail[0] as any));
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/log/${id}`,
-      {
-        method: 'PUT',
-        body: formData,
-      },
-    );
+
+    // const response = await fetch(
+    //   `${process.env.NEXT_PUBLIC_BASE_URL}/api/log/${id}`,
+    //   {
+    //     method: 'PUT',
+    //     body: formData,
+    //   },
+    // );
+    // const updatgeLog = await response.json();
+    // if (updatgeLog) {
+    //   router.push(`/log/${updatgeLog.id}`);
+    //   router.refresh();
+    // }
+
+    editLogApi({ formData, id }).then(() => {
+      router.push(`/log/${id}`);
+    });
   };
 
   // const onSubmit: SubmitHandler<LogFormData> = async data => {
@@ -106,14 +156,55 @@ function LogEditForm({ log }: LogEditFormProps) {
   const seriesRegister = register('series');
 
   return (
-    <Form onSubmit={onFormdataSubmit} control={control}>
-      {/* <TitleInput register={titleRegister} />
-      <TagInput />
-      <ImagesInput register={thumbnailRegister} />
-      <ContentEditor setValue={setValue} prevContent={prevContent} />
-      <PublicScopeSetting register={publicScopeRegister} />
-      <SeriesSetting />
-      <ActionButton /> */}
+    <Form
+      onSubmit={onFormdataSubmit}
+      control={control}
+      className='mx-auto max-w-[670px]'
+    >
+      <div className='mb-10 flex gap-6'>
+        <div className='flex w-full flex-col gap-[22px]'>
+          <TitleInput
+            label='제목'
+            setValue={setValue}
+            errors={errors}
+            watch={watch}
+          />
+          {/* <TitleInput register={titleRegister} /> */}
+          {/* <TagInput /> */}
+          <TagInput
+            setValue={setValue}
+            setError={setError}
+            clearErrors={clearErrors}
+            errorMessage={errors.tag?.message}
+            tag={tags}
+          />
+        </div>
+        {/* <ImagesInput register={thumbnailRegister} /> */}
+        <ImagesInput
+          register={thumbnailRegister}
+          watch={watch}
+          thumbnail={thumbnail}
+          logId={id}
+        />
+      </div>
+      {/* <ContentEditor setValue={setValue} prevContent={prevContent} /> */}
+      <ContentEditor setValue={setValue} getValues={getValues} />
+      <div className='flex items-center justify-between pb-[60px] pt-10'>
+        {/* <PublicScopeSetting register={publicScopeRegister} /> */}
+        <PublicScopeSetting setValue={setValue} publicScope={isVisibility} />
+        {/* <SeriesSetting /> */}
+        <SeriesSetting setValue={setValue} selectList={selectList} />
+      </div>
+      <div className='bg-neutral-5 fixed bottom-0 left-0 flex w-full items-center justify-end gap-5 px-[60px] py-3'>
+        <p className='text-B3R12 text-neutral-40'>자동 저장 완료 00:00:00</p>
+        <Button type='button' size='s' label='임시저장' disabled={true} />
+        <Button
+          type='submit'
+          size='s'
+          label='수정하기'
+          onClick={() => onFormdataSubmit}
+        />
+      </div>
     </Form>
   );
 }
