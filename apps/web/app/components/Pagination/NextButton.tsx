@@ -10,7 +10,10 @@ interface NextButtonProps {
 
 function NextButton({ 총페이지, page, category }: NextButtonProps) {
   return (
-    <Link href={`/mypage/${category}/${page + 1}`}>
+    <Link
+      href={`/mypage/${category}/${page + 1}`}
+      className='flex items-center'
+    >
       <button disabled={page === 총페이지 ? true : false}>
         <IconArrowRightSmallGray />
       </button>
