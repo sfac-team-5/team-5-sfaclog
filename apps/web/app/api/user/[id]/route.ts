@@ -8,9 +8,15 @@ export async function GET(
   const { id } = params;
   try {
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
-    const log = await pb.collection('users').getOne(id);
+    const record = await pb.collection('users').getOne(id, {
+      fields: '*',
+    });
+    const avatarFilename = record.avatar;
+    record.avatarUrl = pb.files.getUrl(record, avatarFilename, {
+      thumb: '300x300',
+    });
 
-    return NextResponse.json(log, { status: 200 });
+    return NextResponse.json(record, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       {

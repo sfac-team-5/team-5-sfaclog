@@ -1,7 +1,9 @@
 'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
+
 import { submitAction } from '../action';
 import { useRouter } from 'next/navigation';
 import { InputBox } from '@repo/ui/InputBox';
@@ -36,6 +38,7 @@ export default function LoginForm() {
     if (loginSuccess) {
       alert('로그인되었습니다.');
       router.push('/');
+      router.refresh();
     } else {
       console.log('다시 로그인해 주세요.');
     }
