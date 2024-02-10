@@ -1,13 +1,17 @@
 import React from 'react';
 import MyLogList from './MyLogList';
-import MyPageCategory from './MyPageCategory';
+import MyPageCategory from '../../(components)/MyPageCategory';
 
-async function MyLog() {
+interface MyLogProps {
+  page: number;
+}
+
+async function MyLog({ page }: MyLogProps) {
   return (
     <div className='size-full'>
       <h1 className='text-primary mb-8 text-H1M24'>나의 활동</h1>
       <MyPageCategory />
-      <MyLogList />
+      <MyLogList page={page} />
     </div>
   );
 }
