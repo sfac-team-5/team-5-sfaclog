@@ -1,14 +1,9 @@
 interface UrlInputProps {
-  setValue: any;
+  register: any;
   errors: any;
-  watch: any;
 }
 
-function UrlInput({ setValue, errors, watch }: UrlInputProps) {
-  const handleValueChange = (value: string) => {
-    setValue('nickname', value);
-  };
-
+function UrlInput({ register, errors }: UrlInputProps) {
   return (
     <div className='flex flex-col gap-2'>
       <div className='border-neutral-70 flex h-10 w-full rounded-md border'>
@@ -16,10 +11,11 @@ function UrlInput({ setValue, errors, watch }: UrlInputProps) {
           sfaclog.kr/
         </div>
         <input
+          {...register('pageUrl', {
+            required: 'URL은 필수입니다.',
+          })}
           type='text'
-          value={'userURL'}
           className='text-B2R14 text-neutral-70 w-[calc(100%-130px)] p-2.5 outline-none'
-          onChange={() => {}}
         />
       </div>
     </div>

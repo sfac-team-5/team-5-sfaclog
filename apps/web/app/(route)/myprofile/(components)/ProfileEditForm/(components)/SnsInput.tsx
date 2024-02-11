@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react';
 import { Controller } from 'react-hook-form';
 
 interface SnsInputProps {
+  setValue: any;
   control: any;
   snsValues: any;
 }
@@ -95,19 +96,9 @@ const selectList = [
   },
 ];
 
-function SnsInput({ control, snsValues }: SnsInputProps) {
+function SnsInput({ setValue, control, snsValues }: SnsInputProps) {
   const [snsInputs, setSnsInputs] = useState([{ type: '', url: '' }]);
   const maxInputs = 8; // 최대 입력 가능한 SNS 개수
-
-  useEffect(() => {
-    if (Object.keys(snsValues).length > 0) {
-      const inputs = Object.entries(snsValues).map(([key, value]) => ({
-        type: key.split('_')[0] || '', // "Github", "Linkedin" 등의 타입 추출
-        url: value as string,
-      }));
-      setSnsInputs(inputs);
-    }
-  }, [snsValues]);
 
   const addInput = () => {
     if (snsInputs.length < maxInputs) {
@@ -127,6 +118,21 @@ function SnsInput({ control, snsValues }: SnsInputProps) {
     return selectList.find(option => option.dataValue === type);
   };
 
+  // snsInputs 초기 값 설정
+  useEffect(() => {
+    if (Object.keys(snsValues).length > 0) {
+      const inputs = Object.entries(snsValues).map(([key, value]) => ({
+        type: key.split('_')[0] || '', // "Github", "Linkedin" 등의 타입 추출
+        url: value as string,
+      }));
+      setSnsInputs(inputs);
+    }
+  }, [snsValues]);
+
+  useEffect(() => {
+    setValue('sns', snsInputs); // sns 필드 업데이트
+  }, [snsInputs, setValue]);
+
   return (
     <div className='flex flex-col gap-3'>
       <InputTitle label='SNS' />
@@ -135,7 +141,7 @@ function SnsInput({ control, snsValues }: SnsInputProps) {
         <Controller
           key={index}
           control={control}
-          name={`snsInputs[${index}]`}
+          name={`sns[${index}]`}
           render={({ field }) => (
             <div className='flex items-center gap-2'>
               <Selectbox
@@ -143,15 +149,30 @@ function SnsInput({ control, snsValues }: SnsInputProps) {
                 width='short'
                 selectList={selectList}
                 selectedOption={findSelectedOption(input.type)}
-                onChange={e => field.onChange(e.target.value)}
+                onChange={e => {
+                  const selectedType = e.dataValue;
+                  const updatedInputs = snsInputs.map((item, i) => {
+                    if (i === index) {
+                      return { ...item, type: selectedType };
+                    }
+                    return item;
+                  });
+                  setSnsInputs(updatedInputs);
+                }}
               />
               <div className='w-[238px]'>
                 <InputBox
                   placeholder='https://'
                   value={input.url}
-                  onChange={e =>
-                    field.onChange({ ...field.value, url: e.target.value })
-                  }
+                  onChange={e => {
+                    const updatedInputs = snsInputs.map((item, i) => {
+                      if (i === index) {
+                        return { ...item, url: e.target.value };
+                      }
+                      return item;
+                    });
+                    setSnsInputs(updatedInputs);
+                  }}
                 />
               </div>
               <IconCancelBoxGray

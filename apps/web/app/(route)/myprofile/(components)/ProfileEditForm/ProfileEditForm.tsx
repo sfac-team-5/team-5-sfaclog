@@ -75,10 +75,18 @@ function ProfileEditForm({ profile }: ProfileEditFormProps) {
           </div>
         </div>
         <PhoneInput register={register} errors={errors} />
-        <SnsInput control={control} snsValues={profile.sns} />
-        <CareerInput setValue={setValue} errors={errors} watch={watch} />
-        <IntroInput setValue={setValue} errors={errors} watch={watch} />
-        <UrlInput setValue={setValue} errors={errors} watch={watch} />
+        <SnsInput
+          setValue={setValue}
+          control={control}
+          snsValues={profile.sns}
+        />
+        <CareerInput
+          setValue={setValue}
+          errors={errors}
+          careerValues={profile.career}
+        />
+        <IntroInput register={register} errors={errors} />
+        <UrlInput register={register} errors={errors} />
         <InterestsInput setValue={setValue} errors={errors} watch={watch} />
         <OffersInput setValue={setValue} errors={errors} watch={watch} />
       </div>
