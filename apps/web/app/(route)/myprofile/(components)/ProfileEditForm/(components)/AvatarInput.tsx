@@ -7,7 +7,7 @@ import AvatarImage from '@/components/AvatarImage';
 import { Avatar } from '@/components/Avatar';
 
 interface AvatarInputProps {
-  register: UseFormRegisterReturn<'avatar'>;
+  register: any;
   watch: UseFormWatch<UserType>;
   avatarUrl: string;
 }
@@ -52,7 +52,7 @@ function AvatarInput({ register, watch, avatarUrl }: AvatarInputProps) {
         )}
       </div>
       <input
-        {...register}
+        {...register('avatar')}
         type='file'
         id='profileAvatar'
         className='hidden'

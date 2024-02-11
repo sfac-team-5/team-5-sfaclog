@@ -10,11 +10,19 @@ import {
 
 interface CareerInputProps {
   setValue: any;
+  setError: any;
+  clearErrors: any;
   errors: any;
   inputValues: any;
 }
 
-function CareerInput({ setValue, errors, inputValues }: CareerInputProps) {
+function CareerInput({
+  setValue,
+  setError,
+  clearErrors,
+  errors,
+  inputValues,
+}: CareerInputProps) {
   const [careerInputs, setCareerInputs] = useState([
     { from: '', to: '', status: false, company: '' },
   ]);
@@ -37,6 +45,8 @@ function CareerInput({ setValue, errors, inputValues }: CareerInputProps) {
     }
   };
 
+  const validateDate = (date: string) => /^\d{4}-\d{2}$/.test(date);
+
   // 입력 필드 변경 핸들러
   const handleInputChange = (index: number, field: string, value: any) => {
     const updatedInputs = careerInputs.map((input, i) =>
@@ -44,6 +54,17 @@ function CareerInput({ setValue, errors, inputValues }: CareerInputProps) {
     );
     setCareerInputs(updatedInputs);
     setValue(`career[${index}].${field}`, value); // react-hook-form 상태 업데이트
+
+    clearErrors(`career`);
+    // Custom validation for 'from' and 'to' fields
+    if (field === 'from' || field === 'to') {
+      if (!validateDate(value)) {
+        setError(`career`, {
+          type: 'manual',
+          message: "날짜 형식은 'YYYY-MM'이어야 합니다.",
+        });
+      }
+    }
   };
 
   // 체크박스 변경 핸들러
@@ -124,7 +145,9 @@ function CareerInput({ setValue, errors, inputValues }: CareerInputProps) {
         </div>
       ))}
 
-      {errors.career && <p>{errors.career.from.message}</p>}
+      {errors.career && (
+        <p className='text-B3R12 text-text-waring'>{errors.career.message}</p>
+      )}
 
       {careerInputs.length < maxInputs && <InputAddButton onClick={addInput} />}
       {careerInputs.length >= maxInputs && (

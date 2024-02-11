@@ -18,6 +18,10 @@ function UrlInput({ register, errors }: UrlInputProps) {
           className='text-B2R14 text-neutral-70 w-[calc(100%-130px)] p-2.5 outline-none'
         />
       </div>
+
+      {errors.pageUrl && (
+        <p className='text-B3R12 text-text-waring'>{errors.pageUrl.message}</p>
+      )}
     </div>
   );
 }

@@ -44,8 +44,6 @@ function ProfileEditForm({ profile }: ProfileEditFormProps) {
     console.log('data', data);
   };
 
-  const avatarRegister = register('avatar');
-
   return (
     <Form
       onSubmit={onFormdataSubmit}
@@ -57,7 +55,7 @@ function ProfileEditForm({ profile }: ProfileEditFormProps) {
       <div className='mb-[52px] flex flex-col gap-11'>
         <div className='flex gap-[26px]'>
           <AvatarInput
-            register={avatarRegister}
+            register={register}
             watch={watch}
             avatarUrl={profile.avatarUrl}
           />
@@ -82,10 +80,12 @@ function ProfileEditForm({ profile }: ProfileEditFormProps) {
         />
         <CareerInput
           setValue={setValue}
+          setError={setError}
+          clearErrors={clearErrors}
           errors={errors}
           inputValues={profile.career}
         />
-        <IntroInput register={register} errors={errors} />
+        <IntroInput register={register} />
         <UrlInput register={register} errors={errors} />
         <InterestsInput setValue={setValue} inputValues={profile.interests} />
         <OffersInput setValue={setValue} inputValues={profile.offers} />

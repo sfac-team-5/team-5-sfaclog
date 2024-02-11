@@ -43,7 +43,13 @@ function PhoneInput({ register, errors }: PhoneInputProps) {
         <div className='w-[250px]'>
           <InputBox
             placeholder='휴대폰 번호를 입력해 주세요.'
-            {...register('phone')}
+            {...register('phone', {
+              pattern: {
+                value: /^010\d{8}$/,
+                message:
+                  '휴대폰 번호는 010으로 시작하는 11자리 숫자여야 합니다.',
+              },
+            })}
           />
         </div>
         <button className='bg-neutral-5 rounded-md px-6'>인증 번호 전송</button>
@@ -53,6 +59,9 @@ function PhoneInput({ register, errors }: PhoneInputProps) {
         {...register('authnum')}
         errorMessage={errors.authnum?.message}
       />
+      {errors.phone && (
+        <p className='text-B3R12 text-text-waring'>{errors.phone.message}</p>
+      )}
     </div>
   );
 }
