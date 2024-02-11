@@ -1,6 +1,7 @@
 import PocketBase from 'pocketbase';
 import { NextRequest, NextResponse } from 'next/server';
 
+//유저 회원가입
 export async function POST(req: NextRequest) {
   const data = await req.json();
 
@@ -28,13 +29,13 @@ export async function POST(req: NextRequest) {
     // return NextResponse.json({ status: 200, ...record });
   } catch (error: any) {
     return NextResponse.json({ isCreated: false }, { status: 400 });
-    const errorData = error.originalError.data.data;
-    const firstKey = Object.keys(errorData)[0];
-    const errorMessage = errorData[firstKey as string].message;
+    // const errorData = error.originalError.data.data;
+    // const firstKey = Object.keys(errorData)[0];
+    // const errorMessage = errorData[firstKey as string].message;
 
-    return NextResponse.json({
-      status: error.originalError.status || 400, // 상태 코드
-      message: errorMessage || 'Failed to create record.', // 오류 메시지
-    });
+    // return NextResponse.json({
+    //   status: error.originalError.status || 400, // 상태 코드
+    //   message: errorMessage || 'Failed to create record.', // 오류 메시지
+    // });
   }
 }

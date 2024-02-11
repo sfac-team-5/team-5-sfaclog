@@ -18,12 +18,15 @@ async function Page({ params }: { params: { id: string } }) {
   const session = await auth();
   return (
     <div>
-      <MypageNotFound
-        title='아직 작성한 로그가 없어요'
-        description='나만의 로그를 작성해보세요'
-        buttonLabel='로그 작성하기'
-        href='#'
-      />
+      <div className='mx-14'>
+        <MypageNotFound
+          title='아직 작성한 로그가 없어요'
+          description='나만의 로그를 작성해보세요'
+          buttonLabel='로그 작성하기'
+          href='#'
+        />
+        <MypageNotFound title='아직 아무도 회원님을 팔로우하지 않았어요.' />
+      </div>
       <Avatar size='l' type='all' />
       <Avatar size='m' />
       <Avatar size='s' />

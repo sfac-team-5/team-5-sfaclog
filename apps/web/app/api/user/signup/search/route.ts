@@ -39,7 +39,7 @@ export async function GET(req: NextRequest) {
     .collection('users')
     .getFirstListItem(`${type}="${data}"`)
     .then(result => result)
-    .catch(err => null);
+    .catch(() => null);
   if (!record) {
     return NextResponse.json(
       {
