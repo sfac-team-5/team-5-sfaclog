@@ -87,7 +87,11 @@ function ProfileEditForm({ profile }: ProfileEditFormProps) {
         />
         <IntroInput register={register} errors={errors} />
         <UrlInput register={register} errors={errors} />
-        <InterestsInput setValue={setValue} errors={errors} watch={watch} />
+        <InterestsInput
+          setValue={setValue}
+          errors={errors}
+          inputValues={profile.interests}
+        />
         <OffersInput setValue={setValue} errors={errors} watch={watch} />
       </div>
 

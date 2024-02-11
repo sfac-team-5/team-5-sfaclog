@@ -1,9 +1,11 @@
 'use client';
 import { IconCheckBoxBlue, IconCheckBoxGray } from '@repo/ui/Icon';
+
 interface RadioButtonsProps {
   value: string;
   name: string;
   label: string;
+  checked?: boolean;
   onChange: ({
     name,
     value,
@@ -15,7 +17,13 @@ interface RadioButtonsProps {
   }) => void;
 }
 
-export function Check({ value, name, label, onChange }: RadioButtonsProps) {
+export function Check({
+  value,
+  name,
+  label,
+  checked = false,
+  onChange,
+}: RadioButtonsProps) {
   return (
     <div className='inline-block p-[10px]'>
       <label className='group flex gap-[10px]'>
@@ -24,6 +32,7 @@ export function Check({ value, name, label, onChange }: RadioButtonsProps) {
           name={name}
           className='peer hidden'
           value={value}
+          checked={checked}
           onChange={e =>
             onChange({ name, value: e.target.value, checked: e.target.checked })
           }
