@@ -41,8 +41,12 @@ export async function POST(request: NextRequest) {
       }
 
       const record = await pb.collection('users').update(dataObj.id, data);
-      revalidatePath('/myprofile');
-      return NextResponse.json({ record, revalidated: true });
+      const avatarFilename = record.avatar;
+      record.avatarUrl = await pb.files.getUrl(record, avatarFilename, {
+        thumb: '300x300',
+      });
+
+      return NextResponse.json({ record, avatarFilename, revalidated: true });
     }
   } catch (error: any) {
     const errorData = error.originalError.data;

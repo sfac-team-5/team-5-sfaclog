@@ -13,7 +13,14 @@ interface CareerInputProps {
   setError: any;
   clearErrors: any;
   errors: any;
-  inputValues: any;
+  watch: any;
+}
+
+interface CareerType {
+  from: string;
+  to: string;
+  status: boolean;
+  company: string;
 }
 
 function CareerInput({
@@ -21,48 +28,47 @@ function CareerInput({
   setError,
   clearErrors,
   errors,
-  inputValues,
+  watch,
 }: CareerInputProps) {
-  const [careerInputs, setCareerInputs] = useState([
-    { from: '', to: '', status: false, company: '' },
-  ]);
+  const watchedCareerInputs = watch('career') as CareerType[];
   const maxInputs = 5; // 최대 입력 가능한 경력 사항 개수
 
   const addInput = () => {
-    if (careerInputs.length < maxInputs) {
-      setCareerInputs([
-        ...careerInputs,
-        { from: '', to: '', status: false, company: '' },
-      ]);
+    const newInputs = [
+      ...watchedCareerInputs,
+      { from: '', to: '', status: false, company: '' },
+    ];
+    if (newInputs.length <= maxInputs) {
+      setValue('career', newInputs);
     }
   };
 
   const removeInput = (index: number) => {
-    if (careerInputs.length === 1) {
-      setCareerInputs([{ from: '', to: '', status: false, company: '' }]);
-    } else {
-      setCareerInputs(careerInputs.filter((_, i) => i !== index));
-    }
+    const newInputs = watchedCareerInputs.filter((_, i) => i !== index);
+    setValue('career', newInputs);
   };
 
   const validateDate = (date: string) => /^\d{4}-\d{2}$/.test(date);
 
   // 입력 필드 변경 핸들러
-  const handleInputChange = (index: number, field: string, value: any) => {
-    const updatedInputs = careerInputs.map((input, i) =>
+  const handleInputChange = (
+    index: number,
+    field: keyof CareerType,
+    value: any,
+  ) => {
+    const newInputs = watchedCareerInputs.map((input: CareerType, i: number) =>
       i === index ? { ...input, [field]: value } : input,
     );
-    setCareerInputs(updatedInputs);
-    setValue(`career[${index}].${field}`, value); // react-hook-form 상태 업데이트
+    setValue('career', newInputs);
 
-    clearErrors(`career`);
-    // Custom validation for 'from' and 'to' fields
     if (field === 'from' || field === 'to') {
       if (!validateDate(value)) {
-        setError(`career`, {
+        setError(`career[${index}].${field}`, {
           type: 'manual',
           message: "날짜 형식은 'YYYY-MM'이어야 합니다.",
         });
+      } else {
+        clearErrors(`career[${index}].${field}`);
       }
     }
   };
@@ -72,18 +78,11 @@ function CareerInput({
     handleInputChange(index, 'status', checked); // 체크박스 상태 업데이트
   };
 
-  // careerInputs 초기 값 설정
-  useEffect(() => {
-    if (Array.isArray(inputValues) && inputValues.length > 0) {
-      setCareerInputs(inputValues);
-    }
-  }, [inputValues]);
-
   return (
     <div className='flex flex-col gap-3'>
       <InputTitle label='경력사항' />
 
-      {careerInputs.map((input, index) => (
+      {watchedCareerInputs.map((input: CareerType, index: number) => (
         <div
           key={index}
           className='flex w-full flex-col gap-2 rounded-md bg-[#F6F7FB] p-5'
@@ -149,8 +148,10 @@ function CareerInput({
         <p className='text-B3R12 text-text-waring'>{errors.career.message}</p>
       )}
 
-      {careerInputs.length < maxInputs && <InputAddButton onClick={addInput} />}
-      {careerInputs.length >= maxInputs && (
+      {watchedCareerInputs.length < maxInputs && (
+        <InputAddButton onClick={addInput} />
+      )}
+      {watchedCareerInputs.length >= maxInputs && (
         <div className='text-B3R12 text-brand-100'>
           최대 5개까지 입력할 수 있어요.
         </div>

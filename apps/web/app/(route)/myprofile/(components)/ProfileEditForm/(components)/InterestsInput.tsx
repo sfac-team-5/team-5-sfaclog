@@ -14,13 +14,12 @@ const interestsList = [
 
 interface InterestsInputProps {
   setValue: any;
-  inputValues: any;
+  watch: any;
 }
 
-function InterestsInput({ setValue, inputValues }: InterestsInputProps) {
-  const [checkedValues, setCheckedValues] = useState(inputValues || []);
+function InterestsInput({ setValue, watch }: InterestsInputProps) {
+  const interests = watch('interests');
 
-  // 체크박스 변경 핸들러
   const handleCheckChange = ({
     name,
     value,
@@ -31,17 +30,11 @@ function InterestsInput({ setValue, inputValues }: InterestsInputProps) {
     checked: boolean;
   }) => {
     const newCheckedValues = checked
-      ? [...checkedValues, value] // 체크된 경우, 배열에 추가
-      : checkedValues.filter((item: string) => item !== value); // 체크 해제된 경우, 배열에서 제거
+      ? [...interests, value] // 체크된 경우, 배열에 추가
+      : interests.filter((item: string) => item !== value); // 체크 해제된 경우, 배열에서 제거
 
-    setCheckedValues(newCheckedValues);
-    setValue(name, newCheckedValues);
+    setValue('interests', newCheckedValues);
   };
-
-  useEffect(() => {
-    // 초기 값 또는 props 변경에 따른 상태 업데이트
-    setCheckedValues(inputValues);
-  }, [inputValues, setValue]);
 
   return (
     <div className='flex flex-col gap-3'>
@@ -54,7 +47,7 @@ function InterestsInput({ setValue, inputValues }: InterestsInputProps) {
             name='interests'
             value={item.value}
             label={item.label}
-            checked={checkedValues.includes(item.value)}
+            checked={interests.includes(item.value)}
             onChange={handleCheckChange}
           />
         ))}

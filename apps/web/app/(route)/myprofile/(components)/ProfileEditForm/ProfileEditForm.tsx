@@ -3,6 +3,7 @@
 import React from 'react';
 import { Form, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 import Button from '@repo/ui/Button';
 import InputTitle from './(components)/InputTitle';
@@ -21,6 +22,32 @@ interface ProfileEditFormProps {
   profile: UserType;
 }
 
+interface SNSDataType {
+  type: string;
+  url: string;
+}
+interface TransformedSNSDataType {
+  [key: string]: string;
+}
+
+function transformSNSData(snsData: SNSDataType[]): TransformedSNSDataType {
+  const transformedData: TransformedSNSDataType = {};
+  const count: { [type: string]: number } = {}; // 각 SNS 타입별로 몇 번째 항목인지 카운트하기 위한 객체
+
+  snsData.forEach((sns: SNSDataType) => {
+    if (!count[sns.type]) {
+      count[sns.type] = 1;
+    } else {
+      count[sns.type] += 1;
+    }
+
+    const key = `${sns.type}_${count[sns.type]}`;
+    transformedData[key] = sns.url;
+  });
+
+  return transformedData;
+}
+
 function ProfileEditForm({ profile }: ProfileEditFormProps) {
   const router = useRouter();
   const {
@@ -31,16 +58,19 @@ function ProfileEditForm({ profile }: ProfileEditFormProps) {
     watch,
     setError,
     clearErrors,
+    reset,
   } = useForm<UserType>({
-    defaultValues: { ...profile },
+    defaultValues: profile,
   });
+  const { data: session, status, update } = useSession();
 
   const onFormdataSubmit = async ({ data }: { data: UserType }) => {
     const formData = new FormData();
 
     // 기타 데이터를 JSON 형식으로 변환하여 FormData에 추가
     // 파일을 제외한 나머지 데이터를 JSON 문자열로 변환
-    const jsonData = { ...data };
+    const transformedSNSData = transformSNSData(data.sns);
+    const jsonData = { ...data, sns: transformedSNSData };
     formData.append('data', JSON.stringify(jsonData));
 
     if (data.avatar instanceof FileList) {
@@ -59,10 +89,12 @@ function ProfileEditForm({ profile }: ProfileEditFormProps) {
           return response.json();
         }
       })
-      .then(data => {
-        console.log('data', data);
+      .then(result => {
+        reset(result.record);
+        const name = result.record.nickname;
+        const image = result.record.avatarUrl;
+        if (status === 'authenticated') update({ name, image });
         alert('프로필이 수정되었습니다.');
-        router.refresh();
       })
       .catch(error => {
         console.error(error);
@@ -98,22 +130,18 @@ function ProfileEditForm({ profile }: ProfileEditFormProps) {
           </div>
         </div>
         <PhoneInput register={register} errors={errors} />
-        <SnsInput
-          setValue={setValue}
-          control={control}
-          inputValues={profile.sns}
-        />
+        <SnsInput setValue={setValue} inputValues={profile.sns} />
         <CareerInput
           setValue={setValue}
           setError={setError}
           clearErrors={clearErrors}
           errors={errors}
-          inputValues={profile.career}
+          watch={watch}
         />
         <IntroInput register={register} />
         <UrlInput register={register} errors={errors} />
-        <InterestsInput setValue={setValue} inputValues={profile.interests} />
-        <OffersInput setValue={setValue} inputValues={profile.offers} />
+        <InterestsInput setValue={setValue} watch={watch} />
+        <OffersInput setValue={setValue} watch={watch} />
       </div>
 
       <Button

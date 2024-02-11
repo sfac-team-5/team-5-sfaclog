@@ -4,7 +4,7 @@ import InputTitle from './InputTitle';
 
 interface OffersInputProps {
   setValue: any;
-  inputValues: any;
+  watch: any;
 }
 
 const offersList = [
@@ -13,31 +13,23 @@ const offersList = [
   { label: '프로젝트 제안', value: 'Project' },
 ];
 
-function OffersInput({ setValue, inputValues }: OffersInputProps) {
-  const [checkedValues, setCheckedValues] = useState(inputValues || []);
+function OffersInput({ setValue, watch }: OffersInputProps) {
+  const watchedOffers = watch('offers');
 
   // 체크박스 변경 핸들러
   const handleCheckChange = ({
-    name,
     value,
     checked,
   }: {
-    name: string;
     value: string;
     checked: boolean;
   }) => {
     const newCheckedValues = checked
-      ? [...checkedValues, value] // 체크된 경우, 배열에 추가
-      : checkedValues.filter((item: string) => item !== value); // 체크 해제된 경우, 배열에서 제거
+      ? [...watchedOffers, value] // 체크된 경우, 배열에 추가
+      : watchedOffers.filter((item: string) => item !== value); // 체크 해제된 경우, 배열에서 제거
 
-    setCheckedValues(newCheckedValues);
-    setValue(name, newCheckedValues);
+    setValue('offers', newCheckedValues);
   };
-
-  useEffect(() => {
-    // 초기 값 또는 props 변경에 따른 상태 업데이트
-    setCheckedValues(inputValues);
-  }, [inputValues, setValue]);
 
   return (
     <div className='flex flex-col gap-3'>
@@ -50,7 +42,7 @@ function OffersInput({ setValue, inputValues }: OffersInputProps) {
             name='offers'
             value={item.value}
             label={item.label}
-            checked={checkedValues.includes(item.value)}
+            checked={watchedOffers.includes(item.value)}
             onChange={handleCheckChange}
           />
         ))}

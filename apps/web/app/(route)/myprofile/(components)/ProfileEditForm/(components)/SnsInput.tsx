@@ -90,13 +90,17 @@ const selectList = [
   },
 ];
 
+interface SNSType {
+  type: string;
+  url: string;
+}
+
 interface SnsInputProps {
   setValue: any;
-  control: any;
   inputValues: any;
 }
 
-function SnsInput({ setValue, control, inputValues }: SnsInputProps) {
+function SnsInput({ setValue, inputValues }: SnsInputProps) {
   const [snsInputs, setSnsInputs] = useState([{ type: '', url: '' }]);
   const maxInputs = 8; // 최대 입력 가능한 SNS 개수
 
@@ -138,50 +142,42 @@ function SnsInput({ setValue, control, inputValues }: SnsInputProps) {
       <InputTitle label='SNS' />
 
       {snsInputs.map((input, index) => (
-        <Controller
-          key={index}
-          control={control}
-          name={`sns[${index}]`}
-          render={({ field }) => (
-            <div className='flex items-center gap-2'>
-              <Selectbox
-                {...field}
-                width='short'
-                selectList={selectList}
-                selectedOption={findSelectedOption(input.type)}
-                onChange={e => {
-                  const selectedType = e.dataValue;
-                  const updatedInputs = snsInputs.map((item, i) => {
-                    if (i === index) {
-                      return { ...item, type: selectedType };
-                    }
-                    return item;
-                  });
-                  setSnsInputs(updatedInputs);
-                }}
-              />
-              <div className='w-[238px]'>
-                <InputBox
-                  placeholder='https://'
-                  value={input.url}
-                  onChange={e => {
-                    const updatedInputs = snsInputs.map((item, i) => {
-                      if (i === index) {
-                        return { ...item, url: e.target.value };
-                      }
-                      return item;
-                    });
-                    setSnsInputs(updatedInputs);
-                  }}
-                />
-              </div>
-              <IconCancelBoxGray
-                className='cursor-pointer'
-                onClick={() => removeInput(index)}
-              />
-            </div>
-          )}
-        />
+        <div key={index} className='flex items-center gap-2'>
+          <Selectbox
+            width='short'
+            selectList={selectList}
+            selectedOption={findSelectedOption(input.type)}
+            onChange={e => {
+              const selectedType = e.dataValue;
+              const updatedInputs = snsInputs.map((item, i) => {
+                if (i === index) {
+                  return { ...item, type: selectedType };
+                }
+                return item;
+              });
+              setSnsInputs(updatedInputs);
+            }}
+          />
+          <div className='w-[238px]'>
+            <InputBox
+              placeholder='https://'
+              value={input.url}
+              onChange={e => {
+                const updatedInputs = snsInputs.map((item, i) => {
+                  if (i === index) {
+                    return { ...item, url: e.target.value };
+                  }
+                  return item;
+                });
+                setSnsInputs(updatedInputs);
+              }}
+            />
+          </div>
+          <IconCancelBoxGray
+            className='cursor-pointer'
+            onClick={() => removeInput(index)}
+          />
+        </div>
       ))}
 
       {snsInputs.length < maxInputs && <InputAddButton onClick={addInput} />}
