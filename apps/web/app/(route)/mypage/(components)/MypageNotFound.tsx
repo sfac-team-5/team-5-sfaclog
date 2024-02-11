@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { NotFoundMypageItem } from '@public/svgs';
 interface MypageNotFoundProps {
   title: string;
-  description: string;
+  description?: string;
   buttonLabel?: string;
   href?: string;
 }
@@ -23,10 +23,12 @@ export function MypageNotFound({
   href,
 }: MypageNotFoundProps) {
   return (
-    <div className='flex w-fit flex-col gap-5'>
+    <div className='flex w-fit flex-col items-center gap-5'>
       <div className='flex flex-col items-center justify-center gap-[6px]'>
         <div className='text-B1B16 text-neutral-70'>{title}</div>
-        <div className='text-B2R14 text-neutral-70'>{description}</div>
+        {description && (
+          <div className='text-B2R14 text-neutral-70'>{description}</div>
+        )}
       </div>
       <NotFoundMypageItem className='grayscale' />
       {buttonLabel && href && (
