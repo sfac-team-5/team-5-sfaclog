@@ -7,7 +7,6 @@ import {
 } from '../public/svgs';
 
 interface SelectBoxProps {
-  label?: string;
   width: 'long' | 'short';
   placeholder?: string;
   onChange: (data: any) => void;
@@ -32,7 +31,7 @@ export function Selectbox({
       <Listbox value={selected} onChange={handleValChange}>
         <div className='relative mt-1'>
           <Listbox.Button
-            className={`ui-open:border-stroke-50 relative w-full cursor-pointer rounded-md border-[1px] bg-white py-2 pl-3 pr-10 text-left focus:outline-none sm:text-sm`}
+            className={`ui-open:border-stroke-50 relative h-10 w-full cursor-pointer rounded-md border-[1px] bg-white py-2 pl-3 pr-10 text-left focus:outline-none sm:text-sm`}
           >
             <span className='block truncate'>
               {selected ? (

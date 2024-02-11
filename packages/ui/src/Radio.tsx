@@ -5,13 +5,21 @@ interface RadioButtonsProps {
   label: string;
   name: string;
   onChange: ({ name, value }: { name: string; value: string }) => void;
+  checked?: boolean;
 }
 
-export function Radio({ value, name, label, onChange }: RadioButtonsProps) {
+export function Radio({
+  value,
+  name,
+  label,
+  onChange,
+  checked,
+}: RadioButtonsProps) {
   return (
     <div className='inline-block p-[10px]'>
       <label className='group flex gap-[10px]'>
         <input
+          defaultChecked={checked}
           type='radio'
           name={name}
           className='peer hidden'
