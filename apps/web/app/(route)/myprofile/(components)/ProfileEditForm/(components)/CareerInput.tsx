@@ -11,10 +11,10 @@ import {
 interface CareerInputProps {
   setValue: any;
   errors: any;
-  careerValues: any;
+  inputValues: any;
 }
 
-function CareerInput({ setValue, errors, careerValues }: CareerInputProps) {
+function CareerInput({ setValue, errors, inputValues }: CareerInputProps) {
   const [careerInputs, setCareerInputs] = useState([
     { from: '', to: '', status: false, company: '' },
   ]);
@@ -53,10 +53,10 @@ function CareerInput({ setValue, errors, careerValues }: CareerInputProps) {
 
   // careerInputs 초기 값 설정
   useEffect(() => {
-    if (Array.isArray(careerValues) && careerValues.length > 0) {
-      setCareerInputs(careerValues);
+    if (Array.isArray(inputValues) && inputValues.length > 0) {
+      setCareerInputs(inputValues);
     }
-  }, [careerValues]);
+  }, [inputValues]);
 
   return (
     <div className='flex flex-col gap-3'>

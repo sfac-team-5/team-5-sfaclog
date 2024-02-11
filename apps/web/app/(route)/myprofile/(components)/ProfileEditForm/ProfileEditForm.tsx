@@ -78,12 +78,12 @@ function ProfileEditForm({ profile }: ProfileEditFormProps) {
         <SnsInput
           setValue={setValue}
           control={control}
-          snsValues={profile.sns}
+          inputValues={profile.sns}
         />
         <CareerInput
           setValue={setValue}
           errors={errors}
-          careerValues={profile.career}
+          inputValues={profile.career}
         />
         <IntroInput register={register} errors={errors} />
         <UrlInput register={register} errors={errors} />

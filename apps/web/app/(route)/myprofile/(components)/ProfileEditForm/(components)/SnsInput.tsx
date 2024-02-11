@@ -16,12 +16,6 @@ import InputAddButton from './InputAddButton';
 import { useEffect, useState } from 'react';
 import { Controller } from 'react-hook-form';
 
-interface SnsInputProps {
-  setValue: any;
-  control: any;
-  snsValues: any;
-}
-
 const selectList = [
   {
     value: (
@@ -96,7 +90,13 @@ const selectList = [
   },
 ];
 
-function SnsInput({ setValue, control, snsValues }: SnsInputProps) {
+interface SnsInputProps {
+  setValue: any;
+  control: any;
+  inputValues: any;
+}
+
+function SnsInput({ setValue, control, inputValues }: SnsInputProps) {
   const [snsInputs, setSnsInputs] = useState([{ type: '', url: '' }]);
   const maxInputs = 8; // 최대 입력 가능한 SNS 개수
 
@@ -120,14 +120,14 @@ function SnsInput({ setValue, control, snsValues }: SnsInputProps) {
 
   // snsInputs 초기 값 설정
   useEffect(() => {
-    if (Object.keys(snsValues).length > 0) {
-      const inputs = Object.entries(snsValues).map(([key, value]) => ({
+    if (Object.keys(inputValues).length > 0) {
+      const inputs = Object.entries(inputValues).map(([key, value]) => ({
         type: key.split('_')[0] || '', // "Github", "Linkedin" 등의 타입 추출
         url: value as string,
       }));
       setSnsInputs(inputs);
     }
-  }, [snsValues]);
+  }, [inputValues]);
 
   useEffect(() => {
     setValue('sns', snsInputs); // sns 필드 업데이트
