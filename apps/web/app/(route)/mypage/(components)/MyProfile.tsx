@@ -16,7 +16,6 @@ async function fetchData(userId: string) {
 async function MyProfile({ userId }: MyProfileProps) {
   const profile = await fetchData(userId);
   if (!profile) return NotFound();
-  console.log(profile);
 
   return (
     <aside className='h-[963px] w-[245px] shrink-0 bg-blue-400'>

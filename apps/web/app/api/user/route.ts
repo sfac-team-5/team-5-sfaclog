@@ -1,6 +1,5 @@
 import PocketBase from 'pocketbase';
 import { NextRequest, NextResponse } from 'next/server';
-import { signOut } from '@/auth';
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const data = await req.json();

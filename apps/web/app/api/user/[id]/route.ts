@@ -11,12 +11,20 @@ export async function GET(
     const record = await pb.collection('users').getOne(id, {
       fields: '*',
     });
+
     const avatarFilename = record.avatar;
     record.avatarUrl = pb.files.getUrl(record, avatarFilename, {
       thumb: '300x300',
     });
 
-    return NextResponse.json(record, { status: 200 });
+    const response = NextResponse.json(record, { status: 200 });
+    response.headers.append(
+      'Cache-Control',
+      'no-cache, no-store, must-revalidate',
+    );
+    response.headers.append('Pragma', 'no-cache');
+    response.headers.append('Expires', '0');
+    return response;
   } catch (error) {
     return NextResponse.json(
       {

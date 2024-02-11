@@ -4,7 +4,8 @@ import ProfileEditForm from './(components)/ProfileEditForm/ProfileEditForm';
 
 async function fetchData(userId: string) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${userId}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${userId}?timestamp=${new Date().getTime()}`,
+    { cache: 'no-store' },
   );
   if (!response.ok) return null;
   return response.json();

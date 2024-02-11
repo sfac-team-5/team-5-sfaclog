@@ -47,7 +47,7 @@ function ProfileEditForm({ profile }: ProfileEditFormProps) {
       formData.append('avatar', data.avatar[0] as File);
     }
 
-    const response = await fetch(
+    await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${data.id}/edit`,
       {
         method: 'POST',
@@ -60,7 +60,7 @@ function ProfileEditForm({ profile }: ProfileEditFormProps) {
         }
       })
       .then(data => {
-        console.log(data);
+        console.log('data', data);
         alert('프로필이 수정되었습니다.');
         router.refresh();
       })

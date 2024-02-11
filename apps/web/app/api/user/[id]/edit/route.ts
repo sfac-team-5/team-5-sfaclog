@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 import PocketBase from 'pocketbase';
 
@@ -40,7 +41,8 @@ export async function POST(request: NextRequest) {
       }
 
       const record = await pb.collection('users').update(dataObj.id, data);
-      return NextResponse.json(record);
+      revalidatePath('/myprofile');
+      return NextResponse.json({ record, revalidated: true });
     }
   } catch (error: any) {
     const errorData = error.originalError.data;
