@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Form, useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
 import Button from '@repo/ui/Button';
@@ -49,7 +48,6 @@ function transformSNSData(snsData: SNSDataType[]): TransformedSNSDataType {
 }
 
 function ProfileEditForm({ profile }: ProfileEditFormProps) {
-  const router = useRouter();
   const {
     register,
     setValue,
