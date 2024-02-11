@@ -1,5 +1,5 @@
 'use client';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import {
   IconTaillessArrowUpBlack,
@@ -12,6 +12,7 @@ interface SelectBoxProps {
   placeholder?: string;
   onChange: (data: any) => void;
   selectList: Array<any>;
+  selectedOption?: any;
 }
 
 export function Selectbox({
@@ -19,8 +20,16 @@ export function Selectbox({
   width = 'long',
   placeholder,
   selectList,
+  selectedOption,
 }: SelectBoxProps) {
   const [selected, setSelected] = useState(placeholder ? null : selectList[0]);
+
+  useEffect(() => {
+    if (selectedOption) {
+      setSelected(selectedOption);
+    }
+  }, [selectedOption]);
+
   const widthClass = width === 'long' ? 'w-[400px]' : 'w-[122px]';
   const handleValChange = (data: any) => {
     setSelected(() => data);

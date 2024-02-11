@@ -14,9 +14,10 @@ import { useState } from 'react';
 interface CareerInputProps {
   setValue: any;
   errors: any;
+  watch: any;
 }
 
-function CareerInput({ setValue, errors }: CareerInputProps) {
+function CareerInput({ setValue, errors, watch }: CareerInputProps) {
   const [isEmploymentStatusChecked, setIsEmploymentStatusChecked] =
     useState(false);
 

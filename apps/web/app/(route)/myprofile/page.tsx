@@ -1,6 +1,6 @@
 import { auth } from '@/auth';
 import NotFound from '@/not-found';
-import ProfileEditForm from './ProfileEditForm/ProfileEditForm';
+import ProfileEditForm from './(components)/ProfileEditForm/ProfileEditForm';
 
 async function fetchData(userId: string) {
   const response = await fetch(

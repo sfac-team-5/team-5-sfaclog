@@ -4,6 +4,7 @@ import InputTitle from './InputTitle';
 interface InterestsInputProps {
   setValue: any;
   errors: any;
+  watch: any;
 }
 
 const interestsList = [
@@ -16,7 +17,7 @@ const interestsList = [
   { label: '안드로이드 개발', value: 'Android' },
 ];
 
-function InterestsInput({ setValue, errors }: InterestsInputProps) {
+function InterestsInput({ setValue, errors, watch }: InterestsInputProps) {
   const handleValueChange = (value: string) => {
     setValue('nickname', value);
   };

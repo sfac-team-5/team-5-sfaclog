@@ -1,9 +1,10 @@
 interface UrlInputProps {
   setValue: any;
   errors: any;
+  watch: any;
 }
 
-function UrlInput({ setValue, errors }: UrlInputProps) {
+function UrlInput({ setValue, errors, watch }: UrlInputProps) {
   const handleValueChange = (value: string) => {
     setValue('nickname', value);
   };

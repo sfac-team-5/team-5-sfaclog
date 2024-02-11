@@ -3,9 +3,10 @@ import InputTitle from './InputTitle';
 interface IntroInputProps {
   setValue: any;
   errors: any;
+  watch: any;
 }
 
-function IntroInput({ setValue, errors }: IntroInputProps) {
+function IntroInput({ setValue, errors, watch }: IntroInputProps) {
   const handleValueChange = (value: string) => {
     setValue('nickname', value);
   };

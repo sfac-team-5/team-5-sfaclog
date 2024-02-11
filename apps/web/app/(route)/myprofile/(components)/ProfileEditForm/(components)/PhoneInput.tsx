@@ -3,16 +3,12 @@ import InputTitle from './InputTitle';
 import { InputBox } from '@repo/ui/InputBox';
 
 interface PhoneInputProps {
-  setValue: any;
   errors: any;
+  register: any;
 }
 
-function PhoneInput({ setValue, errors }: PhoneInputProps) {
+function PhoneInput({ register, errors }: PhoneInputProps) {
   const [telecom, setTelecom] = useState('SKT');
-
-  const handleValueChange = (value: string) => {
-    setValue('phone', value);
-  };
 
   return (
     <div className='flex flex-col gap-3'>
@@ -47,14 +43,15 @@ function PhoneInput({ setValue, errors }: PhoneInputProps) {
         <div className='w-[250px]'>
           <InputBox
             placeholder='휴대폰 번호를 입력해 주세요.'
-            onValueChange={handleValueChange}
+            {...register('phone')}
           />
         </div>
         <button className='bg-neutral-5 rounded-md px-6'>인증 번호 전송</button>
       </div>
       <InputBox
         placeholder='인증 번호를 입력해 주세요.'
-        errorMessage={errors.phone?.message}
+        {...register('authnum')}
+        errorMessage={errors.authnum?.message}
       />
     </div>
   );

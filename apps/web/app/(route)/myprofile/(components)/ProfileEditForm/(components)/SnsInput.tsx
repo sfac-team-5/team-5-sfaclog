@@ -1,0 +1,176 @@
+import { Selectbox } from '@repo/ui/SelectBox';
+import { InputBox } from '@repo/ui/InputBox';
+import {
+  IconCancelBoxGray,
+  IconSnsBrunch,
+  IconSnsGithub,
+  IconSnsInstagram,
+  IconSnsLink,
+  IconSnsLinkedin,
+  IconSnsNotion,
+  IconSnsX,
+  IconSnsYoutube,
+} from '@repo/ui/Icon';
+import InputTitle from './InputTitle';
+import InputAddButton from './InputAddButton';
+import { useEffect, useState } from 'react';
+import { Controller } from 'react-hook-form';
+
+interface SnsInputProps {
+  control: any;
+  snsValues: any;
+}
+
+const selectList = [
+  {
+    value: (
+      <div className='text-B3R12 flex h-6 w-[110px] items-center justify-start gap-1.5'>
+        <IconSnsLink />
+        Link
+      </div>
+    ),
+    dataValue: 'Link',
+  },
+  {
+    value: (
+      <div className='text-B3R12 flex h-6 w-[110px] items-center justify-start gap-1.5'>
+        <IconSnsGithub />
+        Github
+      </div>
+    ),
+    dataValue: 'Github',
+  },
+  {
+    value: (
+      <div className='text-B3R12 flex h-6 w-[110px] items-center justify-start gap-1.5'>
+        <IconSnsInstagram />
+        Instagram
+      </div>
+    ),
+    dataValue: 'Instagram',
+  },
+  {
+    value: (
+      <div className='text-B3R12 flex h-6 w-[110px] items-center justify-start gap-1.5'>
+        <IconSnsNotion />
+        Notion
+      </div>
+    ),
+    dataValue: 'Notion',
+  },
+  {
+    value: (
+      <div className='text-B3R12 flex h-6 w-[110px] items-center justify-start gap-1.5'>
+        <IconSnsX />X (twitter)
+      </div>
+    ),
+    dataValue: 'X',
+  },
+  {
+    value: (
+      <div className='text-B3R12 flex h-6 w-[110px] items-center justify-start gap-1.5'>
+        <IconSnsBrunch />
+        Brunch
+      </div>
+    ),
+    dataValue: 'Brunch',
+  },
+  {
+    value: (
+      <div className='text-B3R12 flex h-6 w-[110px] items-center justify-start gap-1.5'>
+        <IconSnsYoutube />
+        Youtube
+      </div>
+    ),
+    dataValue: 'Youtube',
+  },
+  {
+    value: (
+      <div className='text-B3R12 flex h-6 w-[110px] items-center justify-start gap-1.5'>
+        <IconSnsLinkedin />
+        LinkedIn
+      </div>
+    ),
+    dataValue: 'LinkedIn',
+  },
+];
+
+function SnsInput({ control, snsValues }: SnsInputProps) {
+  const [snsInputs, setSnsInputs] = useState([{ type: '', url: '' }]);
+  const maxInputs = 8; // 최대 입력 가능한 SNS 개수
+
+  useEffect(() => {
+    if (Object.keys(snsValues).length > 0) {
+      const inputs = Object.entries(snsValues).map(([key, value]) => ({
+        type: key.split('_')[0] || '', // "Github", "Linkedin" 등의 타입 추출
+        url: value as string,
+      }));
+      setSnsInputs(inputs);
+    }
+  }, [snsValues]);
+
+  const addInput = () => {
+    if (snsInputs.length < maxInputs) {
+      setSnsInputs([...snsInputs, { type: '', url: '' }]);
+    }
+  };
+
+  const removeInput = (index: number) => {
+    if (snsInputs.length === 1) {
+      setSnsInputs([{ type: 'Link', url: '' }]);
+    } else {
+      setSnsInputs(snsInputs.filter((_, i) => i !== index));
+    }
+  };
+
+  const findSelectedOption = (type: React.ReactNode) => {
+    return selectList.find(option => option.dataValue === type);
+  };
+
+  return (
+    <div className='flex flex-col gap-3'>
+      <InputTitle label='SNS' />
+
+      {snsInputs.map((input, index) => (
+        <Controller
+          key={index}
+          control={control}
+          name={`snsInputs[${index}]`}
+          render={({ field }) => (
+            <div className='flex items-center gap-2'>
+              <Selectbox
+                {...field}
+                width='short'
+                selectList={selectList}
+                selectedOption={findSelectedOption(input.type)}
+                onChange={e => field.onChange(e.target.value)}
+              />
+              <div className='w-[238px]'>
+                <InputBox
+                  placeholder='https://'
+                  value={input.url}
+                  onChange={e =>
+                    field.onChange({ ...field.value, url: e.target.value })
+                  }
+                />
+              </div>
+              <IconCancelBoxGray
+                className='cursor-pointer'
+                onClick={() => removeInput(index)}
+              />
+            </div>
+          )}
+        />
+      ))}
+
+      {snsInputs.length < maxInputs && <InputAddButton onClick={addInput} />}
+      {snsInputs.length >= maxInputs && (
+        <div className='text-B3R12 text-brand-100'>
+          최대 8개까지 입력할 수 있어요.
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default SnsInput;

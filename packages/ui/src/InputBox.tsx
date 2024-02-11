@@ -4,6 +4,7 @@ import { UseFormRegisterReturn } from 'react-hook-form';
 
 interface InputBoxProps extends Partial<InputHTMLAttributes<HTMLInputElement>> {
   type?: 'text' | 'password';
+  value?: string;
   placeholder?: string | undefined;
   verifiedMessage?: string | null;
   errorMessage?: string | null;
@@ -30,6 +31,12 @@ export const InputBox = React.forwardRef(
       setIsView(pre => !pre);
     };
 
+    const {
+      ref: inputRef,
+      onChange: formOnChange,
+      ...formRest
+    } = formRef || {};
+
     const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const {
         target: { value },
@@ -42,7 +49,7 @@ export const InputBox = React.forwardRef(
     return (
       <div className='relative flex flex-col gap-2'>
         <input
-          {...formRef}
+          {...formRest}
           ref={ref}
           type={
             type === 'text'

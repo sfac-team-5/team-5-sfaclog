@@ -4,6 +4,7 @@ import InputTitle from './InputTitle';
 interface OffersInputProps {
   setValue: any;
   errors: any;
+  watch: any;
 }
 
 const offersList = [
@@ -12,7 +13,7 @@ const offersList = [
   { label: '프로젝트 제안', value: 'Project' },
 ];
 
-function OffersInput({ setValue, errors }: OffersInputProps) {
+function OffersInput({ setValue, errors, watch }: OffersInputProps) {
   const handleValueChange = (value: string) => {
     setValue('nickname', value);
   };

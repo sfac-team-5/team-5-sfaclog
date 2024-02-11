@@ -30,25 +30,7 @@ function ProfileEditForm({ profile }: ProfileEditFormProps) {
     setError,
     clearErrors,
   } = useForm<UserType>({
-    defaultValues: {
-      avatar: profile.avatar,
-      career: profile.career,
-      collectionId: profile.collectionId,
-      collectionName: profile.collectionName,
-      email: profile.email,
-      created: profile.created,
-      id: profile.id,
-      interests: profile.interests,
-      intro: profile.intro,
-      nickname: profile.nickname,
-      offers: profile.offers,
-      phone: profile.phone,
-      sns: profile.sns,
-      updated: profile.updated,
-      username: profile.username,
-      verified: profile.verified,
-      avatarUrl: profile.avatarUrl,
-    },
+    defaultValues: { ...profile },
   });
 
   const onFormdataSubmit = async ({
@@ -89,16 +71,16 @@ function ProfileEditForm({ profile }: ProfileEditFormProps) {
               <InputTitle label='이름' />
               <p className='text-B2R14 text-neutral-90'>{profile.username}</p>
             </div>
-            <NicknameInput setValue={setValue} errors={errors} />
+            <NicknameInput register={register} errors={errors} />
           </div>
         </div>
-        <PhoneInput setValue={setValue} errors={errors} />
-        <SnsInput setValue={setValue} errors={errors} />
-        <CareerInput setValue={setValue} errors={errors} />
-        <IntroInput setValue={setValue} errors={errors} />
-        <UrlInput setValue={setValue} errors={errors} />
-        <InterestsInput setValue={setValue} errors={errors} />
-        <OffersInput setValue={setValue} errors={errors} />
+        <PhoneInput register={register} errors={errors} />
+        <SnsInput control={control} snsValues={profile.sns} />
+        <CareerInput setValue={setValue} errors={errors} watch={watch} />
+        <IntroInput setValue={setValue} errors={errors} watch={watch} />
+        <UrlInput setValue={setValue} errors={errors} watch={watch} />
+        <InterestsInput setValue={setValue} errors={errors} watch={watch} />
+        <OffersInput setValue={setValue} errors={errors} watch={watch} />
       </div>
 
       <Button
