@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { signOut } from '@/auth';
 
 export async function POST(req: NextRequest, res: NextResponse) {
-  let data = await req.json();
+  const data = await req.json();
   try {
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
 

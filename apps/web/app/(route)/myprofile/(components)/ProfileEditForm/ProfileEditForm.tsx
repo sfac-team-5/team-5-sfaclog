@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Form, useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 
 import Button from '@repo/ui/Button';
 import InputTitle from './(components)/InputTitle';
@@ -21,6 +22,7 @@ interface ProfileEditFormProps {
 }
 
 function ProfileEditForm({ profile }: ProfileEditFormProps) {
+  const router = useRouter();
   const {
     register,
     setValue,
@@ -33,15 +35,38 @@ function ProfileEditForm({ profile }: ProfileEditFormProps) {
     defaultValues: { ...profile },
   });
 
-  const onFormdataSubmit = async ({
-    formData,
-    data,
-  }: {
-    formData: FormData;
-    data: UserType;
-  }) => {
-    console.log('formData', formData);
-    console.log('data', data);
+  const onFormdataSubmit = async ({ data }: { data: UserType }) => {
+    const formData = new FormData();
+
+    // 기타 데이터를 JSON 형식으로 변환하여 FormData에 추가
+    // 파일을 제외한 나머지 데이터를 JSON 문자열로 변환
+    const jsonData = { ...data };
+    formData.append('data', JSON.stringify(jsonData));
+
+    if (data.avatar instanceof FileList) {
+      formData.append('avatar', data.avatar[0] as File);
+    }
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${data.id}/edit`,
+      {
+        method: 'POST',
+        body: formData,
+      },
+    )
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+      })
+      .then(data => {
+        console.log(data);
+        alert('프로필이 수정되었습니다.');
+        router.refresh();
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
 
   return (

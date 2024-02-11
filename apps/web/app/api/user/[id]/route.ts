@@ -9,7 +9,7 @@ export async function GET(
   try {
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
     const record = await pb.collection('users').getOne(id, {
-      fields: '*, email',
+      fields: '*',
     });
     const avatarFilename = record.avatar;
     record.avatarUrl = pb.files.getUrl(record, avatarFilename, {

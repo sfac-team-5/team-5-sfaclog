@@ -112,13 +112,13 @@ function CareerInput({
                 <input
                   type='checkbox'
                   className='hidden'
-                  id='employmentStatus'
+                  id={`employmentStatus-${index}`}
                   name='employmentStatus'
                   checked={input.status}
                   onChange={e => handleCheckboxChange(index, e.target.checked)}
                 />
                 <label
-                  htmlFor='employmentStatus'
+                  htmlFor={`employmentStatus-${index}`}
                   className='flex items-center gap-1.5'
                 >
                   {input.status ? (
