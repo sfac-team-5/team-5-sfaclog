@@ -6,10 +6,10 @@ import {
   ProfileFlwFlwer,
   MyProfileHeader,
   ProfileCareer,
-  ProfileLink,
-} from './components';
+  MyProfileLink,
+} from './(components)';
 import { UserType } from '@/types';
-
+import { MyProfileLogout } from './(components)/MyProfileLogout';
 export async function MyProfileCard({ user }: { user: UserType }) {
   return (
     <ProfileContainer>
@@ -34,18 +34,21 @@ export async function MyProfileCard({ user }: { user: UserType }) {
       <Hr />
       <div className='flex flex-col gap-3'>
         <div className='text-B1B16'>나의 활동</div>
-        <ProfileLink href='#' title='나의 로그' />
-        <ProfileLink href='#' title='나의 커뮤니티' />
-        <ProfileLink href='#' title='내가 쓴 댓글' />
-        <ProfileLink href='#' title='관심 로그' />
-        <ProfileLink href='#' title='최근 본 로그' />
-        <ProfileLink href='#' title='최근 본 커뮤니티' />
+        <MyProfileLink href='#' title='나의 로그' />
+        <MyProfileLink href='#' title='나의 커뮤니티' />
+        <MyProfileLink href='#' title='내가 쓴 댓글' />
+        <MyProfileLink href='#' title='관심 로그' />
+        <MyProfileLink href='#' title='최근 본 로그' />
+        <MyProfileLink href='#' title='최근 본 커뮤니티' />
       </div>
       <Hr />
       <div className='flex flex-col gap-3'>
-        <ProfileLink href='#' title='이용약관&개인정보 처리 방침' />
-        <ProfileLink href='#' title='로그아웃' />
-        <ProfileLink href='#' title='회원탈퇴' />
+        <MyProfileLink
+          href='/mypage/policy'
+          title='이용약관&개인정보 처리 방침'
+        />
+        <MyProfileLogout />
+        <MyProfileLink href='/mypage/delete-account' title='회원탈퇴' />
       </div>
     </ProfileContainer>
   );

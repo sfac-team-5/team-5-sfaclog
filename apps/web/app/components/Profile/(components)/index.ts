@@ -5,7 +5,7 @@ import { ProfileSNS } from './ProfileSNS';
 import { MyProfileHeader } from './MyProfileHeader';
 import { ProfileCareer } from './ProfileCareer';
 import { UserProfileLogs } from './UserProfileLogs';
-import { ProfileLink } from './ProfileLink';
+import { MyProfileLink } from './MyProfileLink';
 import { ProfileFlwFlwer } from './ProfileFlwFlwer';
 export {
   Hr,
@@ -15,6 +15,6 @@ export {
   ProfileIntro,
   ProfileSNS,
   ProfileCareer,
-  ProfileLink,
+  MyProfileLink,
   ProfileFlwFlwer,
 };
