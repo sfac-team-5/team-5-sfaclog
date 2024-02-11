@@ -1,6 +1,6 @@
+import { useEffect, useState } from 'react';
 import { Check } from '@repo/ui/Check';
 import InputTitle from './InputTitle';
-import { useEffect, useState } from 'react';
 
 const interestsList = [
   { label: '프론트엔드', value: 'Frontend' },
@@ -14,15 +14,10 @@ const interestsList = [
 
 interface InterestsInputProps {
   setValue: any;
-  errors: any;
   inputValues: any;
 }
 
-function InterestsInput({
-  setValue,
-  errors,
-  inputValues,
-}: InterestsInputProps) {
+function InterestsInput({ setValue, inputValues }: InterestsInputProps) {
   const [checkedValues, setCheckedValues] = useState(inputValues || []);
 
   // 체크박스 변경 핸들러
