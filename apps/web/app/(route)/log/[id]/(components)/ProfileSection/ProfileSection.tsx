@@ -23,6 +23,7 @@ const fetchData = async (id: string) => {
 };
 
 async function ProfileSection({ user }: ProfileSectionProps) {
+  console.log(user);
   const userLogs = await fetchData(user.id);
   if (!userLogs) return NotFound();
 

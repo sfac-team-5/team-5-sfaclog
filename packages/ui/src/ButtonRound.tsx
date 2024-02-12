@@ -15,7 +15,7 @@ export function ButtonRound({ children, onClick, type }: ButtonProps) {
   return (
     <button
       onClick={onClick}
-      className={`w-max rounded-full px-4 py-[6px] text-sm font-medium transition-none ${hoverClasses} duration-200 ease-in-out`}
+      className={`text-B2M14 w-full rounded-full px-4 py-[6px] transition-none ${hoverClasses} duration-200 ease-in-out`}
     >
       {children}
     </button>

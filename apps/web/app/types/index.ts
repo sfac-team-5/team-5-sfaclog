@@ -20,6 +20,14 @@ export interface UserType {
   updated: string;
   username: string;
   verified: boolean;
+  sns: Record<string, string>; //key = string, val = string 객체 타입
+  career: Career[];
+}
+
+export interface Career {
+  from: string;
+  to: string;
+  company: string;
 }
 
 interface SeriesType {

@@ -60,10 +60,10 @@ export function MainCarousel() {
             ))}
           </Swiper>
           <button className='custom-prev'>
-            <IconTaillessArrowLeftBlack />
+            <IconTaillessArrowLeftBlack className='stroke-neutral-90 size-6' />
           </button>
-          <button className='custom-next'>
-            <IconTaillessArrowRightBlack />
+          <button className='custom-next '>
+            <IconTaillessArrowRightBlack className='stroke-neutral-90 size-6' />
           </button>
         </div>
       )}

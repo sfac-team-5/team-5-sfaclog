@@ -13,7 +13,7 @@ export async function SignUpSubmitAction(data: any) {
       },
     );
     const result = await response.json();
-
+    console.log('result action = ', result);
     return result;
   } catch (err) {
     console.log('signup form server action err', err);

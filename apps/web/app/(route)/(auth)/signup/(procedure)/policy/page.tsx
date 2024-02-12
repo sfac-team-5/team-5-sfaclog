@@ -1,5 +1,5 @@
 import React from 'react';
-import { SignupPolicy } from '../../(components)/policy/SignupPolicy';
+import { SignupPolicy } from '@/components/Policy/SignupPolicy';
 
 export default function page() {
   return <SignupPolicy />;

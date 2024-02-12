@@ -15,5 +15,5 @@ export async function userDeleteAction(userId: string) {
 }
 
 export async function LogoutAction() {
-  await signOut();
+  await signOut({ redirect: true, redirectTo: '/' });
 }
