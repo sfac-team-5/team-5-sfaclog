@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { Check } from '@repo/ui/Check';
 import InputTitle from './InputTitle';
 
@@ -14,7 +13,7 @@ const offersList = [
 ];
 
 function OffersInput({ setValue, watch }: OffersInputProps) {
-  const watchedOffers = watch('offers');
+  const offers = watch('offers');
 
   // 체크박스 변경 핸들러
   const handleCheckChange = ({
@@ -25,11 +24,13 @@ function OffersInput({ setValue, watch }: OffersInputProps) {
     checked: boolean;
   }) => {
     const newCheckedValues = checked
-      ? [...watchedOffers, value] // 체크된 경우, 배열에 추가
-      : watchedOffers.filter((item: string) => item !== value); // 체크 해제된 경우, 배열에서 제거
+      ? [...offers, value] // 체크된 경우, 배열에 추가
+      : offers.filter((item: string) => item !== value); // 체크 해제된 경우, 배열에서 제거
 
     setValue('offers', newCheckedValues);
   };
+
+  console.log(offers);
 
   return (
     <div className='flex flex-col gap-3'>
@@ -42,7 +43,7 @@ function OffersInput({ setValue, watch }: OffersInputProps) {
             name='offers'
             value={item.value}
             label={item.label}
-            checked={watchedOffers.includes(item.value)}
+            checked={offers.includes(item.value)}
             onChange={handleCheckChange}
           />
         ))}

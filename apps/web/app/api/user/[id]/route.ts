@@ -10,7 +10,6 @@ export async function GET(
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
     const record = await pb.collection('users').getOne(id, {
       fields: '*',
-      expand: 'career,sns',
     });
 
     const avatarFilename = record.avatar;
