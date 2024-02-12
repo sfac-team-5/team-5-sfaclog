@@ -284,14 +284,19 @@ export function Form() {
           </div>
         </div>
       </div>
-      <div className='mb-32 mt-6'>
-        <Button
-          label='이전'
-          size='m'
-          type='button'
+      <div className='mb-32 mt-6 flex h-[50px] gap-[10px]'>
+        <button
+          className='border-brand-90 text-text-point text-B2M14 basis-1/2 rounded-md border-[1px] bg-white'
           onClick={() => router.back()}
-        />
-        <Button label='다음' size='m' type='submit' />
+        >
+          이전
+        </button>
+        <button
+          className='border-brand-90 text-B2M14 bg-brand-90 basis-1/2 rounded-md border-[1px] text-white'
+          type='submit'
+        >
+          다음
+        </button>
       </div>
     </form>
   );
