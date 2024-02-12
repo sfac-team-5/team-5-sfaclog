@@ -37,7 +37,7 @@ export function ModalSearch({ setIsModalOpen }: ModalSearchProps) {
                 <div className='mt-6 flex justify-center gap-[85px]'>
                   <PopularSearchTerms />
                   <div className='flex flex-col'>
-                    <SearchBar />
+                    <SearchBar onClose={handleClose} />
                     <div className='mt-4'>
                       <RecentSearches />
                     </div>

@@ -11,6 +11,7 @@ interface SelectBoxProps {
   placeholder?: string;
   onChange: (data: any) => void;
   selectList: Array<any>;
+  defaultValueIndex?: number;
 }
 
 export function Selectbox({
@@ -18,8 +19,15 @@ export function Selectbox({
   width = 'long',
   placeholder,
   selectList,
+  defaultValueIndex,
 }: SelectBoxProps) {
-  const [selected, setSelected] = useState(placeholder ? null : selectList[0]);
+  const [selected, setSelected] = useState(
+    placeholder
+      ? null
+      : defaultValueIndex !== undefined
+        ? selectList[defaultValueIndex]
+        : selectList[0],
+  );
   const widthClass = width === 'long' ? 'w-[400px]' : 'w-[122px]';
   const handleValChange = (data: any) => {
     setSelected(() => data);
