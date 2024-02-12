@@ -1,8 +1,9 @@
 export interface IconProps {
   size?: number;
+  fill?: string;
 }
 
-export default function AvatarImage({ size }: IconProps) {
+export default function AvatarImage({ size, fill = '#F3F3F3' }: IconProps) {
   return (
     <svg
       width={size}
@@ -12,7 +13,7 @@ export default function AvatarImage({ size }: IconProps) {
       xmlns='http://www.w3.org/2000/svg'
     >
       <g id='Frame 427323648'>
-        <rect width='100%' height='100%' rx='40' fill='#F3F3F3' />
+        <rect width='100%' height='100%' rx='40' fill={fill} />
         <g id='Group 427322654'>
           <g id='Group 427322456'>
             <path
