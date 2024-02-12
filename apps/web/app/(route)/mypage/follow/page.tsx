@@ -1,6 +1,6 @@
 import { auth } from '@/auth';
 import NotFound from '@/not-found';
-import FollowList from './(components)/FollowList';
+import FollowList from './(components)/FollowContainer';
 
 async function page() {
   const session = await auth();

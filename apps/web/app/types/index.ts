@@ -90,3 +90,18 @@ export interface GroupedNotificationsType {
   lastSevenDays: NotificationType[];
   lastThirtyDays: NotificationType[];
 }
+
+export interface FollowDataType {
+  collectionId: string;
+  collectionName: string;
+  created: string;
+  followerId?: string[];
+  followingId?: string[];
+  expand?: {
+    followerId?: UserType[];
+    followingId?: UserType[];
+  };
+  id: string;
+  updated: string;
+  userId: string;
+}

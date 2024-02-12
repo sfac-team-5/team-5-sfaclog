@@ -3,7 +3,7 @@ import { Avatar } from '@/components/Avatar';
 import CapsuleButton from '@repo/ui/CapsuleButton';
 import { IconCheckWhite, IconPlusBlue } from '@repo/ui/Icon';
 
-function FollowBox() {
+function FollowingBox() {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -71,4 +71,4 @@ function FollowBox() {
   );
 }
 
-export default FollowBox;
+export default FollowingBox;

@@ -2,7 +2,9 @@
 
 import { Toggle } from '@repo/ui/Toggle';
 import { useEffect, useState } from 'react';
-import FollowBox from './FollowBox';
+import FollowingList from './FollowingList';
+import FollowerList from './FollowerList';
+import { FollowDataType } from '@/types';
 
 async function fetchData(userId: string, toggleState: string) {
   const response = await fetch(
@@ -13,11 +15,19 @@ async function fetchData(userId: string, toggleState: string) {
   return response.json();
 }
 
-function FollowList({ id }: { id: string }) {
+interface DataType {
+  count: {
+    followingCount: number;
+    followerCount: number;
+  };
+  result: FollowDataType;
+}
+
+function FollowContainer({ id }: { id: string }) {
   const [toggleState, setToggleState] = useState<'following' | 'followers'>(
     'following',
   );
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<DataType | null>(null);
 
   useEffect(() => {
     fetchData(id, toggleState).then(setData);
@@ -31,21 +41,20 @@ function FollowList({ id }: { id: string }) {
     );
   };
 
-  console.log('data', data);
-
   return (
     <>
       <Toggle
-        leftText='팔로잉'
-        rightText='팔로워'
+        leftText={`팔로잉 ${data.count.followingCount}`}
+        rightText={`팔로워 ${data.count.followerCount}`}
         onToggle={handleToggleData}
       />
 
-      <div className='border-neutral-10 mt-[52px] w-full border-t'>
-        <FollowBox />
+      <div className='mt-[52px] w-full'>
+        {toggleState === 'following' && <FollowingList data={data.result} />}
+        {toggleState === 'followers' && <FollowerList data={data.result} />}
       </div>
     </>
   );
 }
 
-export default FollowList;
+export default FollowContainer;

@@ -16,15 +16,15 @@ export async function GET(
       fields: 'followerCount,followingCount',
     });
 
-    let data;
+    let result;
     if (filter === 'followers') {
-      data = await pb
+      result = await pb
         .collection('follower')
         .getFirstListItem(`userId="${id}"`, {
           expand: 'followerId',
         });
     } else if (filter === 'following') {
-      data = await pb
+      result = await pb
         .collection('following')
         .getFirstListItem(`userId="${id}"`, {
           expand: 'followingId',
@@ -36,7 +36,7 @@ export async function GET(
       });
     }
 
-    const response = NextResponse.json({ count, data });
+    const response = NextResponse.json({ count, result });
     response.headers.append(
       'Cache-Control',
       'no-cache, no-store, must-revalidate',
