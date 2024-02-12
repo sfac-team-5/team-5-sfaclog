@@ -11,6 +11,7 @@ interface SelectBoxProps {
   placeholder?: string;
   onChange: (data: any) => void;
   selectList: Array<any>;
+  defaultValueIndex?: number;
 }
 
 export function Selectbox({
@@ -18,8 +19,15 @@ export function Selectbox({
   width = 'long',
   placeholder,
   selectList,
+  defaultValueIndex,
 }: SelectBoxProps) {
-  const [selected, setSelected] = useState(placeholder ? null : selectList[0]);
+  const [selected, setSelected] = useState(
+    placeholder
+      ? null
+      : defaultValueIndex !== undefined
+        ? selectList[defaultValueIndex]
+        : selectList[0],
+  );
   const widthClass = width === 'long' ? 'w-[400px]' : 'w-[122px]';
   const handleValChange = (data: any) => {
     setSelected(() => data);
@@ -31,7 +39,7 @@ export function Selectbox({
       <Listbox value={selected} onChange={handleValChange}>
         <div className='relative mt-1'>
           <Listbox.Button
-            className={`ui-open:border-stroke-50 relative h-10 w-full cursor-pointer rounded-md border-[1px] bg-white py-2 pl-3 pr-10 text-left focus:outline-none sm:text-sm`}
+            className={`relative w-full cursor-pointer rounded-md border-[1px] bg-white py-2 pl-3 pr-10 text-left focus:outline-none ui-open:border-stroke-50 sm:text-sm`}
           >
             <span className='block truncate'>
               {selected ? (
@@ -40,10 +48,10 @@ export function Selectbox({
                 <span className='text-neutral-40'>{placeholder}</span>
               )}
             </span>
-            <span className='ui-not-open:hidden pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2'>
+            <span className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 ui-not-open:hidden'>
               <IconTaillessArrowUpBlack />
             </span>
-            <span className='ui-open:hidden pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2'>
+            <span className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 ui-open:hidden'>
               <IconTaillessArrowDownBlack />
             </span>
           </Listbox.Button>
@@ -53,7 +61,7 @@ export function Selectbox({
             leaveFrom='opacity-100'
             leaveTo='opacity-0'
           >
-            <Listbox.Options className='shadow-custom absolute z-10 mt-2 max-h-60 w-full overflow-auto rounded-md bg-white p-2 text-base focus:outline-none sm:text-sm'>
+            <Listbox.Options className='absolute z-10 mt-2 max-h-60 w-full overflow-auto rounded-md bg-white p-2 text-base shadow-custom focus:outline-none sm:text-sm'>
               {selectList.map((item, itemIdx) => (
                 <Listbox.Option
                   key={itemIdx}
