@@ -5,6 +5,7 @@ interface CategoryButtonProps {
   className?: string;
   active?: boolean;
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  pageType?: 'popular' | 'recently';
 }
 
 function CategoryButton({
@@ -12,15 +13,16 @@ function CategoryButton({
   className,
   active,
   onClick,
+  pageType,
 }: CategoryButtonProps) {
   return (
-    <Link href={`/popular?category=${title}`}>
+    <Link href={`/${pageType}?category=${title}`}>
       <button
-        className={`text-label1 text-text-alternative rounded-full border px-[16px] py-[12px] transition-all ${className} ${
+        className={`text-label1 text-text-alternative h-10 rounded-full border px-6 transition-all ${className} ${
           active
-            ? 'border-primary-heavy bg-primary-heavy text-white'
-            : 'border-line-normal bg-white'
-        } hover:bg-primary-heavy transition-all duration-300 hover:text-white`}
+            ? 'bg-brand-100 border-none text-white'
+            : 'border-brand-100 text-brand-100 bg-white'
+        } hover:bg-brand-100 transition-all duration-300 hover:text-white`}
         onClick={onClick}
       >
         {title}
