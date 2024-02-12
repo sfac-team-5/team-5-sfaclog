@@ -6,17 +6,17 @@ export async function GET(request: NextRequest) {
   const category = searchParams.get('category');
   const page = searchParams.get('page');
 
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  // await new Promise(resolve => setTimeout(resolve, 1000));
 
   try {
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
     let logs;
     if (category === '전체') {
-      logs = await pb.collection('logs').getList(Number(page), 3, {
+      logs = await pb.collection('logs').getList(Number(page), 6, {
         sort: '-likes',
       });
     } else {
-      logs = await pb.collection('logs').getList(Number(page), 3, {
+      logs = await pb.collection('logs').getList(Number(page), 6, {
         sort: '-likes',
         filter: `series="${category}"`,
       });
@@ -28,6 +28,7 @@ export async function GET(request: NextRequest) {
         thumb: '300x300',
       });
     });
+
     return NextResponse.json(logs.items);
   } catch (error) {
     console.log(error);
