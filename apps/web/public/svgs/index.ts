@@ -20,6 +20,7 @@ import Complete from './complete.svg';
 import NotFoundImage from './404.svg';
 import NotFoundMypageItem from './NotFoundMypageItem.svg';
 import IconCaution from './caution.svg';
+import Welcome from './welcome.svg';
 export {
   IconReplyArrow,
   IconArrowRightSmall,
@@ -43,4 +44,5 @@ export {
   IconComment,
   NotFoundMypageItem,
   IconCaution,
+  Welcome,
 };
