@@ -6,12 +6,16 @@ interface NextButtonProps {
   총페이지: number;
   page: number;
   category: string;
+  sort?: string;
 }
 
-function NextButton({ 총페이지, page, category }: NextButtonProps) {
+function NextButton({ 총페이지, page, category, sort }: NextButtonProps) {
   return (
     <Link
-      href={`/mypage/${category}/${page + 1}`}
+      href={{
+        pathname: `/mypage/${category}/${page + 1}`,
+        query: sort ? { sort } : {},
+      }}
       className='flex items-center'
     >
       <button disabled={page === 총페이지 ? true : false}>
