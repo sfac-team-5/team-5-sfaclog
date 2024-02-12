@@ -1,14 +1,19 @@
-import { FollowDataType } from '@/types';
-import FollowingBox from './FollowingBox';
 import MyPagePagination from '@/components/Pagination/MyPagePagination';
+import FollowingBox from './FollowingBox';
+import { FollowDataType } from '@/types';
+import { isFollowingInfoType } from './FollowContainer';
 
-interface FollowingListProps {
+export interface FollowListProps {
   id: string;
   data: FollowDataType;
-  updateCount: (type: 'follow' | 'unfollow') => void;
+  updateCount: (
+    type: 'follow' | 'unfollow' | 'delete',
+    itemId?: string,
+  ) => void;
+  isFollowingInfo?: isFollowingInfoType[];
 }
 
-function FollowingList({ id, data, updateCount }: FollowingListProps) {
+function FollowingList({ id, data, updateCount }: FollowListProps) {
   const list = data.expand?.followingId;
   //   console.log(list);
 

@@ -15,12 +15,18 @@ async function fetchData(userId: string, toggleState: string) {
   return response.json();
 }
 
+export interface isFollowingInfoType {
+  id: string;
+  isFollowing: boolean;
+}
+
 interface DataType {
   count: {
     followingCount: number;
     followerCount: number;
   };
   result: FollowDataType;
+  isFollowingInfo: isFollowingInfoType[];
 }
 
 function FollowContainer({ id }: { id: string }) {
@@ -41,18 +47,51 @@ function FollowContainer({ id }: { id: string }) {
     );
   };
 
-  const updateCount = (type: 'follow' | 'unfollow') => {
+  console.log(data);
+
+  const updateCount = (
+    type: 'follow' | 'unfollow' | 'delete',
+    itemId?: string,
+  ) => {
     setData(prevData => {
       if (!prevData) return null;
+
+      let updatedFollowingCount = prevData.count.followingCount;
+      let updatedFollowerCount = prevData.count.followerCount;
+      let updatedIsFollowingInfo = [...prevData.isFollowingInfo];
+      const updatedResult = { ...prevData.result };
+
+      switch (type) {
+        case 'follow':
+          updatedFollowingCount += 1;
+          break;
+        case 'unfollow':
+          updatedFollowingCount -= 1;
+          break;
+        case 'delete':
+          updatedFollowerCount -= 1;
+          if (updatedResult.expand && updatedResult.expand.followerId) {
+            updatedResult.expand.followerId =
+              updatedResult.expand.followerId.filter(
+                user => user.id !== itemId,
+              );
+          }
+          updatedIsFollowingInfo = updatedIsFollowingInfo.filter(
+            info => info.id !== itemId,
+          );
+          break;
+        default:
+          break;
+      }
+
       return {
         ...prevData,
         count: {
-          followingCount:
-            type === 'follow'
-              ? prevData.count.followingCount + 1
-              : prevData.count.followingCount - 1,
-          followerCount: prevData.count.followerCount,
+          followingCount: updatedFollowingCount,
+          followerCount: updatedFollowerCount,
         },
+        result: updatedResult,
+        isFollowingInfo: updatedIsFollowingInfo,
       };
     });
   };
@@ -69,7 +108,14 @@ function FollowContainer({ id }: { id: string }) {
         {toggleState === 'following' && (
           <FollowingList id={id} data={data.result} updateCount={updateCount} />
         )}
-        {toggleState === 'followers' && <FollowerList data={data.result} />}
+        {toggleState === 'followers' && (
+          <FollowerList
+            id={id}
+            data={data.result}
+            isFollowingInfo={data.isFollowingInfo}
+            updateCount={updateCount}
+          />
+        )}
       </div>
     </>
   );

@@ -1,13 +1,13 @@
-import { FollowDataType } from '@/types';
 import FollowerBox from './FollowerBox';
+import { FollowListProps } from './FollowingList';
 
-interface FollowerListProps {
-  data: FollowDataType;
-}
-
-function FollowerList({ data }: FollowerListProps) {
+function FollowerList({
+  id,
+  data,
+  updateCount,
+  isFollowingInfo,
+}: FollowListProps) {
   const list = data.expand?.followerId;
-  console.log(data);
 
   if (data.followerId?.length === 0) {
     return (
@@ -20,7 +20,18 @@ function FollowerList({ data }: FollowerListProps) {
   return (
     <div className='border-neutral-10 border-t'>
       {list?.map((item, idx) => {
-        return <FollowerBox key={idx} />;
+        const isFollowing =
+          isFollowingInfo?.find(info => info.id === item.id)?.isFollowing ??
+          false;
+        return (
+          <FollowerBox
+            key={idx}
+            id={id}
+            data={item}
+            isFollowing={isFollowing}
+            updateCount={updateCount}
+          />
+        );
       })}
     </div>
   );

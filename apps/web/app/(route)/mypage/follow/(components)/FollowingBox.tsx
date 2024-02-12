@@ -1,13 +1,18 @@
 import { useEffect, useState } from 'react';
+
 import { Avatar } from '@/components/Avatar';
 import CapsuleButton from '@repo/ui/CapsuleButton';
 import { IconCheckWhite, IconPlusBlue } from '@repo/ui/Icon';
 import { UserType } from '@/types';
 
-interface FollowBoxProps {
+export interface FollowBoxProps {
   id: string;
   data: UserType;
-  updateCount: (type: 'follow' | 'unfollow') => void;
+  updateCount: (
+    type: 'follow' | 'unfollow' | 'delete',
+    itemId?: string,
+  ) => void;
+  isFollowing?: boolean;
 }
 
 function FollowingBox({ id, data, updateCount }: FollowBoxProps) {
@@ -111,7 +116,7 @@ function FollowingBox({ id, data, updateCount }: FollowBoxProps) {
               size='m'
               label='팔로잉'
               color='blue'
-              className='text-B3R12 hover:bg-brand-70 w-[82px] px-0'
+              className='text-B3R12 hover:bg-brand-70 w-[82px] !px-0'
             />
           )}
         </div>
@@ -122,7 +127,7 @@ function FollowingBox({ id, data, updateCount }: FollowBoxProps) {
             size='m'
             label='팔로우'
             color='white'
-            className='text-B3R12 w-[82px] px-0'
+            className='text-B3R12 w-[82px] !px-0'
             onClick={handleFollowClick}
           />
         </div>
