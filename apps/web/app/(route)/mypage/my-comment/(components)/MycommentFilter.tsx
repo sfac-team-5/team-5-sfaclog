@@ -6,11 +6,10 @@ import React from 'react';
 
 const selectList = [
   { value: '최신순', link: 'recently' },
-  { value: '인기순', link: 'popular' },
   { value: '오래된순', link: 'oldest' },
 ];
 
-function MyLogFilter() {
+function MycommentFilter() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const sort = searchParams.get('sort');
@@ -18,14 +17,12 @@ function MyLogFilter() {
   let index = 0;
   if (sort === 'recenty') {
     index = 0;
-  } else if (sort === 'popular') {
-    index = 1;
   } else if (sort === 'oldest') {
-    index = 2;
+    index = 1;
   }
 
   const onChange = (list: { value: string; link: string }) => {
-    router.push(`/mypage/my-log?sort=${list.link}`);
+    router.push(`/mypage/my-comment?sort=${list.link}`);
   };
 
   return (
@@ -40,4 +37,4 @@ function MyLogFilter() {
   );
 }
 
-export default MyLogFilter;
+export default MycommentFilter;
