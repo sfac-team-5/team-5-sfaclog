@@ -1,4 +1,4 @@
-//arrow icon import
+// arrow icon import
 import IconTaillessArrowUpBlack from './arrows/tailless_arrow_up_black.svg';
 import IconTaillessArrowUpBlue from './arrows/tailless_arrow_up_blue.svg';
 import IconTaillessArrowUpGray from './arrows/tailless_arrow_up_gray.svg';
@@ -13,16 +13,16 @@ import IconArrowUpBlack from './arrows/arrow_up_black.svg';
 import IconArrowDownBlack from './arrows/arrow_down_black.svg';
 import IconArrowLeftBlack from './arrows/arrow_left_black.svg';
 import IconArrowRightBlack from './arrows/arrow_right_black.svg';
-//message icon import
+// message icon import
 import IconMessageBlue from './messages/message_blue.svg';
 import IconMessageGray from './messages/message_gray.svg';
 import IconMessageLine from './messages/massage_line.svg';
-//view icon import
+// view icon import
 import IconViewBlue from './views/view_blue.svg';
 import IconViewGray from './views/view_gray.svg';
 import IconViewBlack from './views/view_black.svg';
 import IconViewCancel from './views/view_cancel.svg';
-//heart icon import
+// heart icon import
 import IconHeartBlack from './hearts/heart_black.svg';
 import IconHeartBlue from './hearts/heart_blue.svg';
 import IconHeartGary from './hearts/heart_gray.svg';
@@ -40,6 +40,7 @@ import IconCheckBoxBlue from './checks/check_box_blue.svg';
 import IconCheckBoxGray from './checks/check_box_gray.svg';
 import IconCheckBoxRed from './checks/check_box_red.svg';
 import IconCheckBlack from './checks/check_balck.svg';
+import IconCheckWhite from './checks/check_white.svg';
 import IconCheckBoxSquareFalse from './checks/check_box_square_false.svg';
 import IconCheckBoxSquareTrue from './checks/check_box_square_true.svg';
 // cancel icon import
@@ -50,6 +51,7 @@ import IconCancelBlack from './cancels/cancel_black.svg';
 import IconPlusBoxBlue from './plus/plus_box_blue.svg';
 import IconPlusBoxGray from './plus/plus_box_gray.svg';
 import IconPlusBlack from './plus/plus_black.svg';
+import IconPlusBlue from './plus/plus_blue.svg';
 import IconPlusGray from './plus/plus_gray.svg';
 // radio icon import
 import IconRadioBoxBlue from './radios/radio_box_blue.svg';
@@ -121,6 +123,7 @@ export {
   IconAlramBoxGray,
   IconAlramLineBlack,
   IconCheckBlack,
+  IconCheckWhite,
   IconCheckBoxBlue,
   IconCheckBoxGray,
   IconCheckBoxRed,
@@ -130,6 +133,7 @@ export {
   IconCancelBoxBlue,
   IconCancelBoxGray,
   IconPlusBlack,
+  IconPlusBlue,
   IconPlusGray,
   IconPlusBoxBlue,
   IconPlusBoxGray,
