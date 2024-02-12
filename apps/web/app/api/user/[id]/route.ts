@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import PocketBase from 'pocketbase';
-
+//id로 유저정보 가져오기
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } },
@@ -10,6 +10,7 @@ export async function GET(
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
     const record = await pb.collection('users').getOne(id, {
       fields: '*',
+      expand: 'career,sns',
     });
 
     const avatarFilename = record.avatar;

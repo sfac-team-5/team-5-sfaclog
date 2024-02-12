@@ -6,13 +6,17 @@ interface NumberingProps {
   총페이지: number;
   page: number;
   category: string;
+  sort?: string;
 }
 
-function Numbering({ 총페이지, page, category }: NumberingProps) {
+function Numbering({ 총페이지, page, category, sort }: NumberingProps) {
   const 총페이지배열 = Array.from({ length: 총페이지 }).map((_, i) => (
     <Link
       key={i}
-      href={`/mypage/${category}/${i + 1}`}
+      href={{
+        pathname: `/mypage/${category}/${i + 1}`,
+        query: sort ? { sort } : {},
+      }}
       className='cursor-pointer'
     >
       <div

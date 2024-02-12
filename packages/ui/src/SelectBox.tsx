@@ -7,12 +7,12 @@ import {
 } from '../public/svgs';
 
 interface SelectBoxProps {
-  label?: string;
   width: 'long' | 'short';
   placeholder?: string;
   onChange: (data: any) => void;
   selectList: Array<any>;
   selectedOption?: any;
+  defaultValueIndex?: number;
 }
 
 export function Selectbox({
@@ -21,8 +21,15 @@ export function Selectbox({
   placeholder,
   selectList,
   selectedOption,
+  defaultValueIndex,
 }: SelectBoxProps) {
-  const [selected, setSelected] = useState(placeholder ? null : selectList[0]);
+  const [selected, setSelected] = useState(
+    placeholder
+      ? null
+      : defaultValueIndex !== undefined
+        ? selectList[defaultValueIndex]
+        : selectList[0],
+  );
 
   useEffect(() => {
     if (selectedOption) {

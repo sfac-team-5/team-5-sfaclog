@@ -8,13 +8,19 @@ import MyCommentDeleteButton from './MyCommentDeleteButton';
 import { Session } from 'next-auth';
 import CommentCount from './CommentCount';
 import MyPagePagination from '@/components/Pagination/MyPagePagination';
+import MycommentFilter from './MycommentFilter';
 
 interface MyCommentListProps {
   page: number;
+  sort?: string;
 }
 
 // 제대로 짜려면 대공사가 필요해서 성능 신경안쓰고 작성했습니다..
-const fetchData = async (session: Session | null, page: number) => {
+const fetchData = async (
+  session: Session | null,
+  page: number,
+  sort?: string,
+) => {
   try {
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
     const commentList = await pb
@@ -60,8 +66,10 @@ const fetchData = async (session: Session | null, page: number) => {
     });
 
     const myCommentList = [...filteredCommentList, ...filteredReplyCommentList];
-    const sortedMyCommentList = myCommentList.sort(
-      (a, b) => new Date(b.createAt).getTime() - new Date(a.createAt).getTime(),
+    const sortedMyCommentList = myCommentList.sort((a, b) =>
+      sort === 'recently'
+        ? new Date(b.createAt).getTime() - new Date(a.createAt).getTime()
+        : new Date(a.createAt).getTime() - new Date(b.createAt).getTime(),
     );
 
     const result = sortedMyCommentList.slice(6 * (page - 1), 6 * page);
@@ -72,14 +80,15 @@ const fetchData = async (session: Session | null, page: number) => {
   }
 };
 
-async function MyCommentList({ page }: MyCommentListProps) {
+async function MyCommentList({ page, sort }: MyCommentListProps) {
   const session = await auth();
   if (!session) return;
-  const { myCommentList, totalItems } = await fetchData(session, page);
+  const { myCommentList, totalItems } = await fetchData(session, page, sort);
   if (myCommentList.length === 0) return NoData();
 
   return (
     <div>
+      <MycommentFilter />
       {myCommentList.map((comment: any) => {
         return (
           <div
@@ -115,6 +124,7 @@ async function MyCommentList({ page }: MyCommentListProps) {
         totalItems={totalItems}
         page={page}
         category='my-comment'
+        sort={sort}
       />
     </div>
   );
