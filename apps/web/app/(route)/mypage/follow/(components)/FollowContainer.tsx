@@ -47,8 +47,6 @@ function FollowContainer({ id }: { id: string }) {
     );
   };
 
-  console.log(data);
-
   const updateCount = (
     type: 'follow' | 'unfollow' | 'delete',
     itemId?: string,

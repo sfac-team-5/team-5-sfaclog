@@ -15,7 +15,6 @@ export interface FollowListProps {
 
 function FollowingList({ id, data, updateCount }: FollowListProps) {
   const list = data.expand?.followingId;
-  //   console.log(list);
 
   if (data.followingId?.length === 0) {
     return (
