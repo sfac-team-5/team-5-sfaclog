@@ -14,8 +14,20 @@ export interface UserType {
   updated: string;
   username: string;
   verified: boolean;
-  sns: any;
-  career?: any;
+  sns: SNSType[];
+  career?: CareerType[];
+}
+
+export interface CareerType {
+  from: string;
+  to: string;
+  status: boolean;
+  company: string;
+}
+
+export interface SNSType {
+  type: string;
+  url: string;
 }
 
 interface SeriesType {

@@ -1,11 +1,16 @@
 import { FollowDataType } from '@/types';
+import FollowingBox from './FollowingBox';
+import MyPagePagination from '@/components/Pagination/MyPagePagination';
 
 interface FollowingListProps {
+  id: string;
   data: FollowDataType;
+  updateCount: (type: 'follow' | 'unfollow') => void;
 }
 
-function FollowingList({ data }: FollowingListProps) {
-  console.log(data);
+function FollowingList({ id, data, updateCount }: FollowingListProps) {
+  const list = data.expand?.followingId;
+  //   console.log(list);
 
   if (data.followingId?.length === 0) {
     return (
@@ -15,7 +20,26 @@ function FollowingList({ data }: FollowingListProps) {
     );
   }
 
-  return <div>FollowingList</div>;
+  return (
+    <div className='border-neutral-10 border-t'>
+      {list?.map((item, idx) => {
+        return (
+          <FollowingBox
+            key={idx}
+            id={id}
+            data={item}
+            updateCount={updateCount}
+          />
+        );
+      })}
+
+      {/* <MyPagePagination
+        totalItems={list.length}
+        page={page}
+        category='following'
+      /> */}
+    </div>
+  );
 }
 
 export default FollowingList;

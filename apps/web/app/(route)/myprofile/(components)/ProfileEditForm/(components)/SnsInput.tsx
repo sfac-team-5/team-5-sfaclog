@@ -90,11 +90,6 @@ const selectList = [
   },
 ];
 
-interface SNSType {
-  type: string;
-  url: string;
-}
-
 interface SnsInputProps {
   setValue: any;
   inputValues: any;

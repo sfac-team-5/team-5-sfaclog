@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { InputBox } from '@repo/ui/InputBox';
 import InputTitle from './InputTitle';
 import InputAddButton from './InputAddButton';
@@ -7,6 +6,7 @@ import {
   IconCheckBoxSquareFalse,
   IconCheckBoxSquareTrue,
 } from '@repo/ui/Icon';
+import { CareerType } from '@/types';
 
 interface CareerInputProps {
   setValue: any;
@@ -14,13 +14,6 @@ interface CareerInputProps {
   clearErrors: any;
   errors: any;
   watch: any;
-}
-
-interface CareerType {
-  from: string;
-  to: string;
-  status: boolean;
-  company: string;
 }
 
 function CareerInput({

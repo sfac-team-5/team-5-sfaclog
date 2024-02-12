@@ -41,6 +41,22 @@ function FollowContainer({ id }: { id: string }) {
     );
   };
 
+  const updateCount = (type: 'follow' | 'unfollow') => {
+    setData(prevData => {
+      if (!prevData) return null;
+      return {
+        ...prevData,
+        count: {
+          followingCount:
+            type === 'follow'
+              ? prevData.count.followingCount + 1
+              : prevData.count.followingCount - 1,
+          followerCount: prevData.count.followerCount,
+        },
+      };
+    });
+  };
+
   return (
     <>
       <Toggle
@@ -50,7 +66,9 @@ function FollowContainer({ id }: { id: string }) {
       />
 
       <div className='mt-[52px] w-full'>
-        {toggleState === 'following' && <FollowingList data={data.result} />}
+        {toggleState === 'following' && (
+          <FollowingList id={id} data={data.result} updateCount={updateCount} />
+        )}
         {toggleState === 'followers' && <FollowerList data={data.result} />}
       </div>
     </>
