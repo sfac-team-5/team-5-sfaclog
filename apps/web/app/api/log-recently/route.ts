@@ -13,11 +13,11 @@ export async function GET(request: NextRequest) {
     let logs;
     if (category === '전체') {
       logs = await pb.collection('logs').getList(Number(page), 6, {
-        sort: '-likes',
+        sort: '-created',
       });
     } else {
       logs = await pb.collection('logs').getList(Number(page), 6, {
-        sort: '-likes',
+        sort: '-created',
         filter: `series="${category}"`,
       });
     }
