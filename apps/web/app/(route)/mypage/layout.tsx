@@ -1,6 +1,6 @@
+import { auth } from '@/auth';
 import { MyProfileCard } from '@/components/Profile/MyProfileCard';
 const getUserInfo = async (id: string) => {
-  //임시 profile 용도
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${id}`,
     { cache: 'no-cache' },
@@ -14,10 +14,13 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
-  const nextAuthId = 'an6xvwgrbnfcsu8';
-  const user = await getUserInfo('an6xvwgrbnfcsu8');
+  const session = await auth();
+
+  if (!session) return null;
+  const user = await getUserInfo(session?.user.id);
+
   return (
-    <main className='container my-20 flex gap-[83px]'>
+    <main className='container mb-[150px] mt-20 flex gap-[83px]'>
       <MyProfileCard user={user} />
       {children}
     </main>

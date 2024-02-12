@@ -16,6 +16,8 @@ export interface UserType {
   verified: boolean;
   sns: SNSType[];
   career?: CareerType[];
+  followingCount: number;
+  followerCount: number;
 }
 
 export interface CareerType {
