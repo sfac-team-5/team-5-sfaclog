@@ -10,7 +10,7 @@ import MyLogFilter from './MyLogFilter';
 
 interface MyLogListProps {
   page: number;
-  sort: string;
+  sort?: string;
 }
 
 interface sortObjType {
@@ -22,7 +22,7 @@ interface sortObjType {
 const fetchData = async (
   session: Session | null,
   page: number,
-  sort: string,
+  sort?: string,
 ) => {
   const sortObj: sortObjType = {
     expand: 'user',

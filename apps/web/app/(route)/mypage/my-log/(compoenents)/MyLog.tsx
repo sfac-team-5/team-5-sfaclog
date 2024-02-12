@@ -5,7 +5,7 @@ import MyPageCategory from '../../(components)/MyPageCategory';
 interface MyLogProps {
   page: number;
   category: string;
-  sort: string;
+  sort?: string;
 }
 
 async function MyLog({ page, category, sort }: MyLogProps) {
