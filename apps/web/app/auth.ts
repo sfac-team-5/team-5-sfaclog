@@ -54,11 +54,18 @@ export const config = {
   ],
 
   callbacks: {
-    async jwt({ token, account, user, profile }) {
+    async jwt({ token, trigger, account, user, profile, session }) {
       // console.log('TOKEN =', token);
+      // console.log('session =', session);
       // console.log('Account =', account);
       // console.log('User= ', user);
       // console.log('profile= ', profile);
+      if (trigger === 'update' && session.name && session.image) {
+        // session 업데이트 (닉네임 수정)
+        token.name = session.name;
+        token.image = session.image;
+        token.picture = session.image;
+      }
       return {
         ...token,
         ...user,
@@ -68,6 +75,7 @@ export const config = {
       if (token && session) {
         session.user.id = token.id;
         session.user.email = token.email;
+        session.user.image = token.image;
       }
       // console.log('session =', session);
       return session;

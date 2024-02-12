@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
       nickname: data.nickname,
       isTerms: true,
       interests: data.interests,
-      proposals: data.proposals,
+      offers: data.offers,
     };
     const userRecord = await pb.collection('users').create(newData);
 

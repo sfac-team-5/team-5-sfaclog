@@ -1,5 +1,5 @@
 'use client';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import {
   IconTaillessArrowUpBlack,
@@ -11,6 +11,7 @@ interface SelectBoxProps {
   placeholder?: string;
   onChange: (data: any) => void;
   selectList: Array<any>;
+  selectedOption?: any;
   defaultValueIndex?: number;
 }
 
@@ -19,6 +20,7 @@ export function Selectbox({
   width = 'long',
   placeholder,
   selectList,
+  selectedOption,
   defaultValueIndex,
 }: SelectBoxProps) {
   const [selected, setSelected] = useState(
@@ -28,6 +30,13 @@ export function Selectbox({
         ? selectList[defaultValueIndex]
         : selectList[0],
   );
+
+  useEffect(() => {
+    if (selectedOption) {
+      setSelected(selectedOption);
+    }
+  }, [selectedOption]);
+
   const widthClass = width === 'long' ? 'w-[400px]' : 'w-[122px]';
   const handleValChange = (data: any) => {
     setSelected(() => data);
@@ -37,9 +46,9 @@ export function Selectbox({
   return (
     <div className={`${widthClass}`}>
       <Listbox value={selected} onChange={handleValChange}>
-        <div className='relative mt-1'>
+        <div className='relative'>
           <Listbox.Button
-            className={`relative w-full cursor-pointer rounded-md border-[1px] bg-white py-2 pl-3 pr-10 text-left focus:outline-none ui-open:border-stroke-50 sm:text-sm`}
+            className={`ui-open:border-stroke-50 relative w-full cursor-pointer rounded-md border-[1px] bg-white py-2 pl-3 pr-10 text-left focus:outline-none sm:text-sm`}
           >
             <span className='block truncate'>
               {selected ? (
@@ -48,10 +57,10 @@ export function Selectbox({
                 <span className='text-neutral-40'>{placeholder}</span>
               )}
             </span>
-            <span className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 ui-not-open:hidden'>
+            <span className='ui-not-open:hidden pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2'>
               <IconTaillessArrowUpBlack />
             </span>
-            <span className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 ui-open:hidden'>
+            <span className='ui-open:hidden pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2'>
               <IconTaillessArrowDownBlack />
             </span>
           </Listbox.Button>
@@ -61,12 +70,12 @@ export function Selectbox({
             leaveFrom='opacity-100'
             leaveTo='opacity-0'
           >
-            <Listbox.Options className='absolute z-10 mt-2 max-h-60 w-full overflow-auto rounded-md bg-white p-2 text-base shadow-custom focus:outline-none sm:text-sm'>
+            <Listbox.Options className='shadow-custom scrollbar-hide absolute z-10 mt-2 max-h-60 w-full overflow-auto rounded-md bg-white p-2 text-base focus:outline-none sm:text-sm'>
               {selectList.map((item, itemIdx) => (
                 <Listbox.Option
                   key={itemIdx}
                   className={({ active }) =>
-                    `relative text-B1R16  rounded-md cursor-pointer select-none ${width === 'long' ? 'py-2 pl-6 pr-4' : 'py-2 pl-4 pr-2'} ${
+                    `relative text-B1R16  rounded-md cursor-pointer select-none ${width === 'long' ? 'py-2 pl-6 pr-4' : 'py-2 pl-3 pr-2'} ${
                       active ? 'bg-brand-10 text-brand-100' : 'text-neutral-40'
                     }`
                   }

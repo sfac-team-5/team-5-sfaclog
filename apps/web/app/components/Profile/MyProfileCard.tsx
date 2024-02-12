@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   ProfileContainer,
   ProfileIntro,
@@ -10,6 +9,7 @@ import {
 } from './(components)';
 import { UserType } from '@/types';
 import { MyProfileLogout } from './(components)/MyProfileLogout';
+
 export async function MyProfileCard({ user }: { user: UserType }) {
   return (
     <ProfileContainer>
@@ -23,7 +23,10 @@ export async function MyProfileCard({ user }: { user: UserType }) {
         }
       />
       <div className='mt-6'>
-        <ProfileFlwFlwer follow={24} follower={999} />
+        <ProfileFlwFlwer
+          follow={user.followingCount}
+          follower={user.followerCount}
+        />
       </div>
       {Object.entries(user.career).length !== 0 && (
         <>

@@ -19,9 +19,12 @@ const customConfig = {
       },
       container: {
         screens: {
+          md: '960px',
           lg: '1440px',
         },
         padding: {
+          sm: '20px',
+          md: '40px',
           lg: '240px',
         },
         center: true,

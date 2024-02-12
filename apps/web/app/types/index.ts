@@ -1,33 +1,35 @@
 export interface UserType {
-  avatar: string;
+  avatar: FileList | string | null;
+  avatarUrl: string;
   collectionId: string;
   collectionName: string;
   created: string;
-  emailVisibility: boolean;
+  email: string;
   id: string;
-  interest: any[]; // 'interest' 배열의 구체적인 타입을 명시할 필요가 있음
+  interests: string[];
   intro: string;
-  isTerms: boolean;
   nickname: string;
   phone: string;
-  proposal: any[]; // 'proposal' 배열의 구체적인 타입을 명시할 필요가 있음
-  sEmail: string;
-  sGithub: string;
-  sInstagram: string;
-  sRocketpunch: string;
-  sSfacfolio: string;
-  sYoutube: string;
+  offers: string[];
   updated: string;
   username: string;
   verified: boolean;
-  sns: Record<string, string>; //key = string, val = string 객체 타입
-  career: Career[];
+  sns: SNSType[];
+  career?: CareerType[];
+  followingCount: number;
+  followerCount: number;
 }
 
-export interface Career {
+export interface CareerType {
   from: string;
   to: string;
+  status: boolean;
   company: string;
+}
+
+export interface SNSType {
+  type: string;
+  url: string;
 }
 
 interface SeriesType {
@@ -101,4 +103,19 @@ export interface GroupedNotificationsType {
   today: NotificationType[];
   lastSevenDays: NotificationType[];
   lastThirtyDays: NotificationType[];
+}
+
+export interface FollowDataType {
+  collectionId: string;
+  collectionName: string;
+  created: string;
+  followerId?: string[];
+  followingId?: string[];
+  expand?: {
+    followerId?: UserType[];
+    followingId?: UserType[];
+  };
+  id: string;
+  updated: string;
+  userId: string;
 }
