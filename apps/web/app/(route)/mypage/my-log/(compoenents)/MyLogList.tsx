@@ -6,19 +6,42 @@ import PocketBase from 'pocketbase';
 import { LogType } from '@/types';
 import { Session } from 'next-auth';
 import MyPagePagination from '@/components/Pagination/MyPagePagination';
+import MyLogFilter from './MyLogFilter';
 
 interface MyLogListProps {
   page: number;
+  sort: string;
 }
 
-const fetchData = async (session: Session | null, page: number) => {
+interface sortObjType {
+  expand: string;
+  filter: string;
+  sort?: string;
+}
+
+const fetchData = async (
+  session: Session | null,
+  page: number,
+  sort: string,
+) => {
+  const sortObj: sortObjType = {
+    expand: 'user',
+    filter: `user="${session?.user.id}"`,
+  };
+  if (sort === 'recently') {
+    sortObj.sort = '-created';
+  } else if (sort === 'popular') {
+    sortObj.sort = '-views';
+  } else if (sort === 'oldest') {
+    sortObj.sort = 'created';
+  }
+
   try {
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
 
-    const myLogs = await pb.collection('logs').getList<LogType>(page, 6, {
-      expand: 'user',
-      filter: `user="${session?.user.id}"`,
-    });
+    const myLogs = await pb
+      .collection('logs')
+      .getList<LogType>(page, 6, sortObj);
 
     myLogs.items.forEach(log => {
       const thumbnailFilename = log.thumbnail;
@@ -37,14 +60,15 @@ const fetchData = async (session: Session | null, page: number) => {
   }
 };
 
-async function MyLogList({ page }: MyLogListProps) {
+async function MyLogList({ page, sort }: MyLogListProps) {
   const session = await auth();
   if (!session) return;
-  const { myLogs, totalItems } = await fetchData(session, page);
+  const { myLogs, totalItems } = await fetchData(session, page, sort);
   if (myLogs.length === 0) return NoData();
 
   return (
     <div>
+      <MyLogFilter />
       <div className='mb-10 grid grid-cols-2 gap-6'>
         {myLogs.map(log => (
           <LogCard variant='logPage' key={log.id} log={log} />
@@ -54,6 +78,7 @@ async function MyLogList({ page }: MyLogListProps) {
         totalItems={totalItems}
         page={page}
         category={'my-log'}
+        sort={sort}
       />
     </div>
   );
