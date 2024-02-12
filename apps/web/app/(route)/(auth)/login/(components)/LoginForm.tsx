@@ -23,6 +23,7 @@ export default function LoginForm() {
     handleSubmit,
     formState: { errors },
     setValue,
+    setError,
   } = useForm<LoginInputType>({
     defaultValues: {
       email: '',
@@ -36,8 +37,13 @@ export default function LoginForm() {
     if (loginSuccess) {
       alert('로그인되었습니다.');
       router.push('/');
+      router.refresh();
     } else {
       console.log('다시 로그인해 주세요.');
+      setError('password', {
+        message: '이메일 또는 비밀번호를 잘못 입력했습니다. 다시 확인해주세요.',
+      });
+      return;
     }
   };
 

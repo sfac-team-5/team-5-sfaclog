@@ -4,6 +4,7 @@ import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
 import { ImageResize } from 'quill-image-resize-module-ts';
+import PocketBase from 'pocketbase';
 // import { UseFormGetValues, UseFormSetValue } from 'react-hook-form';
 // import { LogFormData } from '../LogWriteForm';
 // import { CommunityFormData } from '@/(route)/community/write/(components)/CommunityWriteForm';
@@ -35,6 +36,33 @@ export default function ContentInput({
   //   setValue('content', content);
   // }, [content]);
 
+  const imageHandler = async () => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.click();
+
+    input.addEventListener('change', async () => {
+      if (!input.files) return;
+      const file = input.files[0];
+      if (!file) return;
+      const formData = new FormData();
+      formData.append('image', file);
+
+      try {
+        const pb = new PocketBase('http://3.35.176.72:8090');
+        const response = await pb.collection('storage').create(formData);
+        const imgUrl = pb.files.getUrl(response, response.image);
+        const editor = quillRef.current.getEditor();
+        const range = editor.getSelection();
+        editor.insertEmbed(range.index, 'image', imgUrl);
+        editor.setSelection(range.index + 1);
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  };
+
   const modules = useMemo(() => {
     return {
       toolbar: {
@@ -45,6 +73,7 @@ export default function ContentInput({
           [{ list: 'ordered' }, { list: 'bullet' }, { align: [] }],
           ['image', 'link', 'code-block'],
         ],
+        handlers: { image: imageHandler },
       },
       clipboard: {
         matchVisual: false,
@@ -55,6 +84,7 @@ export default function ContentInput({
   return (
     <ReactQuill
       ref={quillRef}
+      modules={modules}
       value={content}
       theme={'snow'}
       onChange={onChange}

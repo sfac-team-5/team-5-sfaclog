@@ -7,7 +7,6 @@ import {
 } from '../public/svgs';
 
 interface SelectBoxProps {
-  label?: string;
   width: 'long' | 'short';
   placeholder?: string;
   onChange: (data: any) => void;

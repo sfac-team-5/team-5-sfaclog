@@ -55,7 +55,7 @@ export function NavAuthBtn({ session }: NavAuthBtnProps) {
           />
         </div>
       ) : (
-        <div className='flex gap-2'>
+        <div className='flex w-[171px] grow items-center gap-2'>
           <ButtonRound type='outline'>
             <Link href={'/login'}>로그인</Link>
           </ButtonRound>

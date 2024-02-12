@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
       { status: 400 },
     );
   }
-  console.log('handler = ', type, data);
+  // console.log('handler = ', type, data);
   // try {
   //pocketbase 상에서 데이터를 못 찾으면 에러를 발생시킴
   //에러 처리 부분을 중복검사 통과로 설정하고 200코드 리턴하도록 설정하였음
@@ -39,7 +39,7 @@ export async function GET(req: NextRequest) {
     .collection('users')
     .getFirstListItem(`${type}="${data}"`)
     .then(result => result)
-    .catch(err => null);
+    .catch(() => null);
   if (!record) {
     return NextResponse.json(
       {

@@ -84,7 +84,7 @@ export function Form() {
     );
     if (!response.ok) throw Error('email duplication check error');
     const result = await response.json();
-    console.log('result = ', result);
+    // console.log('result = ', result);
     if (result.isDuplicate) {
       setCheckDuplEmail(() => false);
       // setError('email', { message: '이미 사용 중인 이메일 입니다' });
@@ -104,7 +104,7 @@ export function Form() {
     );
     if (!response.ok) throw Error('nickname duplication check error');
     const result = await response.json();
-    console.log('result = ', result);
+    // console.log('result = ', result);
     if (result.isDuplicate) {
       setCheckDuplNickname(() => false);
       return '이미 사용 중인 닉네임 입니다';
@@ -143,7 +143,8 @@ export function Form() {
     data = { ...data, interests, proposals };
     console.log('submit data', data);
     const result = await SignUpSubmitAction(data);
-    if (result) {
+    console.log('submit result =', result);
+    if (result.isCreated) {
       console.log('생성완료');
       router.push(`/signup/verify?email=${data.email}`);
     } else {
@@ -153,8 +154,8 @@ export function Form() {
     }
   };
 
-  if (isSubmitting)
-    return <div className='text-H0M32 text-center'>Loading...</div>;
+  // if (isSubmitting)
+  //   return <div className='text-H0M32 text-center'>Loading...</div>;
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className='mx-auto w-fit'>
