@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { IconKebob } from '@public/svgs';
-import { useModalDataActions } from '@/hooks/stores/useModalDataStore';
+import { useModalDataActions } from '@/hooks/stores/useModalStore';
 
 interface KebobMenuProps {
   logId: string;
@@ -18,12 +18,19 @@ function KebobMenu({ logId }: KebobMenuProps) {
     router.push(`/log/edit/${logId}`);
   };
 
-  const onDelete = () => {
+  const onDelete = (id: string) => {
     changeModalData({
-      type: 'log-delete',
-      logId,
+      title: '삭제하기',
+      description: '작성하신 로그를 삭제하시겠습니까?',
+      action: async () => {
+        const response = await fetch(`/api/log/${id}`, {
+          method: 'DELETE',
+        });
+        if (!response.ok) return alert('삭제 실패요 ㅜㅜ');
+        router.push('/');
+      },
     });
-    router.push(`/modal?type=log-delete`);
+    router.push(`/modal`);
   };
 
   return (
@@ -41,7 +48,7 @@ function KebobMenu({ logId }: KebobMenuProps) {
             수정하기
           </li>
           <li
-            onClick={onDelete}
+            onClick={() => onDelete(logId)}
             className='h-[42px] cursor-pointer rounded-[4px] p-3 text-neutral-70 duration-200 hover:bg-brand-10 hover:text-[#0059FF]'
           >
             삭제하기
