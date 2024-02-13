@@ -27,7 +27,7 @@ interface DeleteAccountType {
 export function DeleteAccountForm({ email }: { email?: string }) {
   const router = useRouter();
   const { onChange: changeModalData } = useModalDataActions();
-  console.log('delte form email', email);
+
   const {
     register,
     handleSubmit,
@@ -38,6 +38,7 @@ export function DeleteAccountForm({ email }: { email?: string }) {
     defaultValues: {
       reason: '',
       password: '',
+      email: '',
     },
   });
 
@@ -55,7 +56,7 @@ export function DeleteAccountForm({ email }: { email?: string }) {
       return;
     }
 
-    data = { ...data, email };
+    data = { ...data, email: email };
 
     changeModalData({
       title: '정말 탈퇴하시겠습니까?',
