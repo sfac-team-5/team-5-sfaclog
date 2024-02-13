@@ -32,7 +32,7 @@ export function Check({
           name={name}
           className='peer hidden'
           value={value}
-          checked={checked}
+          defaultChecked={checked}
           onChange={e =>
             onChange({ name, value: e.target.value, checked: e.target.checked })
           }

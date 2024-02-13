@@ -280,7 +280,7 @@ export function Form() {
             {offersList.map(item => (
               <div className='w-full' key={item.value}>
                 <Check
-                  name='interests'
+                  name='offers'
                   value={item.value}
                   label={item.label}
                   onChange={handleOffers}
