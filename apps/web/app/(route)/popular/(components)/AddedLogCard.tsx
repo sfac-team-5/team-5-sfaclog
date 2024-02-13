@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { LogCard } from '@/components/Card/LogCard';
 import { LogType } from '@/types';
+import Spinner from '@/components/Spinner';
 
 interface AddedBookListProps {
   category: string;
@@ -72,8 +73,8 @@ export default function AddedLogCard({
         <LogCard variant='logPage' key={log.id} log={log} />
       ))}
       {isLoading && (
-        <div className='fixed bottom-8 left-0 flex w-full justify-center'>
-          로딩중...
+        <div className='fixed inset-0 z-[100] flex size-full items-center justify-center bg-black/40'>
+          <Spinner />
         </div>
       )}
       <div ref={triggerRef} className='place-self-end'></div>
