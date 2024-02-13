@@ -28,6 +28,7 @@ export async function POST(req: NextRequest) {
     const follower = await pb.collection('follower').create(followerData);
     const updatedFollowData = {
       ...userRecord,
+      pageUrl: userRecord.id,
       following: following.id,
       follower: follower.id,
     };
