@@ -1,7 +1,7 @@
 import React from 'react';
 
 function CommunityNavigation() {
-  return <div>CommunityNavigation</div>;
+  return <div></div>;
 }
 
 export default CommunityNavigation;
