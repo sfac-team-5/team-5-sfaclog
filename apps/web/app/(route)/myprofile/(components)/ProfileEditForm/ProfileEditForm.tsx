@@ -15,6 +15,7 @@ import UrlInput from './(components)/UrlInput';
 import InterestsInput from './(components)/InterestsInput';
 import OffersInput from './(components)/OffersInput';
 import { UserType } from '@/types';
+import { useRouter } from 'next/navigation';
 
 interface ProfileEditFormProps {
   profile: UserType;
@@ -47,6 +48,7 @@ function transformSNSData(snsData: SNSDataType[]): TransformedSNSDataType {
 }
 
 function ProfileEditForm({ profile }: ProfileEditFormProps) {
+  const router = useRouter();
   const {
     register,
     setValue,
@@ -92,6 +94,8 @@ function ProfileEditForm({ profile }: ProfileEditFormProps) {
         const image = result.record.avatarUrl;
         if (status === 'authenticated') update({ name, image });
         alert('프로필이 수정되었습니다.');
+        router.push('/mypage');
+        router.refresh();
       })
       .catch(error => {
         console.error(error);
