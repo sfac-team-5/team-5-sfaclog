@@ -1,27 +1,28 @@
 'use client';
 import { IconCancelBlack } from '@repo/ui/Icon';
 import React, { useState } from 'react';
-const recent = [
-  '부트캠프1',
-  '부트캠프2',
-  '가나',
-  '부트캠프4',
-  '부트캠프5',
-  '가나다',
-  '부트캠프7',
-  '123가나',
-  '부트캠프9',
-];
+import { useRouter } from 'next/navigation';
+import { useRecordStore } from '@/hooks/stores/useSearchRecordStore';
 
-export function RecentSearches() {
-  const [record, setRecord] = useState(recent);
+export function RecentSearches({ onClose }: { onClose: () => void }) {
+  const { records, deleteAllRecord, deleteRecord } = useRecordStore();
   const [isRemove, setIsRemove] = useState<number | undefined>(undefined);
   const [removeAll, setRemoveAll] = useState(false);
+  const router = useRouter();
+
   const handleRemoveAll = () => {
     setRemoveAll(prev => !prev);
     setTimeout(() => {
-      setRecord(() => []);
+      deleteAllRecord();
     }, 500);
+  };
+
+  const handleSearchByRecord = (word: string) => {
+    router.push(`/search?query=${word}`);
+    router.refresh();
+    if (onClose) {
+      onClose();
+    }
   };
 
   return (
@@ -36,26 +37,33 @@ export function RecentSearches() {
         </div>
       </div>
       <div className='mt-[10px] flex flex-wrap items-center gap-2'>
-        {record.map((word, idx) => {
-          const handleRemove = () => {
-            //지울 때 트랜지션 추가
-            setIsRemove(() => idx);
-            setTimeout(() => {
-              setIsRemove(() => undefined);
-              setRecord(prev => prev.filter((el, index) => idx !== index));
-            }, 300);
-          };
-          return (
-            <div
-              className={`border-neutral-10 flex h-6 w-fit cursor-pointer items-center gap-[1px] rounded-md border-[1px] px-2 py-1 transition-opacity duration-300 ease-in-out ${removeAll ? 'opacity-0' : isRemove === idx ? 'opacity-0' : '!duration-0'}`}
-              key={idx}
-              onClick={handleRemove}
-            >
-              <span className='text-B4R12'>{word}</span>
-              <IconCancelBlack className='stroke-neutral-40 size-[10px]' />
-            </div>
-          );
-        })}
+        {records &&
+          records.map((word, idx) => {
+            const handleRemove = () => {
+              //지울 때 트랜지션 추가
+              setIsRemove(() => idx);
+              setTimeout(() => {
+                setIsRemove(() => undefined);
+                deleteRecord(word);
+              }, 300);
+            };
+            return (
+              <div
+                className={`border-neutral-10 flex h-6 w-fit cursor-pointer items-center gap-2 rounded-md border-[1px] px-2 py-1 transition-opacity duration-300 ease-in-out ${removeAll ? 'opacity-0' : isRemove === idx ? 'opacity-0' : '!duration-0'}`}
+                key={idx}
+              >
+                <div
+                  onClick={() => handleSearchByRecord(word)}
+                  className='text-B4R12 text-text-secondary'
+                >
+                  {word}
+                </div>
+                <div onClick={handleRemove}>
+                  <IconCancelBlack className='stroke-neutral-40 size-[10px]' />
+                </div>
+              </div>
+            );
+          })}
       </div>
     </div>
   );

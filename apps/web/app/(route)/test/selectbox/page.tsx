@@ -24,6 +24,7 @@ export default function page() {
           onChange={data => console.log(data)}
           selectList={selectList}
           width='short'
+          defaultValueIndex={1}
         />
       </div>
     </div>
