@@ -9,7 +9,7 @@ export function ProfileIntro({ imageUrl, username, userintro }: ProfileIntro) {
   return (
     <div className='flex flex-col gap-5 object-cover'>
       {imageUrl === 'error' ? (
-        <div className='flex size-[205px] items-center justify-center rounded-md bg-neutral-10 text-text-white '>
+        <div className=' bg-neutral-10 text-text-white	 flex size-[205px] select-none items-center justify-center rounded-md '>
           이미지를 등록해주세요.
         </div>
       ) : (
@@ -22,7 +22,7 @@ export function ProfileIntro({ imageUrl, username, userintro }: ProfileIntro) {
         />
       )}
 
-      <div className='flex flex-col gap-2 text-text-primary'>
+      <div className='text-text-primary flex flex-col gap-2'>
         <div className='text-B1B16'>{username}</div>
         <div className='text-B2R14'>{userintro}</div>
       </div>

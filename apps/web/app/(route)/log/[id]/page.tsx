@@ -23,17 +23,21 @@ async function LogDetailPage({ params }: { params: { id: string } }) {
   if (!log || log.isDelete) return NotFound();
 
   return (
-    <main className='container mb-[120px] mt-20 flex gap-16'>
-      <div className='flex flex-col gap-5'>
-        <UserProfileCard user={log.expand.user} />
-        <LogSection />
-      </div>
-      <div className='w-full'>
-        <ContentSection log={log} />
-        <CommentSection logId={log.id} />
-      </div>
-      <ViewObserver logId={id} />
-    </main>
+    <>
+      <main className='container mb-[120px] mt-20 flex gap-16'>
+        <div className='flex flex-col gap-5'>
+          <UserProfileCard user={log.expand.user} />
+          <LogSection />
+        </div>
+        <div className='w-full'>
+          <ContentSection log={log} />
+          <CommentSection logId={log.id} />
+        </div>
+        <ViewObserver logId={id} />
+      </main>
+
+      <Footer />
+    </>
   );
 }
 
