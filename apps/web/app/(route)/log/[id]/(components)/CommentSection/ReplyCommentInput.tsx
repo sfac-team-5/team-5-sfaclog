@@ -46,13 +46,13 @@ function ReplyCommentInput({ logId, commentId }: ReplyCommentInputProps) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className='flex h-[88px] w-full items-start border-t border-neutral-10 bg-background-5 px-5 py-6'
+      className='border-neutral-10 bg-background-5 flex h-[88px] w-full items-start border-t px-5 py-6'
     >
       <IconReplyArrow className='mr-[10px]' />
       <div className='flex w-full gap-3'>
         <input
           {...textRegister}
-          className='h-[40px] w-full resize-none rounded-[6px] border px-4 py-2 placeholder:text-B2R14 placeholder:text-neutral-40'
+          className='placeholder:text-B2R14 placeholder:text-neutral-40 h-[40px] w-full resize-none rounded-[6px] border px-4 py-2'
           placeholder='댓글을 입력해보세요.'
         />
         <GhostButton
