@@ -14,7 +14,8 @@ const getUserInfo = async (id: string) => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${id}`,
   );
-  if (!response.ok) return {};
+  if (!response.ok) return alert('에러!');
+
   return response.json();
 };
 
