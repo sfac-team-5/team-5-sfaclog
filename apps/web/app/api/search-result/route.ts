@@ -23,6 +23,7 @@ export async function GET(request: NextRequest) {
           thumb: '300x300',
         });
       });
+
       return NextResponse.json(records, { status: 200 });
     }
     if (sorted === 'recently') {

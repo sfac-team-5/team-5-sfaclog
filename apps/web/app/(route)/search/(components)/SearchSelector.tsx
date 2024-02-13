@@ -13,12 +13,12 @@ const selectList = [
 interface SearchSelectorProps {
   query: string;
   logCnt: number;
-  writerCnt: number;
+  userCnt: number;
 }
 export function SearchSelector({
   query,
   logCnt,
-  writerCnt,
+  userCnt,
 }: SearchSelectorProps) {
   const [sortParam, setSortParam] = useState('');
   const searchParams = useSearchParams();
@@ -46,10 +46,10 @@ export function SearchSelector({
           로그({logCnt})
         </Link>
         <Link
-          className={`${tab === 'writer' ? 'text-text-point text-B1B16' : 'text-text-gray text-B1R16'}`}
-          href={`/search?query=${query}&tab=writer${sortParam && `&sorted=${sortParam}`}`}
+          className={`${tab === 'user' ? 'text-text-point text-B1B16' : 'text-text-gray text-B1R16'}`}
+          href={`/search?query=${query}&tab=user${sortParam && `&sorted=${sortParam}`}`}
         >
-          작성자({writerCnt})
+          작성자({userCnt})
         </Link>
       </div>
       <div>

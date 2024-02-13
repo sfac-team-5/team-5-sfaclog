@@ -1,20 +1,18 @@
 'use client';
 import { IconSearch } from '@repo/ui/Icon';
 import React, { useState } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { useRecordStore } from '@/hooks/stores/useSearchRecordStore';
 export function SearchBar({ onClose }: { onClose?: () => void }) {
   const [query, setQuery] = useState('');
-  const searchParams = useSearchParams();
   const router = useRouter();
+  const { updateRecord } = useRecordStore();
   const handleSearchSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const param = new URLSearchParams(searchParams);
-    if (query) {
-      param.set('query', query);
-    }
     if (onClose) {
       onClose();
     }
+    updateRecord(query);
     router.push(`/search?query=${query}`);
   };
   return (
