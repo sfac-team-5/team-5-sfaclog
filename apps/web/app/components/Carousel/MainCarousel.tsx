@@ -27,13 +27,12 @@ export function MainCarousel() {
     <>
       {loading && (
         <div className='relative mx-auto mt-[52px] w-full'>
-          <div className='absolute left-0 right-1/2 z-10 mr-[474px] h-[320px] cursor-pointer bg-white opacity-30' />
-          <div className='absolute left-1/2 right-0 z-10 ml-[474px] h-[320px]  cursor-pointer  bg-white opacity-30' />
+          <div className='absolute left-0 right-1/2 z-10 mr-[460px] h-[320px] cursor-pointer bg-white opacity-30' />
+          <div className='absolute left-1/2 right-0 z-10 ml-[460px] h-[320px]  cursor-pointer  bg-white opacity-30' />
           <Swiper
             modules={[Navigation, Pagination]}
             slidesPerView={'auto'}
             centeredSlides
-            spaceBetween={18}
             observer
             pagination={{
               el: '.swiper-custom-pagination',
