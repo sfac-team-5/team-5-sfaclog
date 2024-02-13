@@ -39,7 +39,7 @@ export function ModalSearch({ setIsModalOpen }: ModalSearchProps) {
                   <div className='flex flex-col'>
                     <SearchBar onClose={handleClose} />
                     <div className='mt-4'>
-                      <RecentSearches />
+                      <RecentSearches onClose={handleClose} />
                     </div>
                   </div>
                 </div>
