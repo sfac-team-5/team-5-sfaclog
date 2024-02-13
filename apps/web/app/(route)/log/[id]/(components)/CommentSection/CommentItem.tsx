@@ -10,9 +10,11 @@ import { Avatar } from '@/components/Avatar';
 interface CommentItemProps {
   item: CommentType;
   logId: string;
+  userId: string;
+  authorId: string;
 }
 
-function CommentItem({ item, logId }: CommentItemProps) {
+function CommentItem({ item, logId, userId, authorId }: CommentItemProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -47,7 +49,13 @@ function CommentItem({ item, logId }: CommentItemProps) {
           </button>
         </div>
         <p className='text-B2R14 text-text-primary'>
-          {item.publicScope ? item.text : '비공개 댓글입니다.'}
+          {item.publicScope
+            ? item.text
+            : item.userId === userId
+              ? item.text
+              : authorId === userId
+                ? item.text
+                : '비공개 댓글입니다.'}
         </p>
       </div>
 

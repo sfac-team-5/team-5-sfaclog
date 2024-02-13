@@ -13,9 +13,16 @@ import { Avatar } from '@/components/Avatar';
 interface ReplyCommentItemProps {
   item: ReplyCommentType;
   logId: string;
+  userId: string;
+  authorId: string;
 }
 
-function ReplyCommentItem({ item, logId }: ReplyCommentItemProps) {
+function ReplyCommentItem({
+  item,
+  logId,
+  userId,
+  authorId,
+}: ReplyCommentItemProps) {
   const router = useRouter();
   const { data: session } = useSession();
   const { onChange: changeModalData } = useModalDataActions();
@@ -66,7 +73,13 @@ function ReplyCommentItem({ item, logId }: ReplyCommentItemProps) {
           )}
         </div>
         <p className='text-B2R14 text-text-primary'>
-          {item.publicScope ? item.text : '비공개 댓글입니다.'}
+          {item.publicScope
+            ? item.text
+            : item.userId === userId
+              ? item.text
+              : authorId === userId
+                ? item.text
+                : '비공개 댓글입니다.'}
         </p>
       </div>
     </li>
