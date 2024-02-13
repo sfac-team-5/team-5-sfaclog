@@ -7,6 +7,7 @@ import { formatDateToYMDHM } from '@/utils/formatDateToYMDHM';
 import { IconReplyArrow } from '@public/svgs';
 import { useRouter } from 'next/navigation';
 import { useModalDataActions } from '@/hooks/stores/useModalDataStore';
+import { useSession } from 'next-auth/react';
 
 interface ReplyCommentItemProps {
   item: ReplyCommentType;
@@ -15,6 +16,7 @@ interface ReplyCommentItemProps {
 
 function ReplyCommentItem({ item, logId }: ReplyCommentItemProps) {
   const router = useRouter();
+  const { data: session } = useSession();
   const { onChange: changeModalData } = useModalDataActions();
 
   const onDelete = () => {
@@ -52,9 +54,11 @@ function ReplyCommentItem({ item, logId }: ReplyCommentItemProps) {
               </span>
             </div>
           </div>
-          <button onClick={onDelete} className='text-B3R12 text-text-gray'>
-            삭제하기
-          </button>
+          {session?.user.id === item.userId && (
+            <button onClick={onDelete} className='text-B3R12 text-text-gray'>
+              삭제하기
+            </button>
+          )}
         </div>
         <p className='text-B2R14 text-text-primary'>
           {item.publicScope ? item.text : '비공개 댓글입니다.'}

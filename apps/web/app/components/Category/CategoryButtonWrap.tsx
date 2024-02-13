@@ -7,7 +7,7 @@ interface CategoryButtonWrapProps {
   type: 'category' | 'following';
   className?: string;
   gradient?: string;
-  list?: { title: string; id?: string }[];
+  list?: { value: string; id?: string }[];
   pageType?: 'popular' | 'recently';
 }
 
@@ -23,7 +23,7 @@ function CategoryButtonWrap2({
   // const [isScrolling, setIsScrolling] = useState(false);
   const [isAtStart, setIsAtStart] = useState(true);
   const [isAtEnd, setIsAtEnd] = useState(false);
-  const [activeList, setActiveList] = useState(list[0]?.title);
+  const [activeList, setActiveList] = useState(list[0]?.value);
 
   const [isDragging, setIsDragging] = useState(false);
   const [startPoint, setStartPoint] = useState(0);
@@ -135,22 +135,22 @@ function CategoryButtonWrap2({
           {type === 'category'
             ? list.map(category => (
                 <CategoryButton
-                  key={category.title}
-                  title={category.title}
+                  key={category.value}
+                  title={category.value}
                   className={className}
-                  active={category.title === activeList}
-                  onClick={() => handleCategoryClick(category.title)}
+                  active={category.value === activeList}
+                  onClick={() => handleCategoryClick(category.value)}
                   pageType={pageType}
                 />
               ))
             : list.map(following => (
                 <FollowingButton
-                  key={following.title}
+                  key={following.value}
                   user={following.id ? following.id : '전체'}
-                  userName={following.title}
+                  userName={following.value}
                   className={className}
-                  active={following.title === activeList}
-                  onClick={() => handleCategoryClick(following.title)}
+                  active={following.value === activeList}
+                  onClick={() => handleCategoryClick(following.value)}
                 />
               ))}
         </div>
