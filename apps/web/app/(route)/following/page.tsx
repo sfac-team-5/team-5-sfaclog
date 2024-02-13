@@ -1,13 +1,13 @@
-import React from 'react';
-import { FloatingButtons } from '@/components/FloatingButtons';
-import CategoryButtonWrap from '@/components/Category/CategoryButtonWrap';
 import PocketBase from 'pocketbase';
 import { notFound } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
+
+import { FloatingButtons } from '@/components/FloatingButtons';
+import CategoryButtonWrap from '@/components/Category/CategoryButtonWrap';
 import { LogCard } from '@/components/Card/LogCard';
 import { LogType } from '@/types';
 import { UserType } from '@/types';
 import { auth } from '@/auth';
-import { revalidatePath } from 'next/cache';
 import LogNavigation from '../popular/(components)/LogNavigation';
 import AddedLogCard from '../popular/(components)/AddedLogCard';
 
@@ -45,10 +45,12 @@ const fetchData = async (user: string, following: FollowingItemType[]) => {
     if (user === '전체') {
       logs = await pb.collection('logs').getList(1, 6, {
         filter: `${following.map(item => `user="${item.id}"`).join('||')}`,
+        expand: 'user',
       });
     } else {
       logs = await pb.collection('logs').getList(1, 6, {
         filter: `user="${user}"`,
+        expand: 'user',
       });
     }
 

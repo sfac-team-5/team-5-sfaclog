@@ -1,13 +1,16 @@
 'use client';
+
 import Button from '@repo/ui/Button';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { InputCustom } from '../../signup/(procedure)/signupform/Input';
+
 interface ResetPasswordType {
   password: string;
   passwordConfirm: string;
 }
+
 export function ResetPasswordForm({ token }: { token: string }) {
   const router = useRouter();
   const [checkPasswordConfirm, setPasswordConfirm] = useState(false);

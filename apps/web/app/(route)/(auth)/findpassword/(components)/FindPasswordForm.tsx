@@ -1,4 +1,5 @@
 'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -14,7 +15,6 @@ interface FindPasswordType {
 function FindPasswordForm() {
   const router = useRouter();
   const {
-    register,
     handleSubmit,
     formState: { errors },
     setValue,
@@ -26,16 +26,6 @@ function FindPasswordForm() {
     },
   });
 
-  const nameRegister = register('username', {
-    required: '이름을 입력해주세요',
-  });
-  const emailRegister = register('email', {
-    required: '이메일을 입력해주세요',
-    pattern: {
-      value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/i,
-      message: '이메일 형식을 확인해 주세요.',
-    },
-  });
   const submitFindPassword = async (data: FindPasswordType) => {
     //비빌번호 재설정 이메일 보내기
     const response = await fetch(

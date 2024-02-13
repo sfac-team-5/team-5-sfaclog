@@ -2,13 +2,14 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { ReplyCommentType } from './LogComment';
-import { formatDateToYMDHM } from '@/utils/formatDateToYMDHM';
-import { IconReplyArrow } from '@public/svgs';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+
+import { ReplyCommentType } from './LogComment';
+import { IconReplyArrow } from '@public/svgs';
 import { useModalDataActions } from '@/hooks/stores/useModalStore';
 import { Avatar } from '@/components/Avatar';
+import { formatCommentDate } from '@/utils/formatUtils';
 
 interface ReplyCommentItemProps {
   item: ReplyCommentType;
@@ -26,7 +27,6 @@ function ReplyCommentItem({
   const router = useRouter();
   const { data: session } = useSession();
   const { onChange: changeModalData } = useModalDataActions();
-  console.log(item);
   const { id, userId } = item;
 
   const onDelete = (logId: string, commentId: string, userId: string) => {
@@ -71,7 +71,7 @@ function ReplyCommentItem({
                 {item.userName}
               </span>
               <span className='text-B3R12 text-text-gray'>
-                {formatDateToYMDHM(item.createAt)}
+                {formatCommentDate(item.createAt)}
               </span>
             </div>
           </div>

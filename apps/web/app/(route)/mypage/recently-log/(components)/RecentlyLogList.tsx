@@ -1,7 +1,7 @@
 'use client';
+import React, { useEffect, useState } from 'react';
 
 import { LogCard } from '@/components/Card/LogCard';
-import React, { useEffect, useState } from 'react';
 import { LogType } from '@/types';
 import MyPagePagination from '@/components/Pagination/MyPagePagination';
 import RecentlyLogFilter from './RecentlyLogFilter';

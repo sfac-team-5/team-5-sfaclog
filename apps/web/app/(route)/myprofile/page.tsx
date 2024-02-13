@@ -1,13 +1,26 @@
+import PocketBase from 'pocketbase';
+
+import { UserType } from '@/types';
 import { auth } from '@/auth';
 import NotFound from '@/not-found';
 import ProfileEditForm from './(components)/ProfileEditForm/ProfileEditForm';
 
 async function fetchData(userId: string) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${userId}?timestamp=${new Date().getTime()}`,
-  );
-  if (!response.ok) return null;
-  return response.json();
+  try {
+    const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
+    const record = await pb.collection('users').getOne(userId, {
+      fields: '*',
+    });
+
+    const avatarFilename = record.avatar;
+    record.avatarUrl = pb.files.getUrl(record, avatarFilename, {
+      thumb: '300x300',
+    });
+
+    return record;
+  } catch (error) {
+    return null;
+  }
 }
 
 async function page() {
@@ -19,7 +32,7 @@ async function page() {
 
   return (
     <div>
-      <ProfileEditForm profile={profile} />
+      <ProfileEditForm profile={profile as UserType} />
     </div>
   );
 }

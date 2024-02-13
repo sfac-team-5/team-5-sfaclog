@@ -1,5 +1,6 @@
 'use server';
-//회원가입
+
+// 회원 가입
 export async function SignUpSubmitAction(data: any) {
   try {
     const response = await fetch(

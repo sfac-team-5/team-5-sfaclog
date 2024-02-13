@@ -1,9 +1,9 @@
 'use client';
 
-import React from 'react';
-import { IconCheckBoxBlue, IconCheckBoxGray } from '@repo/ui/Icon';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+
+import { IconCheckBoxBlue, IconCheckBoxGray } from '@repo/ui/Icon';
 import GhostButton from '@repo/ui/GhostButton';
 
 interface CommentInputProps {
@@ -25,6 +25,7 @@ function CommentInput({ logId }: CommentInputProps) {
       },
     });
   const isChecked = watch('publicScope');
+
   const onSubmit: SubmitHandler<CommentFormData> = async data => {
     await fetch(`/api/log/comment/${logId}`, {
       method: 'POST',
@@ -48,7 +49,7 @@ function CommentInput({ logId }: CommentInputProps) {
     <form className='flex flex-col gap-3' onSubmit={handleSubmit(onSubmit)}>
       <textarea
         {...textRegister}
-        className='h-[80px] resize-none rounded-[6px] border px-4 py-2 placeholder:text-B2R14 placeholder:text-neutral-40'
+        className='placeholder:text-B2R14 placeholder:text-neutral-40 h-[80px] resize-none rounded-[6px] border px-4 py-2'
         placeholder='댓글을 입력해보세요.'
       />
       <div className='flex items-center justify-between'>

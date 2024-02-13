@@ -1,3 +1,5 @@
+import PocketBase from 'pocketbase';
+
 import {
   ProfileContainer,
   ProfileIntro,
@@ -11,11 +13,21 @@ import { MyProfileLogout } from './(components)/MyProfileLogout';
 import { auth } from '@/auth';
 
 const getUserInfo = async (id: string) => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${id}`,
-  );
-  if (!response.ok) return {};
-  return response.json();
+  try {
+    const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
+    const record = await pb.collection('users').getOne(id, {
+      fields: '*',
+    });
+
+    const avatarFilename = record.avatar;
+    record.avatarUrl = pb.files.getUrl(record, avatarFilename, {
+      thumb: '300x300',
+    });
+
+    return record;
+  } catch (error) {
+    return null;
+  }
 };
 
 export async function MyProfileCard() {
@@ -23,6 +35,7 @@ export async function MyProfileCard() {
   if (!session) return null;
 
   const user = await getUserInfo(session?.user.id);
+  if (!user) return null;
 
   return (
     <ProfileContainer>

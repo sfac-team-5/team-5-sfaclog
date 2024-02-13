@@ -1,8 +1,8 @@
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+
 import { IconReplyArrow } from '@public/svgs';
 import GhostButton from '@repo/ui/GhostButton';
-import { useRouter } from 'next/navigation';
-import React from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
 
 interface ReplyCommentInputProps {
   logId: string;
@@ -23,7 +23,7 @@ function ReplyCommentInput({ logId, commentId }: ReplyCommentInputProps) {
         publicScope: true,
       },
     });
-  const isChecked = watch('publicScope');
+
   const onSubmit: SubmitHandler<CommentFormData> = async data => {
     await fetch(`/api/log/reply-comment/${logId}?comment-id=${commentId}`, {
       method: 'POST',
@@ -34,14 +34,9 @@ function ReplyCommentInput({ logId, commentId }: ReplyCommentInputProps) {
     });
   };
 
-  const handleScopeClick = () => {
-    setValue('publicScope', !isChecked);
-  };
   const textRegister = register('text', {
     required: '댓글을 입력해주세요.',
   });
-
-  const scopeRegister = register('publicScope');
 
   return (
     <form

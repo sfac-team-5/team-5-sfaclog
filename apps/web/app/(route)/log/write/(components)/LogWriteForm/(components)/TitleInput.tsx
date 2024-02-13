@@ -7,7 +7,7 @@ interface TitleInputProps {
   label: string;
   setValue: any;
   errors: any;
-  watch: any;
+  watch?: any;
 }
 
 function TitleInput({ label, setValue, errors, watch }: TitleInputProps) {

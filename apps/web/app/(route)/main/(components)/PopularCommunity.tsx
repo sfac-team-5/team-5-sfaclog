@@ -1,15 +1,24 @@
-import React from 'react';
+import PocketBase from 'pocketbase';
+
 import { SectionHeader } from '@/components/SectionHeader';
 import { CommunityCard } from '@/components/Card/CommunityCard';
 import { CommunityType } from '@/types';
 import { NoData } from '@/components/NoData';
 
 const fetchData = async () => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/community?sorted=popular`,
-  );
-  if (!response.ok) return [];
-  return response.json();
+  try {
+    const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
+
+    const records = await pb
+      .collection('communities')
+      .getList<CommunityType>(1, 5, {
+        sort: '-likes',
+        expand: 'author',
+      });
+    return records.items;
+  } catch (error) {
+    return [];
+  }
 };
 
 async function PopularCommunity() {
@@ -20,7 +29,7 @@ async function PopularCommunity() {
     <div className='container mb-20 mt-[72px] flex flex-col gap-8'>
       <SectionHeader title='인기 커뮤니티' more='/community' />
       <div className='flex flex-col gap-6'>
-        {popularCommunities.map((community: CommunityType) => {
+        {popularCommunities.map(community => {
           return (
             <CommunityCard
               variant='mainPage'

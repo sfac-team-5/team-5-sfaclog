@@ -1,6 +1,6 @@
-import React from 'react';
-import { LogComment } from './LogComment';
 import PocketBase from 'pocketbase';
+
+import { LogComment } from './LogComment';
 import CommentInput from './CommentInput';
 
 interface CommentSectionProps {
@@ -21,7 +21,7 @@ const fetchData = async (id: string) => {
 
     return { comment: comments.comment, replyComment: replyComments.comment };
   } catch (error) {
-    return {};
+    return { comment: [], replyComment: [] };
   }
 };
 

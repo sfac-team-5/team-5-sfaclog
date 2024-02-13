@@ -3,9 +3,9 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { CommentType } from './LogComment';
-import { formatDateToYMDHM } from '@/utils/formatDateToYMDHM';
 import ReplyCommentInput from './ReplyCommentInput';
 import { Avatar } from '@/components/Avatar';
+import { formatCommentDate } from '@/utils/formatUtils';
 
 interface CommentItemProps {
   item: CommentType;
@@ -38,7 +38,7 @@ function CommentItem({ item, logId, userId, authorId }: CommentItemProps) {
               {item.userName}
             </span>
             <span className='text-B3R12 text-text-gray'>
-              {formatDateToYMDHM(item.createAt)}
+              {formatCommentDate(item.createAt)}
             </span>
           </div>
           <button

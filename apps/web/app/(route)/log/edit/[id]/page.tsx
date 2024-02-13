@@ -1,14 +1,18 @@
-import NotFound from '@/not-found';
 import React from 'react';
+import PocketBase from 'pocketbase';
+import NotFound from '@/not-found';
 import LogEditForm from './(components)/LogEditForm';
 import LogDeleteButton from './(components)/LogDeleteButton';
 
-const fetchData = async (id: string) => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/log/${id}`,
-  );
-  if (!response.ok) return null;
-  return response.json();
+const fetchData = async (logId: string) => {
+  try {
+    const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
+    const log = await pb.collection('logs').getOne(logId, { expand: 'user' });
+
+    return log;
+  } catch (error) {
+    return null;
+  }
 };
 
 async function LogEditPage({ params }: { params: { id: string } }) {

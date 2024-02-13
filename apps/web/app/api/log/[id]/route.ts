@@ -28,7 +28,6 @@ export async function GET(request: NextRequest) {
     } else {
       return NextResponse.json({ log }, { status: 200 });
     }
-    return NextResponse.json({ log }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       {

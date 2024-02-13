@@ -1,18 +1,28 @@
+import React from 'react';
+import PocketBase from 'pocketbase';
+
 import { CommunityCard } from '@/components/Card/CommunityCard';
 import { CommunityType } from '@/types';
-import React from 'react';
 import { MypageNotFound } from '../../(components)/MypageNotFound';
 
 const fetchData = async () => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/community?sorted=popular`,
-  );
-  if (!response.ok) return [];
-  return response.json();
+  try {
+    const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
+
+    const records = await pb.collection('communities').getList(1, 5, {
+      sort: '-likes',
+      expand: 'author',
+    });
+
+    return records.items as CommunityType[];
+  } catch (error) {
+    return [];
+  }
 };
 
 async function MyCommunityList() {
   const popularCommunities = await fetchData();
+
   if (popularCommunities.length === 0)
     return (
       <div className='mt-[170px] flex w-full justify-center'>

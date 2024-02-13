@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     const record = await pb
       .collection('users')
       .getFirstListItem(`username="${username}"&&email="${email}"`);
-    console.log(record);
+    // console.log(record);
     if (record) {
       await pb.collection('users').requestPasswordReset(email);
     }

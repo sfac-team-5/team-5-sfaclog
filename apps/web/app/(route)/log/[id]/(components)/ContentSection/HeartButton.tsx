@@ -1,7 +1,7 @@
 'use client';
 
-import { IconHeartBlack, IconHeartBlue } from '@repo/ui/Icon';
 import React, { useState, useEffect } from 'react';
+import { IconHeartBlack, IconHeartBlue } from '@repo/ui/Icon';
 
 interface HeartButtonProps {
   logId: string;

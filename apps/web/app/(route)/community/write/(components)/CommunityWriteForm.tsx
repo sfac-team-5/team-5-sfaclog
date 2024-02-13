@@ -1,4 +1,5 @@
 'use client';
+
 import dynamic from 'next/dynamic';
 import { Form, useForm } from 'react-hook-form';
 import Button from '@repo/ui/Button';
@@ -60,7 +61,7 @@ function CommunityWriteForm() {
     formData: FormData;
     data: CommunityFormData;
   }) => {
-    console.log(data);
+    // console.log(data);
     // 리펙토링 필요 T_T
     if (data.tag) {
       for (const tag of data.tag) {
@@ -88,18 +89,6 @@ function CommunityWriteForm() {
       },
     );
   };
-
-  const titleRegister = register('title', {
-    required: '제목을 입력해 주세요.',
-  });
-
-  const tagRegister = register('tag');
-
-  const contentRegister = register('content');
-
-  const publicScopeRegister = register('publicScope');
-
-  const categoryRegister = register('series');
 
   return (
     <>

@@ -8,7 +8,6 @@ import { CardLikes } from './(components)/CardLikes';
 import { CardDate } from './(components)/CardDate';
 import { LogType } from '@/types';
 import { LogCardMore } from './LogCardMore';
-import { formatDateToYMDHM } from '@/utils/formatDateToYMDHM';
 import Link from 'next/link';
 
 interface LogCardProps {
@@ -18,9 +17,6 @@ interface LogCardProps {
 }
 
 export function LogCard({ variant, log, more }: LogCardProps) {
-  const series = log.expand?.series?.title
-    ? log.expand.series.title
-    : '카테고리명';
   const nickname = log.expand?.user?.nickname
     ? log.expand.user.nickname
     : '사용자명';
@@ -30,7 +26,7 @@ export function LogCard({ variant, log, more }: LogCardProps) {
       <CardBox type='log'>
         <div className='h-[280px] w-full overflow-hidden rounded-md'>
           {log.thumbnailUrl === '' ? (
-            <div className='size-full bg-background-5' />
+            <div className='bg-background-5 size-full' />
           ) : (
             <Image
               src={log.thumbnailUrl}
@@ -43,10 +39,8 @@ export function LogCard({ variant, log, more }: LogCardProps) {
           )}
         </div>
         <div className='flex w-full items-start justify-between'>
-          <span className='text-B3B12 text-brand-90'>{log.series}</span>
-          <span className='text-B3R12 text-text-gray'>
-            {formatDateToYMDHM(log.created).substr(2, 8)}
-          </span>
+          <CardCategory category={log.series} />
+          <CardDate date={log.created} />
         </div>
         <div>
           <CardTitle title={log.title} />

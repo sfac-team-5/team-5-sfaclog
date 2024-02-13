@@ -1,12 +1,27 @@
-import React from 'react';
+import PocketBase from 'pocketbase';
+
 import { NoData } from '@/components/NoData';
 
 async function fetchData() {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/log?sorted=recently`,
-  );
-  if (!response.ok) return [];
-  return response.json();
+  try {
+    const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
+    const records = await pb.collection('logs').getFullList({
+      sort: '-created',
+      expand: 'user,series',
+    });
+
+    // 썸네일 URL 추가
+    records.forEach(record => {
+      const thumbnailFilename = record.thumbnail;
+      record.thumbnailUrl = pb.files.getUrl(record, thumbnailFilename, {
+        thumb: '300x300',
+      });
+    });
+
+    return records;
+  } catch (error) {
+    return [];
+  }
 }
 
 async function RecentlyLogs() {
