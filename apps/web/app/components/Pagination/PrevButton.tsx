@@ -5,12 +5,16 @@ import React from 'react';
 interface PrevButtonProps {
   page: number;
   category: string;
+  sort?: string;
 }
 
-function PrevButton({ page, category }: PrevButtonProps) {
+function PrevButton({ page, category, sort }: PrevButtonProps) {
   return (
     <Link
-      href={`/mypage/${category}/${page - 1}`}
+      href={{
+        pathname: `/mypage/${category}/${page - 1}`,
+        query: sort ? { sort } : {},
+      }}
       className='flex items-center'
     >
       <button disabled={page === 1 ? true : false}>

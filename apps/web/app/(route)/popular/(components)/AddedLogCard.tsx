@@ -6,9 +6,13 @@ import { LogType } from '@/types';
 
 interface AddedBookListProps {
   category: string;
+  type?: 'popular' | 'recently';
 }
 
-export default function AddedLogCard({ category }: AddedBookListProps) {
+export default function AddedLogCard({
+  category = '전체',
+  type = 'popular',
+}: AddedBookListProps) {
   const [addeLogCard, setAddedLogCard] = useState<LogType[]>([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +33,6 @@ export default function AddedLogCard({ category }: AddedBookListProps) {
         },
         { threshold: 1 },
       );
-
       observer.observe(node);
     },
     [addeLogCard],
@@ -41,7 +44,7 @@ export default function AddedLogCard({ category }: AddedBookListProps) {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        await fetch(`/api/log-popular?category=${category}&page=${page}`)
+        await fetch(`/api/log-${type}?category=${category}&page=${page}`)
           .then(res => res.json())
           .then(result => {
             if (result.length === 0) return;
@@ -58,6 +61,11 @@ export default function AddedLogCard({ category }: AddedBookListProps) {
     fetchData();
   }, [page]);
 
+  useEffect(() => {
+    setAddedLogCard([]);
+    setPage(1);
+  }, [category]);
+
   return (
     <>
       {addeLogCard.map(log => (
@@ -68,7 +76,7 @@ export default function AddedLogCard({ category }: AddedBookListProps) {
           로딩중...
         </div>
       )}
-      <div ref={triggerRef} className='size-4 place-self-end bg-red-900'></div>
+      <div ref={triggerRef} className='place-self-end'></div>
     </>
   );
 }

@@ -6,23 +6,16 @@ import { notFound } from 'next/navigation';
 import { LogCard } from '@/components/Card/LogCard';
 import { LogType } from '@/types';
 import AddedLogCard from './(components)/AddedLogCard';
+import LogNavigation from './(components)/LogNavigation';
+import { revalidatePath } from 'next/cache';
+import { logCategories } from '@/constants';
 
-const categories = [
-  { title: '전체' },
-  { title: '카테고리2' },
-  { title: '카테고리3' },
-  { title: '카테고리4' },
-  { title: '카테고리5' },
-  { title: '카테고리6' },
-  { title: '카테고리7' },
-  { title: '카테고리8' },
-  { title: '카테고리9' },
-  { title: '카테고리10' },
-  { title: '카테고리11' },
-  { title: '카테고리12' },
-  { title: '카테고리13' },
-  { title: '카테고리14' },
-  { title: '카테고리15' },
+const selectList = [
+  { value: '오늘' },
+  { value: '이번 주' },
+  { value: '이번 달' },
+  { value: '올해' },
+  { value: '전체' },
 ];
 
 const fetchData = async (category: string) => {
@@ -30,11 +23,11 @@ const fetchData = async (category: string) => {
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
     let logs;
     if (category === '전체') {
-      logs = await pb.collection('logs').getList(1, 3, {
+      logs = await pb.collection('logs').getList(1, 6, {
         sort: '-likes',
       });
     } else {
-      logs = await pb.collection('logs').getList(1, 3, {
+      logs = await pb.collection('logs').getList(1, 6, {
         sort: '-likes',
         filter: `series="${category}"`,
       });
@@ -46,9 +39,10 @@ const fetchData = async (category: string) => {
         thumb: '300x300',
       });
     });
-    return logs.items as LogType[];
+    revalidatePath('/popular');
+    return { logs: logs.items as LogType[], totalLogs: logs.totalItems };
   } catch (error) {
-    return [];
+    return { logs: [], totalLogs: 0 };
   }
 };
 
@@ -59,14 +53,15 @@ async function page({
 }) {
   const category =
     typeof searchParams.category === 'string' ? searchParams.category : '전체';
-  const logs = await fetchData(category);
+  const { logs, totalLogs } = await fetchData(category);
   if (!logs) return notFound();
 
   return (
     <main className='container'>
       <FloatingButtons writeUrl='/log/write' />
-      <CategoryButtonWrap type='button' categories={categories} />
-      <ul className='mt-10 grid grid-cols-3 gap-6'>
+      <CategoryButtonWrap type='category' list={logCategories} />
+      <LogNavigation totalLogs={totalLogs} selectList={selectList} />
+      <ul className='grid grid-cols-3 gap-6'>
         {logs.map((log: LogType) => (
           <LogCard variant='logPage' key={log.id} log={log}></LogCard>
         ))}

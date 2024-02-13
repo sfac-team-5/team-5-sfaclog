@@ -1,7 +1,7 @@
 'use sever';
 
 //회원탈퇴하기
-interface DeleteAccountType {
+export interface DeleteAccountType {
   reason: string;
   password: string;
   email: string;

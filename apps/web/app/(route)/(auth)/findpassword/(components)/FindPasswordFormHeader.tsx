@@ -10,9 +10,11 @@ function FindPasswordFormHeader({
   subDescription?: string;
 }) {
   return (
-    <div className='mb-[28px] flex flex-col items-center gap-[20px]'>
+    <div className='mb-[28px] flex flex-col items-center gap-[2px]'>
       <span className='text-H0M32 text-text-secondary'>{title}</span>
-      <span className='text-B1R16 text-text-primary'>{description}</span>
+      <span className='text-B1R16 text-text-primary mt-[18px]'>
+        {description}
+      </span>
       <span className='text-B1R16 text-text-primary'>{subDescription}</span>
     </div>
   );

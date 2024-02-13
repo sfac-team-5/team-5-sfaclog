@@ -18,6 +18,13 @@ const pretendard = localFont({
 export const metadata: Metadata = {
   title: 'SFACLOG',
   description: '',
+  openGraph: {
+    title: 'SFACLOG',
+    description: '스팩로그에서 성장의 길을 열어 보세요',
+    // url: 'https://nextjs.org',
+    siteName: 'SFACLOG',
+    images: './opengraph-image.png',
+  },
 };
 
 export default async function RootLayout({
@@ -33,7 +40,6 @@ export default async function RootLayout({
         {modal}
         <Header />
         <ClientSessionProvider>{children}</ClientSessionProvider>
-        <Footer />
       </body>
     </html>
   );

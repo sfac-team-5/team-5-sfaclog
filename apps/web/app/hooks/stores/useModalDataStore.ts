@@ -1,3 +1,4 @@
+import { DeleteAccountType } from '@/(route)/mypage/delete-account/action';
 import { create } from 'zustand';
 
 interface TargetType {
@@ -7,11 +8,16 @@ interface TargetType {
     | 'log-cancel'
     | 'comment-delete'
     | 'reply-comment-delete'
+    | 'delete-account'
+    | 'follower-delete'
     | null;
   logId?: string;
   commentId?: string;
   userId?: string;
   userName?: string;
+  accountInfo?: DeleteAccountType;
+  targetId?: string;
+  action: any;
 }
 
 interface State {
@@ -20,7 +26,15 @@ interface State {
 
 interface Actions {
   actions: {
-    onChange: ({ type, logId, commentId, userId }: TargetType) => void;
+    onChange: ({
+      type,
+      logId,
+      commentId,
+      userId,
+      accountInfo,
+      targetId,
+      action,
+    }: TargetType) => void;
     onReset: () => void;
   };
 }
@@ -32,11 +46,35 @@ const useModalDataStore = create<State & Actions>()(set => ({
     commentId: '',
     userId: '',
     userName: '',
+    accountInfo: {
+      reason: '',
+      password: '',
+      email: '',
+    },
+    targetId: '',
+    action: null,
   },
   actions: {
-    onChange: ({ type, logId, commentId, userId, userName }: TargetType) =>
+    onChange: ({
+      type,
+      logId,
+      commentId,
+      userId,
+      userName,
+      accountInfo,
+      targetId,
+    }: TargetType) =>
       set(state => ({
-        target: { ...state.target, type, logId, commentId, userId, userName },
+        target: {
+          ...state.target,
+          type,
+          logId,
+          commentId,
+          userId,
+          userName,
+          accountInfo,
+          targetId,
+        },
       })),
     onReset: () =>
       set({
@@ -46,6 +84,13 @@ const useModalDataStore = create<State & Actions>()(set => ({
           commentId: '',
           userId: '',
           userName: '',
+          accountInfo: {
+            reason: '',
+            password: '',
+            email: '',
+          },
+          targetId: '',
+          action: null,
         },
       }),
   },

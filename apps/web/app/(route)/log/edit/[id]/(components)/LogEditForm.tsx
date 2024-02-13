@@ -12,14 +12,9 @@ import PublicScopeSetting from '@/(route)/log/write/(components)/LogWriteForm/(c
 import Button from '@repo/ui/Button';
 import { useRouter } from 'next/navigation';
 import { editLogApi } from '@/utils/editLogApi';
+import { logCategories } from '@/constants';
 
 // import ActionButton from '@/(route)/log/write/(components)/LogWriteForm/(components)/ActionButton';
-
-const selectList = [
-  { value: '카테고리1' },
-  { value: '카테고리2' },
-  { value: '카테고리3' },
-];
 
 interface LogEditFormProps {
   log: any;
@@ -32,7 +27,7 @@ const ContentEditor = dynamic(
     ),
   {
     loading: () => (
-      <div className='border-stroke-30 h-[400px] w-[670px] rounded-md border'></div>
+      <div className='h-[400px] w-[670px] rounded-md border border-stroke-30'></div>
     ),
     ssr: false,
   },
@@ -193,16 +188,23 @@ function LogEditForm({ log }: LogEditFormProps) {
         {/* <PublicScopeSetting register={publicScopeRegister} /> */}
         <PublicScopeSetting setValue={setValue} publicScope={isVisibility} />
         {/* <SeriesSetting /> */}
-        <SeriesSetting setValue={setValue} selectList={selectList} />
+        <SeriesSetting setValue={setValue} selectList={logCategories} />
       </div>
-      <div className='bg-neutral-5 fixed bottom-0 left-0 flex w-full items-center justify-end gap-5 px-[60px] py-3'>
+      <div className='fixed bottom-0 left-0 flex w-full items-center justify-end gap-5 bg-neutral-5 px-[60px] py-3'>
         <p className='text-B3R12 text-neutral-40'>자동 저장 완료 00:00:00</p>
-        <Button type='button' size='s' label='임시저장' disabled={true} />
+        <Button
+          type='button'
+          size='m'
+          label='임시저장'
+          disabled={true}
+          className='!w-[146px]'
+        />
         <Button
           type='submit'
-          size='s'
+          size='m'
           label='수정하기'
           onClick={() => onFormdataSubmit}
+          className='!w-[146px]'
         />
       </div>
     </Form>

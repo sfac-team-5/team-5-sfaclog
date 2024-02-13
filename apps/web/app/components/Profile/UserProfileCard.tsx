@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Hr,
   ProfileContainer,
@@ -9,8 +8,10 @@ import {
   UserProfileLogs,
 } from './(components)';
 import PocketBase from 'pocketbase';
-import { UserType } from '@/types';
+import { CareerType, UserType } from '@/types';
 import { ButtonRound } from '@repo/ui/ButtonRound';
+import { auth } from '@/auth';
+
 interface UserProfileProps {
   user: UserType;
 }
@@ -35,22 +36,35 @@ const getRecentLogs = async (id: string) => {
     return [];
   }
 };
+
 export async function UserProfileCard({ user }: UserProfileProps) {
+  const session = await auth();
   const userLogs = await getRecentLogs(user.id);
+  console.log(user);
+
   return (
     <ProfileContainer>
       <ProfileIntro
-        username={user.nickname}
-        userintro={user.intro}
-        imageUrl={`${process.env.POCKETBASE_URL}/api/files/users/${user.id}/${user.avatar}?thumb=185x185`}
+        username={user.nickname || 'error'}
+        userintro={user.intro || '자기소개를 작성해주세요.'}
+        imageUrl={
+          user.avatar && user.avatar.length > 0
+            ? `${process.env.POCKETBASE_URL}/api/files/users/${user.id}/${user.avatar}?thumb=185x185`
+            : 'error'
+        }
       />
       <div className='mt-6'>
-        <ProfileFlwFlwer follow={24} follower={999} />
+        <ProfileFlwFlwer
+          follow={user.followingCount}
+          follower={user.followerCount}
+        />
       </div>
-      <div className='mt-6 grid grid-cols-2 gap-2'>
-        <ButtonRound type='filled'>팔로우</ButtonRound>
-        <ButtonRound type='outline'>제안하기</ButtonRound>
-      </div>
+      {session?.user.id !== user.id && (
+        <div className='mt-6 grid grid-cols-2 gap-2'>
+          <ButtonRound type='filled'>팔로우</ButtonRound>
+          <ButtonRound type='outline'>제안하기</ButtonRound>
+        </div>
+      )}
 
       {user.sns && (
         <>
@@ -58,12 +72,13 @@ export async function UserProfileCard({ user }: UserProfileProps) {
           <ProfileSNS sns={user.sns} />
         </>
       )}
-      {Object.entries(user.career).length !== 0 && (
-        <>
-          <Hr />
-          <ProfileCareer career={user.career} />
-        </>
-      )}
+      {user.career &&
+        Object.entries(user.career as CareerType[]).length !== 0 && (
+          <>
+            <Hr />
+            <ProfileCareer career={user.career} />
+          </>
+        )}
 
       {userLogs && (
         <>

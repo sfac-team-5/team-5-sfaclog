@@ -8,14 +8,13 @@ export async function SignUpSubmitAction(data: any) {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json; charset=utf-8',
         },
       },
     );
     const result = await response.json();
-    console.log('result action = ', result);
     return result;
   } catch (err) {
-    console.log('signup form server action err', err);
+    return false;
   }
 }

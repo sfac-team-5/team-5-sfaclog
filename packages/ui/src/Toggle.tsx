@@ -1,29 +1,35 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Switch } from '@headlessui/react';
 
 interface ToggleProps {
   leftText: string;
   rightText: string;
+  onToggle?: () => void;
 }
 
-export function Toggle({ leftText, rightText }: ToggleProps) {
+export function Toggle({ leftText, rightText, onToggle }: ToggleProps) {
   const [enabled, setEnabled] = useState(false);
+
+  const handleToggle = () => {
+    setEnabled(prevState => !prevState); // 상태 토글
+    onToggle(); // 부모 컴포넌트의 onToggle 호출
+  };
 
   return (
     <Switch
       checked={enabled}
-      onChange={setEnabled}
-      className={`sho text-B1M16 relative inline-flex h-[50px] w-[224px] items-center rounded-[30px] bg-gray-200`}
+      onChange={handleToggle}
+      className={`text-B1M16 relative z-[1] inline-flex h-[50px] items-center rounded-[30px] bg-gray-200`}
     >
       <div className='relative z-10 flex w-full'>
         <div
-          className={`w-1/2 ${!enabled ? 'text-text-point' : 'text-text-gray'}`}
+          className={`px-5 py-[17px] ${!enabled ? 'text-text-point' : 'text-text-gray'}`}
         >
           {leftText}
         </div>
         <div
-          className={`w-1/2 ${enabled ? 'text-text-point' : 'text-text-gray'}`}
+          className={`px-5 py-[17px] ${enabled ? 'text-text-point' : 'text-text-gray'}`}
         >
           {rightText}
         </div>

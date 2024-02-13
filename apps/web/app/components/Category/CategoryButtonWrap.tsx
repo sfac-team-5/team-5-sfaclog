@@ -1,48 +1,51 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import CategoryButton from './CategoryButton';
+import FollowingButton from './FollowingButton';
 
 interface CategoryButtonWrapProps {
-  type: 'button' | 'tag';
+  type: 'category' | 'following';
   className?: string;
   gradient?: string;
-  categories?: { title: string }[];
+  list?: { value: string; id?: string }[];
+  pageType?: 'popular' | 'recently';
 }
 
 function CategoryButtonWrap2({
   type,
   className,
   gradient = ' to-white',
-  categories = [],
+  list = [],
+  pageType = 'popular',
 }: CategoryButtonWrapProps) {
   const scrollContainer = useRef<HTMLDivElement>(null);
-  const [isOverflow, setIsOverflow] = useState(false);
-  const [isScrolling, setIsScrolling] = useState(false);
+  // const [isOverflow, setIsOverflow] = useState(false);
+  // const [isScrolling, setIsScrolling] = useState(false);
   const [isAtStart, setIsAtStart] = useState(true);
   const [isAtEnd, setIsAtEnd] = useState(false);
-  const [activeCategory, setActiveCategory] = useState(categories[0]?.title);
+  const [activeList, setActiveList] = useState(list[0]?.value);
 
-  const [드래그여부, 드래그여부수정] = useState(false);
-  const [처음클릭위치, 처음클릭위치수정] = useState(0);
-  const [수평스크롤바위치, 수평스크롤바위치수정] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startPoint, setStartPoint] = useState(0);
+  const [scrollPosition, setScrollPosition] = useState(0);
 
   const onDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     if (scrollContainer.current) {
-      드래그여부수정(true);
-      처음클릭위치수정(e.pageX + scrollContainer.current?.scrollLeft);
+      setIsDragging(true);
+      setStartPoint(e.pageX + scrollContainer.current?.scrollLeft);
     }
   };
   const onDragEnd = () => {
-    드래그여부수정(false);
+    setIsDragging(false);
   };
   const onDragMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!드래그여부) return;
+    if (!isDragging) return;
     e.preventDefault();
-    const 이동된길이 = e.pageX - 처음클릭위치;
+    const dragLenght = e.pageX - startPoint;
 
     if (scrollContainer.current) {
-      scrollContainer.current.scrollLeft = 수평스크롤바위치 - 이동된길이;
+      scrollContainer.current.scrollLeft = scrollPosition - dragLenght;
     }
   };
 
@@ -56,25 +59,25 @@ function CategoryButtonWrap2({
     }
   };
 
-  const handleScroll = (direction: string) => {
-    if (isScrolling) return;
+  // const handleScroll = (direction: string) => {
+  //   if (isScrolling) return;
 
-    const { current } = scrollContainer;
-    if (current) {
-      setIsScrolling(true);
+  //   const { current } = scrollContainer;
+  //   if (current) {
+  //     setIsScrolling(true);
 
-      if (direction === 'prev') {
-        current.scrollLeft -= 400;
-      } else {
-        current.scrollLeft += 400;
-      }
+  //     if (direction === 'prev') {
+  //       current.scrollLeft -= 400;
+  //     } else {
+  //       current.scrollLeft += 400;
+  //     }
 
-      setTimeout(() => {
-        setIsScrolling(false);
-        updateScrollPosition();
-      }, 400);
-    }
-  };
+  //     setTimeout(() => {
+  //       setIsScrolling(false);
+  //       updateScrollPosition();
+  //     }, 400);
+  //   }
+  // };
 
   const checkIfOverflow = () => {
     const { current } = scrollContainer;
@@ -84,12 +87,12 @@ function CategoryButtonWrap2({
 
       setIsAtStart(current.scrollLeft === 0);
       setIsAtEnd(current.scrollWidth === current.scrollLeft + containerWidth);
-      setIsOverflow(contentWidth > containerWidth);
+      // setIsOverflow(contentWidth > containerWidth);
     }
   };
 
   const handleCategoryClick = (title: string) => {
-    setActiveCategory(title);
+    setActiveList(title);
   };
 
   useEffect(() => {
@@ -107,14 +110,12 @@ function CategoryButtonWrap2({
   }, []);
 
   return (
-    <div className='relative mt-6 w-full'>
+    <div className='relative mb-7 mt-[52px] w-full'>
       {/* 왼쪽 끝 그라데이션 */}
       {isAtStart ? null : (
         <div className='absolute left-0 top-[50%] z-10 flex h-full translate-y-[-50%] justify-start'>
           <div
-            className={`pointer-events-none absolute left-0 top-[50%] translate-y-[-50%] bg-gradient-to-l from-transparent ${gradient} ${
-              type === 'button' ? ' h-full w-40' : ' h-12 w-[84px]'
-            }`}
+            className={`pointer-events-none absolute left-0 top-[50%] h-full w-40 translate-y-[-50%] bg-gradient-to-l from-transparent${gradient} `}
           ></div>
         </div>
       )}
@@ -129,18 +130,29 @@ function CategoryButtonWrap2({
         className='hide-scroll relative w-full overflow-x-auto scroll-smooth'
       >
         <div
-          className={`flex w-max ${type === 'button' ? 'gap-2' : 'gap-[9px]'}`}
+          className={`flex w-max ${type === 'category' ? 'gap-2' : 'gap-6'}`}
         >
-          {type === 'button' &&
-            categories.map(category => (
-              <CategoryButton
-                key={category.title}
-                title={category.title}
-                className={className}
-                active={category.title === activeCategory}
-                onClick={() => handleCategoryClick(category.title)}
-              />
-            ))}
+          {type === 'category'
+            ? list.map(category => (
+                <CategoryButton
+                  key={category.value}
+                  title={category.value}
+                  className={className}
+                  active={category.value === activeList}
+                  onClick={() => handleCategoryClick(category.value)}
+                  pageType={pageType}
+                />
+              ))
+            : list.map(following => (
+                <FollowingButton
+                  key={following.value}
+                  user={following.id ? following.id : '전체'}
+                  userName={following.value}
+                  className={className}
+                  active={following.value === activeList}
+                  onClick={() => handleCategoryClick(following.value)}
+                />
+              ))}
         </div>
       </div>
 
@@ -148,9 +160,7 @@ function CategoryButtonWrap2({
       {isAtEnd ? null : (
         <div className='absolute right-0 top-[50%] z-10 flex h-full translate-y-[-50%] justify-end'>
           <div
-            className={`pointer-events-none absolute right-0 top-[50%] translate-y-[-50%] bg-gradient-to-r from-transparent${gradient}${
-              type === 'button' ? ' h-full w-40' : ' h-12 w-[84px]'
-            }`}
+            className={`pointer-events-none absolute right-0 top-[50%] h-full w-40 translate-y-[-50%] bg-gradient-to-r from-transparent${gradient}`}
           ></div>
         </div>
       )}

@@ -8,6 +8,7 @@ import { CardLikes } from './(components)/CardLikes';
 import { CardDate } from './(components)/CardDate';
 import { LogType } from '@/types';
 import { LogCardMore } from './LogCardMore';
+import { formatDateToYMDHM } from '@/utils/formatDateToYMDHM';
 import Link from 'next/link';
 
 interface LogCardProps {
@@ -29,7 +30,7 @@ export function LogCard({ variant, log, more }: LogCardProps) {
       <CardBox type='log'>
         <div className='h-[280px] w-full overflow-hidden rounded-md'>
           {log.thumbnailUrl === '' ? (
-            <div className='bg-background-5 size-full' />
+            <div className='size-full bg-background-5' />
           ) : (
             <Image
               src={log.thumbnailUrl}
@@ -41,14 +42,16 @@ export function LogCard({ variant, log, more }: LogCardProps) {
             />
           )}
         </div>
+        <div className='flex w-full items-start justify-between'>
+          <span className='text-B3B12 text-brand-90'>{log.series}</span>
+          <span className='text-B3R12 text-text-gray'>
+            {formatDateToYMDHM(log.created).substr(2, 8)}
+          </span>
+        </div>
         <div>
           <CardTitle title={log.title} />
         </div>
         <div className='mt-5 flex w-full justify-between'>
-          <div className='flex items-center gap-2'>
-            <Avatar size='xs' />
-            <span className='text-B3R12'>{nickname}</span>
-          </div>
           <div className='mt-5 flex w-full justify-between'>
             <div className='flex items-center gap-2'>
               <Avatar size={24} />
@@ -60,11 +63,11 @@ export function LogCard({ variant, log, more }: LogCardProps) {
             </div>
           </div>
         </div>
-        {variant === 'logPage' &&
+        {/* {variant === 'logPage' &&
           more &&
           Array.from({ length: more }, (_, index) => (
             <LogCardMore key={index} log={log} />
-          ))}
+          ))} */}
       </CardBox>
     </Link>
   );

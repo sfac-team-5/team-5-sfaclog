@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import Button from '@repo/ui/Button';
 import { IconCheckBoxBlue, IconCheckBoxGray } from '@repo/ui/Icon';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import GhostButton from '@repo/ui/GhostButton';
 
 interface CommentInputProps {
   logId: string;
@@ -48,7 +48,7 @@ function CommentInput({ logId }: CommentInputProps) {
     <form className='flex flex-col gap-3' onSubmit={handleSubmit(onSubmit)}>
       <textarea
         {...textRegister}
-        className='placeholder:text-B2R14 placeholder:text-neutral-40 h-[80px] resize-none rounded-[6px] border px-4 py-2'
+        className='h-[80px] resize-none rounded-[6px] border px-4 py-2 placeholder:text-B2R14 placeholder:text-neutral-40'
         placeholder='댓글을 입력해보세요.'
       />
       <div className='flex items-center justify-between'>
@@ -64,7 +64,12 @@ function CommentInput({ logId }: CommentInputProps) {
           </div>
           <span className='text-B3R12'>댓글 비공개</span>
         </label>
-        <Button type='submit' size='s' label='댓글 등록' />
+        <GhostButton
+          type='submit'
+          size='s'
+          label='댓글 등록'
+          className='!w-[84px]'
+        />
       </div>
     </form>
   );

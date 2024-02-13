@@ -4,11 +4,10 @@ import { NextRequest, NextResponse } from 'next/server';
 //유저 회원가입
 export async function POST(req: NextRequest) {
   const data = await req.json();
-
   try {
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
     const newData = {
-      username: data.username,
+      legalname: data.legalname,
       email: data.email,
       emailVisibility: true,
       password: data.password,
@@ -16,10 +15,9 @@ export async function POST(req: NextRequest) {
       nickname: data.nickname,
       isTerms: true,
       interests: data.interests,
-      proposals: data.proposals,
+      offers: data.offers,
     };
     const userRecord = await pb.collection('users').create(newData);
-
     const followingData = {
       userId: userRecord.id,
     };
@@ -30,6 +28,7 @@ export async function POST(req: NextRequest) {
     const follower = await pb.collection('follower').create(followerData);
     const updatedFollowData = {
       ...userRecord,
+      pageUrl: userRecord.id,
       following: following.id,
       follower: follower.id,
     };

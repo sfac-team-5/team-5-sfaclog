@@ -5,29 +5,36 @@ import React, { useState } from 'react';
 import { CommentType } from './LogComment';
 import { formatDateToYMDHM } from '@/utils/formatDateToYMDHM';
 import ReplyCommentInput from './ReplyCommentInput';
+import { Avatar } from '@/components/Avatar';
 
 interface CommentItemProps {
   item: CommentType;
   logId: string;
+  userId: string;
+  authorId: string;
 }
 
-function CommentItem({ item, logId }: CommentItemProps) {
+function CommentItem({ item, logId, userId, authorId }: CommentItemProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <li className='border-b border-neutral-10'>
+    <li className='border-neutral-10 border-b'>
       <div className='flex flex-col gap-3 px-5 py-6'>
         <div className='flex justify-between'>
           <div className='flex items-center'>
-            <div className='relative size-6 overflow-hidden rounded-full'>
-              <Image
-                src={item.userThumbnail || ''}
-                fill
-                objectFit='cover'
-                alt='avatar'
-              />
-            </div>
-            <span className='pl-2 pr-3 text-B2B14 text-text-primary'>
+            {item.userThumbnail.length === 0 ? (
+              <Avatar size={30} />
+            ) : (
+              <div className='relative size-6 overflow-hidden rounded-full'>
+                <Image
+                  src={item.userThumbnail || ''}
+                  fill
+                  objectFit='cover'
+                  alt='avatar'
+                />
+              </div>
+            )}
+            <span className='text-B2B14 text-text-primary pl-2 pr-3'>
               {item.userName}
             </span>
             <span className='text-B3R12 text-text-gray'>
@@ -42,7 +49,13 @@ function CommentItem({ item, logId }: CommentItemProps) {
           </button>
         </div>
         <p className='text-B2R14 text-text-primary'>
-          {item.publicScope ? item.text : '비공개 댓글입니다.'}
+          {item.publicScope
+            ? item.text
+            : item.userId === userId
+              ? item.text
+              : authorId === userId
+                ? item.text
+                : '비공개 댓글입니다.'}
         </p>
       </div>
 

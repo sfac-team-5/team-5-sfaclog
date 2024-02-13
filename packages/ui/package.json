@@ -13,6 +13,8 @@
     "./RadioButtons": "./src/RadioButtons.tsx",
     "./Chip": "./src/Chip.tsx",
     "./Button": "./src/Button/Button.tsx",
+    "./GhostButton": "./src/Button/GhostButton.tsx",
+    "./SecondaryButton": "./src/Button/SecondaryButton.tsx",
     "./SNSButton": "./src/Button/SNSButton.tsx",
     "./InputBox": "./src/InputBox.tsx",
     "./Check": "./src/Check.tsx",

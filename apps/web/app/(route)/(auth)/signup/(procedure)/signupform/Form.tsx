@@ -4,11 +4,12 @@ import { useForm } from 'react-hook-form';
 import { InputCustom } from './Input';
 import { Check } from '@repo/ui/Check';
 import Button from '@repo/ui/Button';
+import GhostButton from '@repo/ui/GhostButton';
 import { useRouter } from 'next/navigation';
 import { SignUpSubmitAction } from './action';
 
 interface SignUpType {
-  username: string;
+  legalname: string;
   nickname: string;
   email: string;
   password: string;
@@ -19,16 +20,18 @@ const interestsList = [
   { label: '프론트엔드', value: 'Frontend' },
   { label: '백엔드', value: 'Backend' },
   { label: '데이터 분석', value: 'Data' },
-  // { label: '서버 개발', value: 'Server' },
+  { label: '서버 개발', value: 'Server' },
   { label: 'DBA', value: 'DBA' },
   { label: 'iOS 개발', value: 'iOS' },
   { label: '안드로이드 개발', value: 'Android' },
 ];
-const proposalsList = [
+
+const offersList = [
   { label: '채용 제안', value: 'Recruitment' },
   { label: '의견 제안', value: 'Opinion' },
   { label: '프로젝트 제안', value: 'Project' },
 ];
+
 export function Form() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -37,7 +40,8 @@ export function Form() {
   const [checkPwValidation, setCheckPwValidation] = useState(false);
   const [checkPasswordConfirm, setPasswordConfirm] = useState(false);
   const [interests, setInterests] = useState<string[]>([]);
-  const [proposals, setProposals] = useState<string[]>([]);
+  const [offers, setOffers] = useState<string[]>([]);
+
   const handleInterests = ({ value }: { value: string }) => {
     if (interests.includes(value)) {
       setInterests(prev => prev.filter(el => el !== value));
@@ -46,11 +50,11 @@ export function Form() {
     }
   };
 
-  const handleProposals = ({ value }: { value: string }) => {
-    if (proposals.includes(value)) {
-      setProposals(prev => prev.filter(el => el !== value));
+  const handleOffers = ({ value }: { value: string }) => {
+    if (offers.includes(value)) {
+      setOffers(prev => prev.filter(el => el !== value));
     } else {
-      setProposals(prev => [...prev, value]);
+      setOffers(prev => [...prev, value]);
     }
   };
 
@@ -65,15 +69,17 @@ export function Form() {
   } = useForm<SignUpType>({
     mode: 'onChange',
     defaultValues: {
-      username: '',
+      legalname: '',
       email: '',
       password: '',
       passwordConfirm: '',
     },
   });
+
   const password = watch('password');
   const passwordConfirm = watch('passwordConfirm');
   const controller = new AbortController();
+
   const checkEmail = async (value: string) => {
     //캐싱을 위해 SWR 이나  최적화 문제로 디바운스가 필요함
     //현재는 onChange이벤트에 fetching 하도록 구현되어있음
@@ -139,8 +145,8 @@ export function Form() {
     await trigger();
     // console.log(data);
     // console.log(interests);
-    // console.log(proposals);
-    data = { ...data, interests, proposals };
+    // console.log(offers);
+    data = { ...data, interests, offers };
     console.log('submit data', data);
     const result = await SignUpSubmitAction(data);
     console.log('submit result =', result);
@@ -164,8 +170,8 @@ export function Form() {
           <div className='text-B1M16'>이름</div>
           <InputCustom
             type='text'
-            errorMessage={errors.username?.message || undefined}
-            {...register('username', {
+            errorMessage={errors.legalname?.message || undefined}
+            {...register('legalname', {
               required: '이름을 입력해 주세요.',
             })}
           />
@@ -271,32 +277,27 @@ export function Form() {
         <div className='flex w-[400px] flex-col gap-3'>
           <div className='text-B1M16'>제안 허용</div>
           <div className='flex flex-wrap'>
-            {proposalsList.map(item => (
+            {offersList.map(item => (
               <div className='w-full' key={item.value}>
                 <Check
-                  name='interests'
+                  name='offers'
                   value={item.value}
                   label={item.label}
-                  onChange={handleProposals}
+                  onChange={handleOffers}
                 />
               </div>
             ))}
           </div>
         </div>
       </div>
-      <div className='mb-32 mt-6 flex h-[50px] gap-[10px]'>
-        <button
-          className='border-brand-90 text-text-point text-B2M14 basis-1/2 rounded-md border-[1px] bg-white'
+      <div className='mb-32 mt-6 flex justify-between gap-2.5'>
+        <GhostButton
+          label='이전'
+          size='m'
+          type='button'
           onClick={() => router.back()}
-        >
-          이전
-        </button>
-        <button
-          className='border-brand-90 text-B2M14 bg-brand-90 basis-1/2 rounded-md border-[1px] text-white'
-          type='submit'
-        >
-          다음
-        </button>
+        />
+        <Button label='다음' size='m' type='submit' />
       </div>
     </form>
   );
