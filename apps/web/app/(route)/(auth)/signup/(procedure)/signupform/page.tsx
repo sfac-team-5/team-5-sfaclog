@@ -1,6 +1,13 @@
 'use client';
-import React from 'react';
+
 import { Form } from './Form';
+import Footer from '@/components/Footer/Footer';
+
 export default function page() {
-  return <Form />;
+  return (
+    <>
+      <Form />
+      <Footer />
+    </>
+  );
 }

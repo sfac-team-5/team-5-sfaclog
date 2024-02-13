@@ -77,7 +77,7 @@ export function ResetPasswordForm({ token }: { token: string }) {
       onSubmit={handleSubmit(submitResetPassword)}
     >
       <div className='flex w-[400px] flex-col gap-3'>
-        <div className='text-B1M16'>비밀번호</div>
+        <div className='text-B1M16'>새 비밀번호</div>
         <InputCustom
           type='password'
           hint={
@@ -109,7 +109,7 @@ export function ResetPasswordForm({ token }: { token: string }) {
         />
       </div>
       <div className='flex w-[400px] flex-col gap-3'>
-        <div className='text-B1M16'>비밀번호 확인</div>
+        <div className='text-B1M16'>새 비밀번호 확인</div>
         <InputCustom
           type='password'
           errorMessage={errors.passwordConfirm?.message || undefined}

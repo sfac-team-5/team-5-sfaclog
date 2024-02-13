@@ -84,6 +84,8 @@ function FollowingBox({ id, data, updateCount }: FollowBoxProps) {
       };
 
       fetchAvatarUrl();
+    } else {
+      setAvatarUrl(undefined);
     }
   }, [data.avatar]);
 

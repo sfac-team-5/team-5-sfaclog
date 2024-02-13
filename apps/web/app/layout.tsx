@@ -33,7 +33,6 @@ export default async function RootLayout({
         {modal}
         <Header />
         <ClientSessionProvider>{children}</ClientSessionProvider>
-        <Footer />
       </body>
     </html>
   );

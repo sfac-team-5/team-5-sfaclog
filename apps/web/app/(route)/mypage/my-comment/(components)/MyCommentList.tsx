@@ -9,6 +9,7 @@ import { Session } from 'next-auth';
 import CommentCount from './CommentCount';
 import MyPagePagination from '@/components/Pagination/MyPagePagination';
 import MycommentFilter from './MycommentFilter';
+import { MypageNotFound } from '../../(components)/MypageNotFound';
 
 interface MyCommentListProps {
   page: number;
@@ -84,7 +85,15 @@ async function MyCommentList({ page, sort }: MyCommentListProps) {
   const session = await auth();
   if (!session) return;
   const { myCommentList, totalItems } = await fetchData(session, page, sort);
-  if (myCommentList.length === 0) return NoData();
+  if (myCommentList.length === 0)
+    return (
+      <div className='mt-[170px] flex w-full justify-center'>
+        <MypageNotFound
+          title='아직 작성한 댓글이 없어요.'
+          description='로그와 커뮤니티에서 댓글을 남겨 보세요.'
+        />
+      </div>
+    );
 
   return (
     <div>
@@ -93,10 +102,10 @@ async function MyCommentList({ page, sort }: MyCommentListProps) {
         return (
           <div
             key={comment.id}
-            className='mb-6 w-full overflow-hidden rounded-[6px] shadow-custom last:mb-0'
+            className='shadow-custom mb-6 w-full overflow-hidden rounded-[6px] last:mb-0'
           >
             <div className='relative flex h-[110px] flex-col items-start justify-center bg-white pl-[64px] pr-[40px]'>
-              <p className='mb-[9px] text-B1M16 text-text-primary'>
+              <p className='text-B1M16 text-text-primary mb-[9px]'>
                 {comment.text}
               </p>
               <p className='text-neutral-40'>
@@ -109,9 +118,9 @@ async function MyCommentList({ page, sort }: MyCommentListProps) {
                 type={comment.commentId}
               />
             </div>
-            <div className='flex h-[53px] items-center bg-tag-tag pl-[64px]'>
+            <div className='bg-tag-tag flex h-[53px] items-center pl-[64px]'>
               <IconReplyArrow className='mr-3' />
-              <p className='mr-2 text-B2R14 text-text-primary'>
+              <p className='text-B2R14 text-text-primary mr-2'>
                 [원문] {comment.logTitle}
               </p>
               <IconComment className='mr-[3px]' />

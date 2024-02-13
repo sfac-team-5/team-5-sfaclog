@@ -20,7 +20,7 @@ function Numbering({ 총페이지, page, category, sort }: NumberingProps) {
       className='cursor-pointer'
     >
       <div
-        className={`${page === i + 1 ? 'border-brand-90 text-brand-90' : 'border-transparent text-text-primary'} flex size-[21px] items-center justify-center rounded-[6px] border text-B2R14 `}
+        className={`${page === i + 1 ? 'border-brand-90 text-brand-90' : 'text-text-primary border-transparent'} text-B2R14 flex size-[21px] items-center justify-center rounded-[6px] border `}
       >
         {i + 1}
       </div>

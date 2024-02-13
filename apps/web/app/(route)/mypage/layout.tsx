@@ -1,5 +1,7 @@
 import { auth } from '@/auth';
+import Footer from '@/components/Footer/Footer';
 import { MyProfileCard } from '@/components/Profile/MyProfileCard';
+
 const getUserInfo = async (id: string) => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${id}`,
@@ -9,6 +11,7 @@ const getUserInfo = async (id: string) => {
   const result = await response.json();
   return result;
 };
+
 export default async function Layout({
   children,
 }: {
@@ -20,9 +23,13 @@ export default async function Layout({
   const user = await getUserInfo(session?.user.id);
 
   return (
-    <main className='container mb-[150px] mt-20 flex gap-[83px]'>
-      <MyProfileCard user={user} />
-      {children}
-    </main>
+    <>
+      <main className='container mb-[150px] mt-20 flex gap-[83px]'>
+        <MyProfileCard user={user} />
+        {children}
+      </main>
+
+      <Footer />
+    </>
   );
 }

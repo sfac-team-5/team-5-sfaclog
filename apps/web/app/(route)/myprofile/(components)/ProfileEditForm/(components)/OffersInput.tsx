@@ -30,8 +30,6 @@ function OffersInput({ setValue, watch }: OffersInputProps) {
     setValue('offers', newCheckedValues);
   };
 
-  console.log(offers);
-
   return (
     <div className='flex flex-col gap-3'>
       <InputTitle label='제안 허용' />
