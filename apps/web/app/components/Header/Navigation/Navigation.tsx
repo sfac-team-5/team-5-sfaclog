@@ -19,13 +19,13 @@ export async function Navigation() {
           href='/'
           className='mr-[40px] flex h-[64px] items-center outline-none'
         >
-          <Logo className='fill-brand-100 h-[20px] w-[120px]' />
+          <Logo className='h-[20px] w-[120px] fill-brand-100' />
         </Link>
         <Link href={'/popular'} className={navClasses}>
           인기 로그
         </Link>
         <Link href={'/recently'} className={navClasses}>
-          최신로그
+          최신 로그
         </Link>
         <Link href={'/following'} className={navClasses}>
           팔로잉 로그

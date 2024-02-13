@@ -11,7 +11,7 @@ interface ContentHeaderProps {
 function ContentHeader({ log }: ContentHeaderProps) {
   return (
     <div>
-      <p className='mb-5 text-B1B16 text-brand-90'>프론트엔드</p>
+      <p className='mb-5 text-B1B16 text-brand-90'>{log.series}</p>
       <div className='mb-4 flex w-full items-center justify-between'>
         <h2 className='text-H1M24'>{log.title}</h2>
         <div className='flex gap-3'>

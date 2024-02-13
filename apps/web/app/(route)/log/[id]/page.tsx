@@ -1,10 +1,10 @@
 import React from 'react';
 import NotFound from '../../../not-found';
 import CommentSection from './(components)/CommentSection/CommentSection';
-import ProfileSection from './(components)/ProfileSection/ProfileSection';
 import ContentSection from './(components)/ContentSection/ContentSection';
 import { UserProfileCard } from '@/components/Profile/UserProfileCard';
 import ViewObserver from './(components)/ViewObserver';
+import LogSection from './(components)/LogSection';
 
 export const revalidate = 1;
 
@@ -23,10 +23,9 @@ async function LogDetailPage({ params }: { params: { id: string } }) {
 
   return (
     <main className='container flex gap-16'>
-      <div>
-        {/* <ProfileSection user={log.expand.user} /> 나중에 확인하고 삭제바랍니다 */}
+      <div className='flex flex-col gap-5'>
         <UserProfileCard user={log.expand.user} />
-        <div>함께보면 좋은 로그</div>
+        <LogSection />
       </div>
       <div className='w-full'>
         <ContentSection log={log} />

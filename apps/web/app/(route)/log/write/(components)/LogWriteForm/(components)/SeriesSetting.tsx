@@ -16,7 +16,7 @@ function SeriesSetting({ setValue, selectList }: SeriesSettingProps) {
   return (
     <Selectbox
       width='short'
-      placeholder='시리즈를 선택하세요'
+      placeholder='카테고리'
       selectList={selectList}
       onChange={data => handleSelectChange(data)}
     />

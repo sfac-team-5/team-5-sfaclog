@@ -8,22 +8,7 @@ import { LogType } from '@/types';
 import AddedLogCard from './(components)/AddedLogCard';
 import LogNavigation from './(components)/LogNavigation';
 import { revalidatePath } from 'next/cache';
-
-const categories = [
-  { title: '전체' },
-  { title: '프론트엔드' },
-  { title: '백엔드' },
-  { title: '데이터분석' },
-  { title: '서버개발' },
-  { title: 'DBA' },
-  { title: 'IOS 개발' },
-  { title: '안드로이드 개발' },
-  { title: 'React' },
-  { title: 'Typescript' },
-  { title: 'Next' },
-  { title: 'Pocketbae' },
-  { title: 'Firebase' },
-];
+import { logCategories } from '@/constants';
 
 const selectList = [
   { value: '오늘' },
@@ -74,7 +59,7 @@ async function page({
   return (
     <main className='container'>
       <FloatingButtons writeUrl='/log/write' />
-      <CategoryButtonWrap type='category' list={categories} />
+      <CategoryButtonWrap type='category' list={logCategories} />
       <LogNavigation totalLogs={totalLogs} selectList={selectList} />
       <ul className='grid grid-cols-3 gap-6'>
         {logs.map((log: LogType) => (

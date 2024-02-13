@@ -27,7 +27,7 @@ async function PopularLogs() {
   });
 
   return (
-    <div className='container mt-[72px] flex flex-col gap-8'>
+    <div className='container mt-[60px] flex flex-col gap-8'>
       <SectionHeader title='인기 로그' more='/popular' />
       <div className='grid grid-cols-3 items-start gap-6'>
         {masonry.map((column, columnIndex) => (

@@ -20,7 +20,6 @@ function ViewObserver({ logId }: ViewObserverProps) {
       localStorage.setItem('watch', JSON.stringify(newRecentlyViewArr));
     }
   }
-  // useEffect(() => {}, []);
 
   return null;
 }
