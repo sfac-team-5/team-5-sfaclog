@@ -38,6 +38,7 @@ export async function MyProfileCard() {
       />
       <div className='mt-6'>
         <ProfileFlwFlwer
+          type='my'
           follow={user.followingCount}
           follower={user.followerCount}
         />
