@@ -23,6 +23,9 @@ function FollowingBox({ id, data, updateCount }: FollowBoxProps) {
   const intro =
     data.intro.length > 34 ? data.intro.substr(0, 34) + '...' : data.intro;
 
+  console.log('data.avatar', data.avatar);
+  console.log('avatarUrl', avatarUrl);
+
   const handleUnfollowClick = async () => {
     try {
       await fetch(
@@ -84,6 +87,8 @@ function FollowingBox({ id, data, updateCount }: FollowBoxProps) {
       };
 
       fetchAvatarUrl();
+    } else {
+      setAvatarUrl(undefined);
     }
   }, [data.avatar]);
 
