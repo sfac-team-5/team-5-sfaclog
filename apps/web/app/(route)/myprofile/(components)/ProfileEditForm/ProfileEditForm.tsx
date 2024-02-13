@@ -16,6 +16,8 @@ import InterestsInput from './(components)/InterestsInput';
 import OffersInput from './(components)/OffersInput';
 import { UserType } from '@/types';
 import { useRouter } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
+import { editProfileApi } from '@/utils/editProfileApi';
 
 interface ProfileEditFormProps {
   profile: UserType;
@@ -76,30 +78,35 @@ function ProfileEditForm({ profile }: ProfileEditFormProps) {
       formData.append('avatar', data.avatar[0] as File);
     }
 
-    await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${data.id}/edit`,
-      {
-        method: 'POST',
-        body: formData,
-      },
-    )
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-      })
-      .then(result => {
-        reset(result.record);
-        const name = result.record.nickname;
-        const image = result.record.avatarUrl;
-        if (status === 'authenticated') update({ name, image });
-        alert('프로필이 수정되었습니다.');
-        router.push('/mypage');
-        router.refresh();
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    editProfileApi({ formData, id: data.id }).then(() => {
+      router.push('/mypage');
+    });
+
+    // await fetch(
+    //   `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${data.id}/edit`,
+    //   {
+    //     method: 'POST',
+    //     body: formData,
+    //   },
+    // )
+    //   .then(response => {
+    //     if (response.ok) {
+    //       return response.json();
+    //     }
+    //   })
+    //   .then(result => {
+    //     reset(result.record);
+    //     const name = result.record.nickname;
+    //     const image = result.record.avatarUrl;
+    //     if (status === 'authenticated') update({ name, image });
+    //     alert('프로필이 수정되었습니다.');
+    //     revalidatePath('/mypage', 'layout');
+    //     router.push('/mypage');
+    //     router.refresh();
+    //   })
+    //   .catch(error => {
+    //     console.error(error);
+    //   });
   };
 
   return (

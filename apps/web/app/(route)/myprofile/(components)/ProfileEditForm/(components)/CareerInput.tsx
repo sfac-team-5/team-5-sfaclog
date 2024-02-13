@@ -23,7 +23,7 @@ function CareerInput({
   errors,
   watch,
 }: CareerInputProps) {
-  const watchedCareerInputs = watch('career') as CareerType[];
+  const watchedCareerInputs = (watch('career') as CareerType[]) || [];
   const maxInputs = 5; // 최대 입력 가능한 경력 사항 개수
 
   const addInput = () => {

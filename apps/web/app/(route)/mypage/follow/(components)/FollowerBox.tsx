@@ -4,8 +4,13 @@ import { Avatar } from '@/components/Avatar';
 import CapsuleButton from '@repo/ui/CapsuleButton';
 import { IconCancelBlack, IconCheckWhite, IconPlusBlue } from '@repo/ui/Icon';
 import { FollowBoxProps } from './FollowingBox';
+import { useRouter } from 'next/navigation';
+import { useModalDataActions } from '@/hooks/stores/useModalDataStore';
 
 function FollowerBox({ id, data, updateCount, isFollowing }: FollowBoxProps) {
+  const router = useRouter();
+  const { onChange: changeModalData } = useModalDataActions();
+
   const [isHovered, setIsHovered] = useState(false);
   const [isFollowingButton, setIsFollowingButton] = useState(isFollowing);
   const [avatarUrl, setAvatarUrl] = useState<string | undefined>(undefined);
@@ -60,29 +65,30 @@ function FollowerBox({ id, data, updateCount, isFollowing }: FollowBoxProps) {
   };
 
   const handleDeleteClick = async () => {
-    const isConfirmed = confirm('팔로워를 삭제하시겠습니까?');
-
-    if (isConfirmed) {
-      try {
-        await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${data.id}/follow`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              type: 'delete',
-              userId: id,
-              targetId: data.id,
-            }),
+    try {
+      await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${data.id}/follow`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
           },
-        );
-        updateCount('delete', data.id);
-      } catch (error) {
-        console.log(error);
-      }
+          body: JSON.stringify({
+            type: 'delete',
+            userId: id,
+            targetId: data.id,
+          }),
+        },
+      );
+      updateCount('delete', data.id);
+    } catch (error) {
+      console.log(error);
     }
+  };
+
+  const onDelete = () => {
+    router.push(`/modal?type=follower-delete`);
+    changeModalData({ type: 'follower-delete', action: handleDeleteClick });
   };
 
   useEffect(() => {
@@ -106,7 +112,7 @@ function FollowerBox({ id, data, updateCount, isFollowing }: FollowBoxProps) {
   }, [data.avatar]);
 
   return (
-    <div className='border-neutral-10 flex items-center justify-between border-b py-5'>
+    <div className='flex items-center justify-between border-b border-neutral-10 py-5'>
       <div className='flex gap-3'>
         <Avatar size={60} url={avatarUrl} />
         <div className='flex flex-col justify-center gap-1.5'>
@@ -126,7 +132,7 @@ function FollowerBox({ id, data, updateCount, isFollowing }: FollowBoxProps) {
                 size='m'
                 label='언팔로우'
                 color='white'
-                className='text-B3R12 w-[82px] px-0 hover:bg-white'
+                className='w-[82px] px-0 text-B3R12 hover:bg-white'
                 onClick={handleUnfollowClick}
               />
             ) : (
@@ -135,13 +141,13 @@ function FollowerBox({ id, data, updateCount, isFollowing }: FollowBoxProps) {
                 size='m'
                 label='팔로잉'
                 color='blue'
-                className='text-B3R12 hover:bg-brand-70 w-[82px] !px-0'
+                className='w-[82px] !px-0 text-B3R12 hover:bg-brand-70'
               />
             )}
           </div>
           <button
-            className='border-neutral-10 flex size-9 items-center justify-center rounded-full border'
-            onClick={handleDeleteClick}
+            className='flex size-9 items-center justify-center rounded-full border border-neutral-10'
+            onClick={onDelete}
           >
             <IconCancelBlack width={16} />
           </button>
@@ -153,12 +159,12 @@ function FollowerBox({ id, data, updateCount, isFollowing }: FollowBoxProps) {
             size='m'
             label='팔로우'
             color='white'
-            className='text-B3R12 w-[82px] !px-0'
+            className='w-[82px] !px-0 text-B3R12'
             onClick={handleFollowClick}
           />
           <button
-            className='border-neutral-10 flex size-9 items-center justify-center rounded-full border'
-            onClick={handleDeleteClick}
+            className='flex size-9 items-center justify-center rounded-full border border-neutral-10'
+            onClick={onDelete}
           >
             <IconCancelBlack width={16} />
           </button>

@@ -5,24 +5,16 @@ import PocketBase from 'pocketbase';
 import { notFound } from 'next/navigation';
 import { LogCard } from '@/components/Card/LogCard';
 import { LogType } from '@/types';
+import { UserType } from '@/types';
 import { auth } from '@/auth';
 import { revalidatePath } from 'next/cache';
 import LogNavigation from '../popular/(components)/LogNavigation';
 import AddedLogCard from '../popular/(components)/AddedLogCard';
 
-const categories = [
-  { value: '전체' },
-  { value: '김철수', id: '1' },
-  { value: '이철수', id: '2' },
-  { value: '박철수', id: '3' },
-  { value: '최철수', id: '4' },
-  { value: '강철수', id: '5' },
-  { value: '김영희', id: '6' },
-  { value: '이영희', id: '7' },
-  { value: '박영희', id: '8' },
-  { value: '최영희', id: '9' },
-  { value: '강영희', id: '10' },
-];
+interface FollowingItemType {
+  value: string;
+  id?: string;
+}
 
 const selectList = [
   { value: '최신순' },
@@ -36,25 +28,27 @@ const getFollwing = async () => {
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
     const following = await pb
       .collection('following')
-      .getFirstListItem(`userId="${session?.user.id}"`);
-    return following.followingId;
+      .getFirstListItem(`userId="${session?.user.id}"`, {
+        expand: 'followingId',
+      });
+
+    return following.expand ? following.expand?.followingId : [];
   } catch (error) {
     return [];
   }
 };
 
-const fetchData = async (user: string) => {
+const fetchData = async (user: string, following: FollowingItemType[]) => {
   try {
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
     let logs;
     if (user === '전체') {
       logs = await pb.collection('logs').getList(1, 6, {
-        sort: '-likes',
+        filter: `${following.map(item => `user="${item.id}"`).join('||')}`,
       });
     } else {
       logs = await pb.collection('logs').getList(1, 6, {
-        sort: '-likes',
-        filter: `series="${user}"`,
+        filter: `user="${user}"`,
       });
     }
 
@@ -79,7 +73,13 @@ async function page({
   const user =
     typeof searchParams.user === 'string' ? searchParams.user : '전체';
   const follwing = await getFollwing();
-  const { logs, totalLogs } = await fetchData(user);
+
+  const categories: FollowingItemType[] = [{ value: '전체' }];
+  follwing.map((user: UserType) =>
+    categories.push({ value: user.nickname, id: user.id }),
+  );
+
+  const { logs, totalLogs } = await fetchData(user, categories);
   if (!logs) return notFound();
 
   return (

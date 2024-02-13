@@ -7,19 +7,33 @@ import {
   ProfileCareer,
   MyProfileLink,
 } from './(components)';
-import { UserType } from '@/types';
 import { MyProfileLogout } from './(components)/MyProfileLogout';
+import { auth } from '@/auth';
 
-export async function MyProfileCard({ user }: { user: UserType }) {
+const getUserInfo = async (id: string) => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${id}`,
+  );
+  if (!response.ok) return {};
+  return response.json();
+};
+
+export async function MyProfileCard() {
+  const session = await auth();
+  if (!session) return null;
+
+  const user = await getUserInfo(session?.user.id);
+
   return (
     <ProfileContainer>
       <MyProfileHeader updateMyPofileLink='#' />
       <ProfileIntro
         username={user.nickname || 'error'}
-        userintro={user.intro || 'error'}
+        userintro={user.intro || '자기소개를 작성해주세요.'}
         imageUrl={
-          `${process.env.POCKETBASE_URL}/api/files/users/${user.id}/${user.avatar}?thumb=185x185` ||
-          'error'
+          user.avatar && user.avatar.length > 0
+            ? `${process.env.POCKETBASE_URL}/api/files/users/${user.id}/${user.avatar}?thumb=185x185`
+            : 'error'
         }
       />
       <div className='mt-6'>
@@ -28,7 +42,7 @@ export async function MyProfileCard({ user }: { user: UserType }) {
           follower={user.followerCount}
         />
       </div>
-      {Object.entries(user.career).length !== 0 && (
+      {user.career && Object.entries(user.career).length !== 0 && (
         <>
           <Hr />
           <ProfileCareer career={user.career} />

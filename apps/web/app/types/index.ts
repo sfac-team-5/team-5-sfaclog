@@ -56,7 +56,7 @@ export interface LogType {
   isDelete: boolean;
   isVisibility: boolean;
   likes: number;
-  series: SeriesType;
+  series: string;
   tags: string[]; // 태그의 구체적인 타입이 필요하면 수정할 수 있음
   thumbnail: string;
   title: string;
