@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import { SignUpSubmitAction } from './action';
 
 interface SignUpType {
-  username: string;
+  legalname: string;
   nickname: string;
   email: string;
   password: string;
@@ -69,7 +69,7 @@ export function Form() {
   } = useForm<SignUpType>({
     mode: 'onChange',
     defaultValues: {
-      username: '',
+      legalname: '',
       email: '',
       password: '',
       passwordConfirm: '',
@@ -170,8 +170,8 @@ export function Form() {
           <div className='text-B1M16'>이름</div>
           <InputCustom
             type='text'
-            errorMessage={errors.username?.message || undefined}
-            {...register('username', {
+            errorMessage={errors.legalname?.message || undefined}
+            {...register('legalname', {
               required: '이름을 입력해 주세요.',
             })}
           />

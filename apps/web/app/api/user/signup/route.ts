@@ -4,11 +4,10 @@ import { NextRequest, NextResponse } from 'next/server';
 //유저 회원가입
 export async function POST(req: NextRequest) {
   const data = await req.json();
-
   try {
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
     const newData = {
-      username: data.username,
+      legalname: data.legalname,
       email: data.email,
       emailVisibility: true,
       password: data.password,
