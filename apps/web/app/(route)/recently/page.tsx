@@ -16,10 +16,12 @@ const fetchData = async (category: string) => {
     if (category === '전체') {
       logs = await pb.collection('logs').getList(1, 6, {
         sort: '-created',
+        expand: 'user',
       });
     } else {
       logs = await pb.collection('logs').getList(1, 6, {
         sort: '-created',
+        expand: 'user',
         filter: `series="${category}"`,
       });
     }
