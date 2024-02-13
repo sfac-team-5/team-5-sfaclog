@@ -7,14 +7,12 @@ import {
   ProfileCareer,
   MyProfileLink,
 } from './(components)';
-import { UserType } from '@/types';
 import { MyProfileLogout } from './(components)/MyProfileLogout';
 import { auth } from '@/auth';
 
 const getUserInfo = async (id: string) => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${id}`,
-    { cache: 'no-cache' },
   );
   if (!response.ok) return {};
   return response.json();

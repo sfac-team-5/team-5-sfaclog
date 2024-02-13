@@ -17,6 +17,7 @@ import OffersInput from './(components)/OffersInput';
 import { UserType } from '@/types';
 import { useRouter } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
+import { editProfileApi } from '@/utils/editProfileApi';
 
 interface ProfileEditFormProps {
   profile: UserType;
@@ -77,31 +78,35 @@ function ProfileEditForm({ profile }: ProfileEditFormProps) {
       formData.append('avatar', data.avatar[0] as File);
     }
 
-    await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${data.id}/edit`,
-      {
-        method: 'POST',
-        body: formData,
-      },
-    )
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-      })
-      .then(result => {
-        reset(result.record);
-        const name = result.record.nickname;
-        const image = result.record.avatarUrl;
-        if (status === 'authenticated') update({ name, image });
-        alert('프로필이 수정되었습니다.');
-        revalidatePath('/mypage', 'layout');
-        router.push('/mypage');
-        router.refresh();
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    editProfileApi({ formData, id: data.id }).then(() => {
+      router.push('/mypage');
+    });
+
+    // await fetch(
+    //   `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${data.id}/edit`,
+    //   {
+    //     method: 'POST',
+    //     body: formData,
+    //   },
+    // )
+    //   .then(response => {
+    //     if (response.ok) {
+    //       return response.json();
+    //     }
+    //   })
+    //   .then(result => {
+    //     reset(result.record);
+    //     const name = result.record.nickname;
+    //     const image = result.record.avatarUrl;
+    //     if (status === 'authenticated') update({ name, image });
+    //     alert('프로필이 수정되었습니다.');
+    //     revalidatePath('/mypage', 'layout');
+    //     router.push('/mypage');
+    //     router.refresh();
+    //   })
+    //   .catch(error => {
+    //     console.error(error);
+    //   });
   };
 
   return (
@@ -110,7 +115,7 @@ function ProfileEditForm({ profile }: ProfileEditFormProps) {
       control={control}
       className='mx-auto mb-[120px] mt-[50px] w-[400px]'
     >
-      <p className='mb-10 text-center text-H1M24'>내 프로필 편집</p>
+      <p className='text-H1M24 mb-10 text-center'>내 프로필 편집</p>
 
       <div className='mb-[52px] flex flex-col gap-11'>
         <div className='flex gap-[26px]'>

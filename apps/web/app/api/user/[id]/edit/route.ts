@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import PocketBase from 'pocketbase';
-import { revalidatePath } from 'next/cache';
 
 interface UserData {
   nickname: string;
@@ -45,7 +44,7 @@ export async function POST(request: NextRequest) {
       record.avatarUrl = await pb.files.getUrl(record, avatarFilename, {
         thumb: '300x300',
       });
-      revalidatePath('/mypage');
+
       return NextResponse.json({ record, avatarFilename, revalidated: true });
     }
   } catch (error: any) {
