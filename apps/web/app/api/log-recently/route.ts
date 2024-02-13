@@ -14,10 +14,12 @@ export async function GET(request: NextRequest) {
     if (category === '전체') {
       logs = await pb.collection('logs').getList(Number(page), 6, {
         sort: '-created',
+        expand: 'user',
       });
     } else {
       logs = await pb.collection('logs').getList(Number(page), 6, {
         sort: '-created',
+        expand: 'user',
         filter: `series="${category}"`,
       });
     }

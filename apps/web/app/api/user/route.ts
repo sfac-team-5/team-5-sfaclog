@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 //유저 삭제하기
 export async function DELETE(request: NextRequest) {
   const data = await request.json();
+
   try {
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
     const user = await pb
@@ -11,6 +12,7 @@ export async function DELETE(request: NextRequest) {
       .authWithPassword(data.email, data.password)
       .then(user => user)
       .catch(() => null);
+
     if (user) {
       //팔로잉, 팔로워 삭제 - 먼저삭제해야 유저삭제가능
       console.log('-----------------', user.record.email);
