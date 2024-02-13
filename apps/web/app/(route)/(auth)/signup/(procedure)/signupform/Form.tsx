@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { InputCustom } from './Input';
 import { Check } from '@repo/ui/Check';
 import Button from '@repo/ui/Button';
+import GhostButton from '@repo/ui/GhostButton';
 import { useRouter } from 'next/navigation';
 import { SignUpSubmitAction } from './action';
 
@@ -289,8 +290,8 @@ export function Form() {
           </div>
         </div>
       </div>
-      <div className='mb-32 mt-6'>
-        <Button
+      <div className='mb-32 mt-6 flex justify-between gap-2.5'>
+        <GhostButton
           label='이전'
           size='m'
           type='button'

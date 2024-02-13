@@ -150,12 +150,19 @@ function LogWriteForm() {
         </div>
         <div className='fixed bottom-0 left-0 flex w-full items-center justify-end gap-5 bg-neutral-5 px-[60px] py-3'>
           <p className='text-B3R12 text-neutral-40'>자동 저장 완료 00:00:00</p>
-          <Button type='button' size='s' label='임시저장' disabled={true} />
+          <Button
+            type='button'
+            size='m'
+            label='임시저장'
+            disabled={true}
+            className='!w-[146px]'
+          />
           <Button
             type='submit'
-            size='s'
+            size='m'
             label='등록하기'
             onClick={() => onFormdataSubmit}
+            className='!w-[146px]'
           />
         </div>
       </Form>
