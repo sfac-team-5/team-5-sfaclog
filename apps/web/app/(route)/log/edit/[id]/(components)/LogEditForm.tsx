@@ -12,14 +12,9 @@ import PublicScopeSetting from '@/(route)/log/write/(components)/LogWriteForm/(c
 import Button from '@repo/ui/Button';
 import { useRouter } from 'next/navigation';
 import { editLogApi } from '@/utils/editLogApi';
+import { logCategories } from '@/constants';
 
 // import ActionButton from '@/(route)/log/write/(components)/LogWriteForm/(components)/ActionButton';
-
-const selectList = [
-  { value: '카테고리1' },
-  { value: '카테고리2' },
-  { value: '카테고리3' },
-];
 
 interface LogEditFormProps {
   log: any;
@@ -193,7 +188,7 @@ function LogEditForm({ log }: LogEditFormProps) {
         {/* <PublicScopeSetting register={publicScopeRegister} /> */}
         <PublicScopeSetting setValue={setValue} publicScope={isVisibility} />
         {/* <SeriesSetting /> */}
-        <SeriesSetting setValue={setValue} selectList={selectList} />
+        <SeriesSetting setValue={setValue} selectList={logCategories} />
       </div>
       <div className='fixed bottom-0 left-0 flex w-full items-center justify-end gap-5 bg-neutral-5 px-[60px] py-3'>
         <p className='text-B3R12 text-neutral-40'>자동 저장 완료 00:00:00</p>

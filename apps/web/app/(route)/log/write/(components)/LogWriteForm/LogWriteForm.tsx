@@ -11,6 +11,7 @@ import dynamic from 'next/dynamic';
 import Button from '@repo/ui/Button';
 import { useRouter } from 'next/navigation';
 import { useModalDataActions } from '@/hooks/stores/useModalDataStore';
+import { logCategories } from '@/constants';
 
 const selectList = [
   { value: '카테고리1' },
@@ -146,7 +147,7 @@ function LogWriteForm() {
         <ContentEditor setValue={setValue} getValues={getValues} />
         <div className='flex items-center justify-between pb-[60px] pt-10'>
           <PublicScopeSetting setValue={setValue} />
-          <SeriesSetting setValue={setValue} selectList={selectList} />
+          <SeriesSetting setValue={setValue} selectList={logCategories} />
         </div>
         <div className='fixed bottom-0 left-0 flex w-full items-center justify-end gap-5 bg-neutral-5 px-[60px] py-3'>
           <p className='text-B3R12 text-neutral-40'>자동 저장 완료 00:00:00</p>

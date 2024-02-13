@@ -1,7 +1,7 @@
 'use client';
 
-import { Toggle } from '@repo/ui/Toggle';
 import { useEffect, useState } from 'react';
+import { Toggle } from '@repo/ui/Toggle';
 import FollowingList from './FollowingList';
 import FollowerList from './FollowerList';
 import { FollowDataType } from '@/types';
@@ -35,11 +35,17 @@ function FollowContainer({ id }: { id: string }) {
   );
   const [data, setData] = useState<DataType | null>(null);
 
+  const PAGE = 1;
+  const LIMIT = 5;
+  const CATEGORY = `my-${toggleState}`;
+
   useEffect(() => {
     fetchData(id, toggleState).then(setData);
   }, [id, toggleState]);
 
   if (!data) return null;
+
+  console.log(data.result);
 
   const handleToggleData = () => {
     setToggleState(prevState =>

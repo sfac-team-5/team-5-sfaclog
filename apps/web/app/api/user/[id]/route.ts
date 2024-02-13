@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import PocketBase from 'pocketbase';
-//id로 유저정보 가져오기
+
+// id로 유저 정보 가져오기
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } },

@@ -1,6 +1,6 @@
 import { auth } from '@/auth';
 import NotFound from '@/not-found';
-import FollowList from './(components)/FollowContainer';
+import FollowContainer from './(components)/FollowContainer';
 
 async function page() {
   const session = await auth();
@@ -8,7 +8,7 @@ async function page() {
 
   return (
     <div className='flex w-[632px] flex-col items-center'>
-      <FollowList id={session.user.id} />
+      <FollowContainer id={session.user.id} />
     </div>
   );
 }

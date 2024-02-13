@@ -8,6 +8,7 @@ interface MyProfileProps {
 async function fetchData(userId: string) {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${userId}`,
+    { cache: 'no-cache' },
   );
   if (!response.ok) return null;
   return response.json();

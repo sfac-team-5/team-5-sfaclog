@@ -36,7 +36,7 @@ export function SignupPolicy() {
   return (
     <section className='mx-auto mb-28 w-fit'>
       <div className='mb-16 w-[720px]'>
-        <div className='text-H3R18 mb-3'>개인정보처리방침</div>
+        <div className='mb-3 text-H3R18'>개인정보처리방침</div>
         <PrivacyPolicyText />
         <Radio
           value='동의'
@@ -52,7 +52,7 @@ export function SignupPolicy() {
         />
       </div>
       <div className='mb-16 w-[720px]'>
-        <div className='text-H3R18 mb-3'>서비스 이용약관</div>
+        <div className='mb-3 text-H3R18'>서비스 이용약관</div>
         <ServicePolicyText />
         <Radio
           value='동의'
@@ -73,6 +73,7 @@ export function SignupPolicy() {
           label='다음'
           size='l'
           onClick={handleNextStepBtn}
+          className='!w-[360px]'
         />
       </div>
     </section>

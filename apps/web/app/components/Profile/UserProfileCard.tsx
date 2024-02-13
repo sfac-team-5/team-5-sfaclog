@@ -9,7 +9,7 @@ import {
   UserProfileLogs,
 } from './(components)';
 import PocketBase from 'pocketbase';
-import { UserType } from '@/types';
+import { CareerType, UserType } from '@/types';
 import { ButtonRound } from '@repo/ui/ButtonRound';
 interface UserProfileProps {
   user: UserType;
@@ -35,8 +35,10 @@ const getRecentLogs = async (id: string) => {
     return [];
   }
 };
+
 export async function UserProfileCard({ user }: UserProfileProps) {
   const userLogs = await getRecentLogs(user.id);
+
   return (
     <ProfileContainer>
       <ProfileIntro
@@ -45,7 +47,10 @@ export async function UserProfileCard({ user }: UserProfileProps) {
         imageUrl={`${process.env.POCKETBASE_URL}/api/files/users/${user.id}/${user.avatar}?thumb=185x185`}
       />
       <div className='mt-6'>
-        <ProfileFlwFlwer follow={24} follower={999} />
+        <ProfileFlwFlwer
+          follow={user.followingCount}
+          follower={user.followerCount}
+        />
       </div>
       <div className='mt-6 grid grid-cols-2 gap-2'>
         <ButtonRound type='filled'>팔로우</ButtonRound>
@@ -58,7 +63,7 @@ export async function UserProfileCard({ user }: UserProfileProps) {
           <ProfileSNS sns={user.sns} />
         </>
       )}
-      {Object.entries(user.career).length !== 0 && (
+      {Object.entries(user.career as CareerType[]).length !== 0 && (
         <>
           <Hr />
           <ProfileCareer career={user.career} />
