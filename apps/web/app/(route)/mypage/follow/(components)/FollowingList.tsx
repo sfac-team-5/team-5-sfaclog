@@ -2,6 +2,7 @@ import MyPagePagination from '@/components/Pagination/MyPagePagination';
 import FollowingBox from './FollowingBox';
 import { FollowDataType } from '@/types';
 import { isFollowingInfoType } from './FollowContainer';
+import { MypageNotFound } from '../../(components)/MypageNotFound';
 
 export interface FollowListProps {
   id: string;
@@ -18,8 +19,8 @@ function FollowingList({ id, data, updateCount }: FollowListProps) {
 
   if (data.followingId?.length === 0) {
     return (
-      <div className='text-B1B16 text-neutral-70 mt-[172px] w-full text-center'>
-        아직 아무도 팔로잉하지 않았어요.
+      <div className='text-B1B16 text-neutral-70 mt-[172px] flex w-full justify-center'>
+        <MypageNotFound title='아직 아무도 팔로잉하지 않았어요.' />
       </div>
     );
   }
