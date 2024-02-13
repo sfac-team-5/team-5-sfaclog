@@ -14,7 +14,9 @@ function ContentSection({ log }: ContentSectionProps) {
     <div className='w-full'>
       <ContentHeader log={log} />
       <div className='border-stroke-30 space-y-[41px] border-b py-10'>
-        <ContentThumbnail logId={log.id} logThumbnail={log.thumbnail} />
+        {log.thumbnail && (
+          <ContentThumbnail logId={log.id} logThumbnail={log.thumbnail} />
+        )}
         <ContentArea logContent={log.content} />
 
         <div className='flex items-center justify-between'>

@@ -1,6 +1,7 @@
 import React from 'react';
 import CommentItem from './CommentItem';
 import ReplyCommentItem from './ReplyCommentItem';
+import { auth } from '@/auth';
 
 export interface CommentType {
   createAt: string;
@@ -27,19 +28,38 @@ interface LogCommentProps {
   comment: CommentType[];
   replyComment: ReplyCommentType[];
   logId: string;
+  authorId: string;
 }
 
-export function LogComment({ comment, replyComment, logId }: LogCommentProps) {
+export async function LogComment({
+  comment,
+  replyComment,
+  logId,
+  authorId,
+}: LogCommentProps) {
+  const session = await auth();
   return (
-    <ul className='border-t border-neutral-10'>
+    <ul className='border-neutral-10 border-t'>
       {comment?.map(item => (
         <>
-          <CommentItem key={item.id} item={item} logId={logId} />
+          <CommentItem
+            key={item.id}
+            item={item}
+            logId={logId}
+            userId={session ? session.user.id : ''}
+            authorId={authorId}
+          />
           <ul className='bg-background-5'>
             {replyComment
               .filter(r => r.commentId === item.id)
               ?.map(reply => (
-                <ReplyCommentItem key={reply.id} item={reply} logId={logId} />
+                <ReplyCommentItem
+                  key={reply.id}
+                  item={reply}
+                  logId={logId}
+                  userId={session ? session.user.id : ''}
+                  authorId={authorId}
+                />
               ))}
           </ul>
         </>

@@ -5,6 +5,7 @@ import CommentInput from './CommentInput';
 
 interface CommentSectionProps {
   logId: string;
+  authorId: string;
 }
 
 const fetchData = async (id: string) => {
@@ -24,7 +25,7 @@ const fetchData = async (id: string) => {
   }
 };
 
-async function CommentSection({ logId }: CommentSectionProps) {
+async function CommentSection({ logId, authorId }: CommentSectionProps) {
   const { comment, replyComment } = await fetchData(logId);
 
   return (
@@ -38,6 +39,7 @@ async function CommentSection({ logId }: CommentSectionProps) {
           comment={comment}
           replyComment={replyComment}
           logId={logId}
+          authorId={authorId}
         />
       )}
     </div>

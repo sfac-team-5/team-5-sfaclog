@@ -10,12 +10,12 @@ import { useRouter } from 'next/navigation';
 import { useModalDataActions } from '@/hooks/stores/useModalStore';
 
 const selectList = [
-  { value: 'Wade Cooper' },
-  { value: 'Arlene Mccoy' },
-  { value: 'Devon Webb' },
-  { value: 'Tom Cook' },
-  { value: 'Tanya Fox' },
-  { value: 'Hellen Schmidt' },
+  { value: 'UX/UI가 불편해서' },
+  { value: '광고가 너무 많아서' },
+  { value: '잘 사용하지 않아서' },
+  { value: '개인정보가 걱정되서' },
+  { value: '중복 계정이 존재해서' },
+  { value: '기타' },
 ];
 
 interface DeleteAccountType {

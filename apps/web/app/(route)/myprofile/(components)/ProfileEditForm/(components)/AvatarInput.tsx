@@ -45,7 +45,6 @@ function AvatarInput({ register, watch, avatarUrl }: AvatarInputProps) {
             alt=''
           />
         ) : (
-          // <AvatarImage />
           <div className='bg-neutral-5 flex size-full items-center justify-center'>
             <Avatar size={80} />
           </div>
