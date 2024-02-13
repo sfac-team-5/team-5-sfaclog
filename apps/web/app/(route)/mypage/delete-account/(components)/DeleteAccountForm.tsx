@@ -5,9 +5,10 @@ import { InputBox } from '@repo/ui/InputBox';
 import { Selectbox } from '@repo/ui/SelectBox';
 import { IconCaution } from '@public/svgs';
 import { useForm } from 'react-hook-form';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useModalDataActions } from '@/hooks/stores/useModalDataStore';
+import { useModalDataActions } from '@/hooks/stores/useModalStore';
+
 const selectList = [
   { value: 'Wade Cooper' },
   { value: 'Arlene Mccoy' },
@@ -58,10 +59,33 @@ export function DeleteAccountForm() {
 
     data = { ...data, email: session.data?.user.email };
 
-    router.push(`/modal?type=delete-account`, {
+    changeModalData({
+      title: '정말 탈퇴하시겠습니까?',
+      description: '회원님의 정보가 삭제됩니다.',
+      action: async () => {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/`,
+          {
+            method: 'DELETE',
+            body: JSON.stringify(data),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
+        );
+        if (!response.ok) {
+          router.back();
+          alert('비밀번호를 확인해주세요!');
+        } else {
+          await signOut();
+          router.push('/');
+          alert('회원탈퇴가 완료되었습니다.');
+        }
+      },
+    });
+    router.push(`/modal`, {
       scroll: false,
     });
-    changeModalData({ type: 'delete-account', accountInfo: data });
   };
 
   return (

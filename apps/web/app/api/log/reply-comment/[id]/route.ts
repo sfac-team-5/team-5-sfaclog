@@ -1,5 +1,6 @@
 import { ReplyCommentType } from '@/(route)/log/[id]/(components)/CommentSection/LogComment';
 import { auth } from '@/auth';
+import { revalidatePath } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 import PocketBase from 'pocketbase';
 

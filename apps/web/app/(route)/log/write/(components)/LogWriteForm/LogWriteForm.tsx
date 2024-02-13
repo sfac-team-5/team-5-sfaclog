@@ -10,14 +10,8 @@ import { Form, useForm } from 'react-hook-form';
 import dynamic from 'next/dynamic';
 import Button from '@repo/ui/Button';
 import { useRouter } from 'next/navigation';
-import { useModalDataActions } from '@/hooks/stores/useModalDataStore';
 import { logCategories } from '@/constants';
-
-const selectList = [
-  { value: '카테고리1' },
-  { value: '카테고리2' },
-  { value: '카테고리3' },
-];
+import { useModalDataActions } from '@/hooks/stores/useModalStore';
 
 const ContentEditor = dynamic(() => import('./(components)/ContentInput'), {
   loading: () => (
@@ -100,15 +94,19 @@ function LogWriteForm() {
 
   const seriesRegister = register('series');
 
-  // 1. 렌더링이 안 끝났을 때 뒤로가기 누르면 동작 안함
-  // 2. 새로고침을 누르고 하면 동작 안함(애매)
-  // 3. 창을 다시 누르면(브라우저가 재 포커스되면) 동작 안함
   useEffect(() => {
     history.pushState(null, '', location.href);
     const browserPreventEvent = () => {
       history.pushState(null, '', location.href);
-      changeModalData({ type: 'log-cancel' });
-      router.push('/modal?type=log-cancel');
+      changeModalData({
+        title: '취소하기',
+        description:
+          '작성을 정말 취소하시겠습니까? 작성하신 로그가 사라집니다.',
+        action: () => {
+          router.push('/');
+        },
+      });
+      router.push('/modal?type=back');
     };
     window.addEventListener('popstate', () => {
       browserPreventEvent();
