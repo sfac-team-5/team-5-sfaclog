@@ -37,12 +37,15 @@ export async function MyProfileCard({ user }: { user: UserType }) {
       <Hr />
       <div className='flex flex-col gap-3'>
         <div className='text-B1B16'>나의 활동</div>
-        <MyProfileLink href='#' title='나의 로그' />
-        <MyProfileLink href='#' title='나의 커뮤니티' />
-        <MyProfileLink href='#' title='내가 쓴 댓글' />
+        <MyProfileLink href='/mypage/my-log' title='나의 로그' />
+        <MyProfileLink href='/mypage/my-community' title='나의 커뮤니티' />
+        <MyProfileLink href='/mypage/my-comment' title='내가 쓴 댓글' />
         <MyProfileLink href='#' title='관심 로그' />
-        <MyProfileLink href='#' title='최근 본 로그' />
-        <MyProfileLink href='#' title='최근 본 커뮤니티' />
+        <MyProfileLink href='/mypage/recently-log' title='최근 본 로그' />
+        <MyProfileLink
+          href='/mypage/recently-community'
+          title='최근 본 커뮤니티'
+        />
       </div>
       <Hr />
       <div className='flex flex-col gap-3'>
