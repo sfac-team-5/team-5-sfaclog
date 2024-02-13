@@ -29,7 +29,7 @@ export function LogCard({ variant, log, more }: LogCardProps) {
       <CardBox type='log'>
         <div className='h-[280px] w-full overflow-hidden rounded-md'>
           {log.thumbnailUrl === '' ? (
-            <div className='bg-background-5 size-full' />
+            <div className='size-full bg-background-5' />
           ) : (
             <Image
               src={log.thumbnailUrl}
@@ -45,10 +45,6 @@ export function LogCard({ variant, log, more }: LogCardProps) {
           <CardTitle title={log.title} />
         </div>
         <div className='mt-5 flex w-full justify-between'>
-          <div className='flex items-center gap-2'>
-            <Avatar size='xs' />
-            <span className='text-B3R12'>{nickname}</span>
-          </div>
           <div className='mt-5 flex w-full justify-between'>
             <div className='flex items-center gap-2'>
               <Avatar size={24} />
