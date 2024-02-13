@@ -1,4 +1,3 @@
-import MyPagePagination from '@/components/Pagination/MyPagePagination';
 import FollowingBox from './FollowingBox';
 import { FollowDataType } from '@/types';
 import { isFollowingInfoType } from './FollowContainer';
@@ -37,12 +36,6 @@ function FollowingList({ id, data, updateCount }: FollowListProps) {
           />
         );
       })}
-
-      {/* <MyPagePagination
-        totalItems={list.length}
-        page={page}
-        category='following'
-      /> */}
     </div>
   );
 }

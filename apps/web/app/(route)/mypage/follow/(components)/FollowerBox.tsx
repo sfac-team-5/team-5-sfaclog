@@ -106,6 +106,8 @@ function FollowerBox({ id, data, updateCount, isFollowing }: FollowBoxProps) {
       };
 
       fetchAvatarUrl();
+    } else {
+      setAvatarUrl(undefined);
     }
   }, [data.avatar]);
 

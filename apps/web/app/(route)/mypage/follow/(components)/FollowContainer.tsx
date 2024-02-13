@@ -5,6 +5,7 @@ import { Toggle } from '@repo/ui/Toggle';
 import FollowingList from './FollowingList';
 import FollowerList from './FollowerList';
 import { FollowDataType } from '@/types';
+import FollowPagination from '@/components/Pagination/FollowPagination';
 
 async function fetchData(userId: string, toggleState: string) {
   const response = await fetch(
@@ -35,17 +36,9 @@ function FollowContainer({ id }: { id: string }) {
   );
   const [data, setData] = useState<DataType | null>(null);
 
-  const PAGE = 1;
-  const LIMIT = 5;
-  const CATEGORY = `my-${toggleState}`;
-
-  useEffect(() => {
-    fetchData(id, toggleState).then(setData);
-  }, [id, toggleState]);
-
-  if (!data) return null;
-
-  console.log(data.result);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+  const itemsPerPage = 10;
 
   const handleToggleData = () => {
     setToggleState(prevState =>
@@ -100,6 +93,73 @@ function FollowContainer({ id }: { id: string }) {
     });
   };
 
+  const handlePrevPage = () => {
+    if (currentPage !== 1) setCurrentPage(prev => prev - 1);
+  };
+
+  const handleNextPage = () => {
+    if (currentPage !== Math.ceil(totalItems / itemsPerPage))
+      setCurrentPage(prev => prev + 1);
+  };
+
+  const handleNumberPage = (number: number) => {
+    setCurrentPage(number);
+  };
+
+  useEffect(() => {
+    fetchData(id, toggleState).then(fetchedData => {
+      if (fetchedData) {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+
+        let paginatedResult;
+        if (toggleState === 'following') {
+          setTotalItems(fetchedData.count.followingCount);
+
+          paginatedResult = {
+            ...fetchedData.result,
+            followingId:
+              fetchedData.result.followingId?.slice(startIndex, endIndex) || [],
+            ...(fetchedData.result.expand && {
+              expand: {
+                followingId:
+                  fetchedData.result.expand.followingId?.slice(
+                    startIndex,
+                    endIndex,
+                  ) || [],
+              },
+            }),
+          };
+        }
+        if (toggleState === 'followers') {
+          setTotalItems(fetchedData.count.followerCount);
+
+          paginatedResult = {
+            ...fetchedData.result,
+            followerId:
+              fetchedData.result.followerId?.slice(startIndex, endIndex) || [],
+            ...(fetchedData.result.expand && {
+              expand: {
+                followerId:
+                  fetchedData.result.expand.followerId?.slice(
+                    startIndex,
+                    endIndex,
+                  ) || [],
+              },
+            }),
+          };
+        }
+
+        setData({
+          ...fetchedData,
+          result: paginatedResult,
+        });
+      }
+    });
+  }, [id, toggleState, currentPage]);
+
+  if (!data) return null;
+
   return (
     <>
       <Toggle
@@ -108,7 +168,7 @@ function FollowContainer({ id }: { id: string }) {
         onToggle={handleToggleData}
       />
 
-      <div className='mt-[52px] w-full'>
+      <div className='mb-10 mt-[52px] w-full'>
         {toggleState === 'following' && (
           <FollowingList id={id} data={data.result} updateCount={updateCount} />
         )}
@@ -121,6 +181,14 @@ function FollowContainer({ id }: { id: string }) {
           />
         )}
       </div>
+
+      <FollowPagination
+        totalItems={totalItems}
+        currentPage={currentPage}
+        handlePrevPage={handlePrevPage}
+        handleNextPage={handleNextPage}
+        handleNumberPage={handleNumberPage}
+      />
     </>
   );
 }

@@ -7,6 +7,7 @@ import { LogType } from '@/types';
 import { Session } from 'next-auth';
 import MyPagePagination from '@/components/Pagination/MyPagePagination';
 import MyLogFilter from './MyLogFilter';
+import { MypageNotFound } from '../../(components)/MypageNotFound';
 
 interface MyLogListProps {
   page: number;
@@ -64,7 +65,17 @@ async function MyLogList({ page, sort }: MyLogListProps) {
   const session = await auth();
   if (!session) return;
   const { myLogs, totalItems } = await fetchData(session, page, sort);
-  if (myLogs.length === 0) return NoData();
+  if (myLogs.length === 0)
+    return (
+      <div className='mt-[170px] flex w-full justify-center'>
+        <MypageNotFound
+          title='아직 작성한 로그가 없어요.'
+          description='나만의 로그를 작성해 보세요.'
+          buttonLabel='로그 작성하기'
+          href='/log/write'
+        />
+      </div>
+    );
 
   return (
     <div>
