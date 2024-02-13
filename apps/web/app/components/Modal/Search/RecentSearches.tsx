@@ -1,7 +1,7 @@
 'use client';
 import { IconCancelBlack } from '@repo/ui/Icon';
-import React, { useEffect, useState } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useRecordStore } from '@/hooks/stores/useSearchRecordStore';
 
 export function RecentSearches({ onClose }: { onClose: () => void }) {
