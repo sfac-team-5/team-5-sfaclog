@@ -105,6 +105,7 @@ function LogEditForm({ log }: LogEditFormProps) {
       }
     }
 
+    formData.set('title', data.title);
     formData.set('thumbnail', data.thumbnail && (data.thumbnail[0] as any));
 
     // const response = await fetch(

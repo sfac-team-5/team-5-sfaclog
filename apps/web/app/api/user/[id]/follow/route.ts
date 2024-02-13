@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 import PocketBase from 'pocketbase';
 
@@ -208,6 +209,7 @@ export async function POST(request: NextRequest) {
       });
     }
 
+    revalidatePath('/', 'layout');
     return NextResponse.json({ status: 200 });
   } catch (error: any) {
     const errorData = error.originalError;
