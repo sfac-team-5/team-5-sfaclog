@@ -22,7 +22,7 @@ async function LogDetailPage({ params }: { params: { id: string } }) {
   if (!log || log.isDelete) return NotFound();
 
   return (
-    <main className='container flex gap-16'>
+    <main className='container mb-[120px] mt-20 flex gap-16'>
       <div className='flex flex-col gap-5'>
         <UserProfileCard user={log.expand.user} />
         <LogSection />

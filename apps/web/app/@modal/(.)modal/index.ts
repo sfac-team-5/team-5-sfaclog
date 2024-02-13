@@ -1,3 +1,6 @@
+import { DeleteAccountType } from '@/(route)/mypage/delete-account/action';
+import { signOut } from 'next-auth/react';
+
 export const modalLogDelete = {
   title: '삭제하기',
   description: '작성하신 로그를 삭제하시겠습니까?',
@@ -45,5 +48,38 @@ export const modalReplyCommentDelete = {
       body: JSON.stringify({ commentId, userId }),
     });
     if (!response.ok) return alert('삭제 실패요 ㅜㅜ');
+  },
+};
+
+export const modalAccountDelete = {
+  title: '정말 탈퇴하시겠습니까?',
+  description: '회원님의 정보가 삭제됩니다.',
+  accountDelete: async (data: DeleteAccountType) => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/`,
+      {
+        method: 'DELETE',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    if (!response.ok) {
+      alert('비밀번호를 확인해주세요!');
+    } else {
+      alert('회원탈퇴가 완료되었습니다.');
+      await signOut();
+      return;
+    }
+  },
+};
+
+export const modalFollowerDelete = {
+  title: '이 사용자를 삭제하시겠습니까?',
+  description:
+    '해당 사용자는 회원님의 팔로워 리스트에서 삭제된 사실을 알 수 없습니다.',
+  followerDelete: async () => {
+    console.log(1);
   },
 };

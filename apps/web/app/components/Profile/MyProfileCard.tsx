@@ -29,10 +29,11 @@ export async function MyProfileCard() {
       <MyProfileHeader updateMyPofileLink='#' />
       <ProfileIntro
         username={user.nickname || 'error'}
-        userintro={user.intro || 'error'}
+        userintro={user.intro || '자기소개를 작성해주세요.'}
         imageUrl={
-          `${process.env.POCKETBASE_URL}/api/files/users/${user.id}/${user.avatar}?thumb=185x185` ||
-          'error'
+          user.avatar && user.avatar.length > 0
+            ? `${process.env.POCKETBASE_URL}/api/files/users/${user.id}/${user.avatar}?thumb=185x185`
+            : 'error'
         }
       />
       <div className='mt-6'>
@@ -41,7 +42,7 @@ export async function MyProfileCard() {
           follower={user.followerCount}
         />
       </div>
-      {Object.entries(user.career).length !== 0 && (
+      {user.career && Object.entries(user.career).length !== 0 && (
         <>
           <Hr />
           <ProfileCareer career={user.career} />

@@ -9,6 +9,8 @@ import {
   modalLogCancel,
   modalReplyCommentDelete,
   modalCommentDelete,
+  modalAccountDelete,
+  modalFollowerDelete,
 } from './index';
 import { useModalData } from '@/hooks/stores/useModalDataStore';
 
@@ -20,7 +22,8 @@ interface ModalStateType {
 
 function Modal() {
   const router = useRouter();
-  const { type, logId, commentId, userId, userName } = useModalData();
+  const { type, logId, commentId, userId, userName, accountInfo, targetId } =
+    useModalData();
 
   let modalState: ModalStateType = {
     title: '',
@@ -33,7 +36,8 @@ function Modal() {
         title: modalLogDelete.title,
         description: modalLogDelete.description,
         action: () => {
-          logId && modalLogDelete.logDelete(logId);
+          if (!logId) return;
+          modalLogDelete.logDelete(logId);
         },
       };
       break;
@@ -42,7 +46,8 @@ function Modal() {
         title: userName + modalUserBlock.title,
         description: userName + modalUserBlock.description,
         action: () => {
-          userId && modalUserBlock.userBlock(userId);
+          if (!userId) return;
+          modalUserBlock.userBlock(userId);
         },
       };
       break;
@@ -60,10 +65,8 @@ function Modal() {
         title: modalCommentDelete.title,
         description: modalCommentDelete.description,
         action: () => {
-          logId &&
-            commentId &&
-            userId &&
-            modalCommentDelete.commentDelete(logId, commentId, userId);
+          if (!logId || !commentId || !userId) return;
+          modalCommentDelete.commentDelete(logId, commentId, userId);
           router.back();
           setTimeout(() => router.refresh(), 100);
         },
@@ -74,13 +77,29 @@ function Modal() {
         title: modalReplyCommentDelete.title,
         description: modalReplyCommentDelete.description,
         action: () => {
-          logId &&
-            commentId &&
-            userId &&
-            modalReplyCommentDelete.commentDelete(logId, commentId, userId);
+          if (!logId || !commentId || !userId) return;
+          modalReplyCommentDelete.commentDelete(logId, commentId, userId);
           router.back();
           setTimeout(() => router.refresh(), 100);
         },
+      };
+      break;
+    case 'delete-account':
+      modalState = {
+        title: modalAccountDelete.title,
+        description: modalAccountDelete.description,
+        action: () => {
+          if (!accountInfo) return;
+          modalAccountDelete.accountDelete(accountInfo);
+          router.push('/');
+        },
+      };
+      break;
+    case 'follower-delete':
+      modalState = {
+        title: modalFollowerDelete.title,
+        description: modalFollowerDelete.description,
+        action: () => modalFollowerDelete.followerDelete(),
       };
       break;
   }
