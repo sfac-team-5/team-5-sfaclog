@@ -5,26 +5,30 @@ import { LogDataType } from '../write/route';
 import { revalidatePath } from 'next/cache';
 
 export async function GET(request: NextRequest) {
-  const url = new URL(request.url);
-  const currentUser = url.searchParams.get('currentUser');
-  const logId = url.pathname.split('/').pop() as string;
-
   try {
+    const url = new URL(request.url);
+    const currentUser = url.searchParams.get('currentUser');
+    const logId = url.pathname.split('/').pop() as string;
+
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
     const log = await pb.collection('logs').getOne(logId, { expand: 'user' });
     const logUser = log.expand?.user.id;
 
-    // 현재 사용자의 팔로잉 목록 조회
-    const followingList = await pb
-      .collection('following')
-      .getFirstListItem(`userId="${currentUser}"`, {
-        expand: 'followingId',
-      });
+    if (currentUser) {
+      // 현재 사용자의 팔로잉 목록 조회
+      const followingList = await pb
+        .collection('following')
+        .getFirstListItem(`userId="${currentUser}"`, {
+          expand: 'followingId',
+        });
 
-    // logUser가 currentUser에 의해 팔로우되고 있는지 확인
-    const isFollowing = followingList.followingId.includes(logUser);
-
-    return NextResponse.json({ log, isFollowing }, { status: 200 });
+      // logUser가 currentUser에 의해 팔로우되고 있는지 확인
+      const isFollowing = followingList.followingId.includes(logUser);
+      return NextResponse.json({ log, isFollowing }, { status: 200 });
+    } else {
+      return NextResponse.json({ log }, { status: 200 });
+    }
+    return NextResponse.json({ log }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       {

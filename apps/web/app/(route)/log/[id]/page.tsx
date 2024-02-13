@@ -10,9 +10,12 @@ import { auth } from '@/auth';
 export const revalidate = 1;
 
 const fetchData = async (currentUser: any, logId: string) => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/log/${logId}?currentUser=${currentUser}`,
-  );
+  let url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/log/${logId}`;
+  if (currentUser) {
+    url += `?currentUser=${currentUser}`;
+  }
+
+  const response = await fetch(url);
   if (!response.ok) return null;
   return response.json();
 };
@@ -21,6 +24,7 @@ async function LogDetailPage({ params }: { params: { id: string } }) {
   const session = await auth();
   const { id } = params;
   const result = await fetchData(session?.user.id, id);
+  console.log(result);
   if (!result.log || result.log.isDelete) return NotFound();
 
   return (
