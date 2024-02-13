@@ -9,6 +9,7 @@ export interface UserType {
   interests: string[];
   intro: string;
   nickname: string;
+  legalname: string;
   phone: string;
   offers: string[];
   updated: string;

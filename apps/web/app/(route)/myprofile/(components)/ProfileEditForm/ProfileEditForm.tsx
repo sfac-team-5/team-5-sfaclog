@@ -121,7 +121,7 @@ function ProfileEditForm({ profile }: ProfileEditFormProps) {
             </div>
             <div className='flex flex-col gap-2'>
               <InputTitle label='이름' />
-              <p className='text-B2R14 text-neutral-90'>{profile.username}</p>
+              <p className='text-B2R14 text-neutral-90'>{profile.legalname}</p>
             </div>
             <NicknameInput register={register} errors={errors} />
           </div>
