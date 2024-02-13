@@ -5,6 +5,7 @@ import ContentSection from './(components)/ContentSection/ContentSection';
 import { UserProfileCard } from '@/components/Profile/UserProfileCard';
 import ViewObserver from './(components)/ViewObserver';
 import LogSection from './(components)/LogSection';
+import Footer from '@/components/Footer/Footer';
 
 export const revalidate = 1;
 
@@ -22,17 +23,21 @@ async function LogDetailPage({ params }: { params: { id: string } }) {
   if (!log || log.isDelete) return NotFound();
 
   return (
-    <main className='container flex gap-16'>
-      <div className='flex flex-col gap-5'>
-        <UserProfileCard user={log.expand.user} />
-        <LogSection />
-      </div>
-      <div className='w-full'>
-        <ContentSection log={log} />
-        <CommentSection logId={log.id} />
-      </div>
-      <ViewObserver logId={id} />
-    </main>
+    <>
+      <main className='container flex gap-16'>
+        <div className='flex flex-col gap-5'>
+          <UserProfileCard user={log.expand.user} />
+          <LogSection />
+        </div>
+        <div className='w-full'>
+          <ContentSection log={log} />
+          <CommentSection logId={log.id} />
+        </div>
+        <ViewObserver logId={id} />
+      </main>
+
+      <Footer />
+    </>
   );
 }
 
