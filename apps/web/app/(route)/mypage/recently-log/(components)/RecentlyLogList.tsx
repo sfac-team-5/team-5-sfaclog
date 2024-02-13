@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { LogType } from '@/types';
 import MyPagePagination from '@/components/Pagination/MyPagePagination';
 import RecentlyLogFilter from './RecentlyLogFilter';
+import { MypageNotFound } from '../../(components)/MypageNotFound';
 
 interface RecentlyLogListProps {
   page: number;
@@ -28,6 +29,18 @@ function RecentlyLogList({ page, sort }: RecentlyLogListProps) {
     };
     fetchData();
   }, [page, sort]);
+
+  if (recentlyLogs.length === 0)
+    return (
+      <div className='mt-[170px] flex w-full justify-center'>
+        <MypageNotFound
+          title='최근 본 로그가 없어요.'
+          description='최신 로그에서 다양한 로그들을 살펴보세요.'
+          buttonLabel='최신 로그 바로가기'
+          href='/recently'
+        />
+      </div>
+    );
 
   return (
     <div>
