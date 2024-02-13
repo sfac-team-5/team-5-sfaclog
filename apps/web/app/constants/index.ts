@@ -10,6 +10,6 @@ export const logCategories = [
   { value: 'React' },
   { value: 'Typescript' },
   { value: 'Next' },
-  { value: 'Pocketbae' },
+  { value: 'Pocketbase' },
   { value: 'Firebase' },
 ];
