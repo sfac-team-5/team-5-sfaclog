@@ -115,7 +115,7 @@ export default function LoginForm() {
       </div>
       <div className='mt-3 flex justify-between'>
         <p className='text-B2R14'>아직 회원이 아니신가요?</p>
-        <Link href={'/signup'} className='text-B2R14 underline'>
+        <Link href={'/signup/policy'} className='text-B2R14 underline'>
           회원가입
         </Link>
       </div>

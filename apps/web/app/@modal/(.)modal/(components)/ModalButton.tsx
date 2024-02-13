@@ -13,7 +13,7 @@ function ModalButton({ action, type }: ModalButtonProps) {
 
   const onCancel = () => {
     if (type === 'log-cancel') {
-      changeModalData({ type: null });
+      changeModalData({ type: null, action: null });
       router.push('/log/write');
     } else {
       router.back();
@@ -21,7 +21,7 @@ function ModalButton({ action, type }: ModalButtonProps) {
   };
 
   const onAction = () => {
-    changeModalData({ type: null });
+    changeModalData({ type: null, action: null });
     action();
   };
 

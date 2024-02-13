@@ -19,7 +19,7 @@ import { Controller } from 'react-hook-form';
 const selectList = [
   {
     value: (
-      <div className='text-B3R12 flex h-6 w-[110px] items-center justify-start gap-1.5'>
+      <div className='flex h-6 w-[110px] items-center justify-start gap-1.5 text-B3R12'>
         <IconSnsLink />
         Link
       </div>
@@ -28,7 +28,7 @@ const selectList = [
   },
   {
     value: (
-      <div className='text-B3R12 flex h-6 w-[110px] items-center justify-start gap-1.5'>
+      <div className='flex h-6 w-[110px] items-center justify-start gap-1.5 text-B3R12'>
         <IconSnsGithub />
         Github
       </div>
@@ -37,7 +37,7 @@ const selectList = [
   },
   {
     value: (
-      <div className='text-B3R12 flex h-6 w-[110px] items-center justify-start gap-1.5'>
+      <div className='flex h-6 w-[110px] items-center justify-start gap-1.5 text-B3R12'>
         <IconSnsInstagram />
         Instagram
       </div>
@@ -46,7 +46,7 @@ const selectList = [
   },
   {
     value: (
-      <div className='text-B3R12 flex h-6 w-[110px] items-center justify-start gap-1.5'>
+      <div className='flex h-6 w-[110px] items-center justify-start gap-1.5 text-B3R12'>
         <IconSnsNotion />
         Notion
       </div>
@@ -55,7 +55,7 @@ const selectList = [
   },
   {
     value: (
-      <div className='text-B3R12 flex h-6 w-[110px] items-center justify-start gap-1.5'>
+      <div className='flex h-6 w-[110px] items-center justify-start gap-1.5 text-B3R12'>
         <IconSnsX />X (twitter)
       </div>
     ),
@@ -63,7 +63,7 @@ const selectList = [
   },
   {
     value: (
-      <div className='text-B3R12 flex h-6 w-[110px] items-center justify-start gap-1.5'>
+      <div className='flex h-6 w-[110px] items-center justify-start gap-1.5 text-B3R12'>
         <IconSnsBrunch />
         Brunch
       </div>
@@ -72,7 +72,7 @@ const selectList = [
   },
   {
     value: (
-      <div className='text-B3R12 flex h-6 w-[110px] items-center justify-start gap-1.5'>
+      <div className='flex h-6 w-[110px] items-center justify-start gap-1.5 text-B3R12'>
         <IconSnsYoutube />
         Youtube
       </div>
@@ -81,7 +81,7 @@ const selectList = [
   },
   {
     value: (
-      <div className='text-B3R12 flex h-6 w-[110px] items-center justify-start gap-1.5'>
+      <div className='flex h-6 w-[110px] items-center justify-start gap-1.5 text-B3R12'>
         <IconSnsLinkedin />
         LinkedIn
       </div>
@@ -119,7 +119,7 @@ function SnsInput({ setValue, inputValues }: SnsInputProps) {
 
   // snsInputs 초기 값 설정
   useEffect(() => {
-    if (Object.keys(inputValues).length > 0) {
+    if (inputValues && Object.keys(inputValues).length > 0) {
       const inputs = Object.entries(inputValues).map(([key, value]) => ({
         type: key.split('_')[0] || '', // "Github", "Linkedin" 등의 타입 추출
         url: value as string,

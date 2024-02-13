@@ -6,8 +6,8 @@ import { Selectbox } from '@repo/ui/SelectBox';
 import { IconCaution } from '@public/svgs';
 import { useForm } from 'react-hook-form';
 import { useSession } from 'next-auth/react';
-import { SubmitDeleteAccount } from '../action';
-import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useModalDataActions } from '@/hooks/stores/useModalDataStore';
 const selectList = [
   { value: 'UX/UI가 불편해서' },
   { value: '광고가 너무 많아서' },
@@ -25,6 +25,8 @@ interface DeleteAccountType {
 
 export function DeleteAccountForm() {
   const session = useSession();
+  const router = useRouter();
+  const { onChange: changeModalData } = useModalDataActions();
 
   const {
     register,
@@ -49,22 +51,17 @@ export function DeleteAccountForm() {
       alert('로그인 상태가 아닙니다');
       return;
     }
-
     if (!data.reason) {
       alert('탈퇴사유를 선택해주세요.');
       return;
     }
-    data = { ...data, email: session.data?.user.email };
-    const result = await SubmitDeleteAccount(data);
 
-    if (result.isDeleted) {
-      alert('회원탈퇴가 완료되었습니다.');
-      await signOut({ redirect: true, callbackUrl: '/' });
-      return;
-    } else {
-      setError('password', { message: '비밀번호를 확인해주세요' });
-      return;
-    }
+    data = { ...data, email: session.data?.user.email };
+
+    router.push(`/modal?type=delete-account`, {
+      scroll: false,
+    });
+    changeModalData({ type: 'delete-account', accountInfo: data });
   };
 
   return (
@@ -77,12 +74,12 @@ export function DeleteAccountForm() {
           <IconCaution className='absolute bottom-4 left-7' />
           <span className='text-H3M18 text-text-primary'>주의하세요</span>
         </div>
-        <div className='text-text-secondary text-B3R12'>
+        <div className='text-B3R12 text-text-secondary'>
           탈퇴시 삭제되니 정보는 복구가 불가능합니다.
         </div>
       </div>
       <div className='flex flex-col gap-6'>
-        <div className='text-B2M14 text-text-primary text-center'>
+        <div className='text-center text-B2M14 text-text-primary'>
           불편하셨던 점과 불만사항을 알려주시면 적극 반영해 고객님의 불편함을
           해결할 수 있도록 노력하겠습니다.
         </div>

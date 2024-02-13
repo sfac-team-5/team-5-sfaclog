@@ -8,7 +8,7 @@ interface ContentThumbnailProps {
 
 function ContentThumbnail({ logId, logThumbnail }: ContentThumbnailProps) {
   return (
-    <div className='relative h-[270px] w-full'>
+    <div className='relative aspect-square w-full'>
       <Image
         src={`${process.env.POCKETBASE_URL}/api/files/logs/${logId}/${logThumbnail}`}
         alt='thumbnail'

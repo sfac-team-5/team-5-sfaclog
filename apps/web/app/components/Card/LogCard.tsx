@@ -8,6 +8,7 @@ import { CardLikes } from './(components)/CardLikes';
 import { CardDate } from './(components)/CardDate';
 import { LogType } from '@/types';
 import { LogCardMore } from './LogCardMore';
+import { formatDateToYMDHM } from '@/utils/formatDateToYMDHM';
 import Link from 'next/link';
 
 interface LogCardProps {
@@ -41,6 +42,12 @@ export function LogCard({ variant, log, more }: LogCardProps) {
             />
           )}
         </div>
+        <div className='flex w-full items-start justify-between'>
+          <span className='text-B3B12 text-brand-90'>{log.series}</span>
+          <span className='text-B3R12 text-text-gray'>
+            {formatDateToYMDHM(log.created).substr(2, 8)}
+          </span>
+        </div>
         <div>
           <CardTitle title={log.title} />
         </div>
@@ -56,11 +63,11 @@ export function LogCard({ variant, log, more }: LogCardProps) {
             </div>
           </div>
         </div>
-        {variant === 'logPage' &&
+        {/* {variant === 'logPage' &&
           more &&
           Array.from({ length: more }, (_, index) => (
             <LogCardMore key={index} log={log} />
-          ))}
+          ))} */}
       </CardBox>
     </Link>
   );

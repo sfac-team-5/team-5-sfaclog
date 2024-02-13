@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-
+import { Avatar } from '@/components/Avatar';
 import { LogoutAction } from './action';
 
 interface NavProfileProps {
@@ -12,15 +12,20 @@ interface NavProfileProps {
 export function NavProfile({ image, isOpen, onToggle }: NavProfileProps) {
   return (
     <div className='relative'>
-      <Image
-        src={image}
-        width={30}
-        height={30}
-        alt='avatar'
-        className='cursor-pointer rounded-full'
-        onClick={onToggle}
-      />
-
+      {image.length === 0 ? (
+        <div onClick={onToggle} className='cursor-pointer'>
+          <Avatar size={30} />
+        </div>
+      ) : (
+        <Image
+          src={image}
+          width={30}
+          height={30}
+          alt='avatar'
+          className='cursor-pointer rounded-full'
+          onClick={onToggle}
+        />
+      )}
       {isOpen && (
         <div className='shadow-custom absolute right-0 z-40 mt-3 flex max-h-60 w-max flex-col overflow-auto rounded-md bg-white p-2 text-base focus:outline-none sm:text-sm'>
           <Link
