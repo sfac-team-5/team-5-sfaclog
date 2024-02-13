@@ -5,7 +5,6 @@ import { InputBox } from '@repo/ui/InputBox';
 import { Selectbox } from '@repo/ui/SelectBox';
 import { IconCaution } from '@public/svgs';
 import { useForm } from 'react-hook-form';
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useModalDataActions } from '@/hooks/stores/useModalDataStore';
 const selectList = [
@@ -23,11 +22,10 @@ interface DeleteAccountType {
   email: string;
 }
 
-export function DeleteAccountForm() {
-  const session = useSession();
+export function DeleteAccountForm({ email }: { email?: string }) {
   const router = useRouter();
   const { onChange: changeModalData } = useModalDataActions();
-
+  console.log('delte form email', email);
   const {
     register,
     handleSubmit,
@@ -38,7 +36,6 @@ export function DeleteAccountForm() {
     defaultValues: {
       reason: '',
       password: '',
-      email: '',
     },
   });
 
@@ -47,7 +44,7 @@ export function DeleteAccountForm() {
   });
 
   const handleFormSubmit = async (data: DeleteAccountType) => {
-    if (!session.data?.user.email) {
+    if (!email) {
       alert('로그인 상태가 아닙니다');
       return;
     }
@@ -56,7 +53,7 @@ export function DeleteAccountForm() {
       return;
     }
 
-    data = { ...data, email: session.data?.user.email };
+    data = { ...data, email };
 
     router.push(`/modal?type=delete-account`, {
       scroll: false,
@@ -79,7 +76,7 @@ export function DeleteAccountForm() {
         </div>
       </div>
       <div className='flex flex-col gap-6'>
-        <div className='text-center text-B2M14 text-text-primary'>
+        <div className='text-B2M14 text-text-primary text-center'>
           불편하셨던 점과 불만사항을 알려주시면 적극 반영해 고객님의 불편함을
           해결할 수 있도록 노력하겠습니다.
         </div>

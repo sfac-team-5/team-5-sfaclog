@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from 'next/server';
 //유저 삭제하기
 export async function DELETE(request: NextRequest) {
   const data = await request.json();
-  // console.log('DELETE', data);
   try {
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
     const user = await pb
@@ -14,8 +13,16 @@ export async function DELETE(request: NextRequest) {
       .catch(() => null);
     if (user) {
       //팔로잉, 팔로워 삭제 - 먼저삭제해야 유저삭제가능
-      await pb.collection('follower').delete(user.record.follower);
-      await pb.collection('following').delete(user.record.following);
+      console.log('-----------------', user.record.email);
+      const followerId = await pb
+        .collection('follower')
+        .getFirstListItem(`userId="${user.record.id}"`, { expand: '*' });
+
+      const followingId = await pb
+        .collection('following')
+        .getFirstListItem(`userId="${user.record.id}"`, { expand: '*' });
+      await pb.collection('follower').delete(followerId.id);
+      await pb.collection('following').delete(followingId.id);
       //유저삭제
       await pb.collection('users').delete(user.record.id);
       return NextResponse.json({ isDeleted: true }, { status: 200 });
