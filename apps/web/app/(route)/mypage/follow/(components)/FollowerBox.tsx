@@ -5,7 +5,7 @@ import CapsuleButton from '@repo/ui/CapsuleButton';
 import { IconCancelBlack, IconCheckWhite, IconPlusBlue } from '@repo/ui/Icon';
 import { FollowBoxProps } from './FollowingBox';
 import { useRouter } from 'next/navigation';
-import { useModalDataActions } from '@/hooks/stores/useModalDataStore';
+import { useModalDataActions } from '@/hooks/stores/useModalStore';
 
 function FollowerBox({ id, data, updateCount, isFollowing }: FollowBoxProps) {
   const router = useRouter();
@@ -94,8 +94,13 @@ function FollowerBox({ id, data, updateCount, isFollowing }: FollowBoxProps) {
   };
 
   const onDelete = () => {
-    router.push(`/modal?type=follower-delete`);
-    changeModalData({ type: 'follower-delete', action: handleDeleteClick });
+    changeModalData({
+      title: '이 사용자를 삭제하시겠습니까?',
+      description:
+        '해당 사용자는 회원님의 팔로워 리스트에서 삭제된 사실을 알 수 없습니다.',
+      action: () => handleDeleteClick(),
+    });
+    router.push(`/modal`);
   };
 
   useEffect(() => {

@@ -5,16 +5,17 @@ import { InputBox } from '@repo/ui/InputBox';
 import { Selectbox } from '@repo/ui/SelectBox';
 import { IconCaution } from '@public/svgs';
 import { useForm } from 'react-hook-form';
-import { useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useModalDataActions } from '@/hooks/stores/useModalDataStore';
+import { useModalDataActions } from '@/hooks/stores/useModalStore';
+
 const selectList = [
-  { value: 'Wade Cooper' },
-  { value: 'Arlene Mccoy' },
-  { value: 'Devon Webb' },
-  { value: 'Tom Cook' },
-  { value: 'Tanya Fox' },
-  { value: 'Hellen Schmidt' },
+  { value: 'UX/UI가 불편해서' },
+  { value: '광고가 너무 많아서' },
+  { value: '잘 사용하지 않아서' },
+  { value: '개인정보가 걱정되서' },
+  { value: '중복 계정이 존재해서' },
+  { value: '기타' },
 ];
 
 interface DeleteAccountType {
@@ -23,11 +24,10 @@ interface DeleteAccountType {
   email: string;
 }
 
-export function DeleteAccountForm() {
-  const session = useSession();
+export function DeleteAccountForm({ email }: { email?: string }) {
   const router = useRouter();
   const { onChange: changeModalData } = useModalDataActions();
-
+  console.log('delte form email', email);
   const {
     register,
     handleSubmit,
@@ -38,7 +38,6 @@ export function DeleteAccountForm() {
     defaultValues: {
       reason: '',
       password: '',
-      email: '',
     },
   });
 
@@ -47,7 +46,7 @@ export function DeleteAccountForm() {
   });
 
   const handleFormSubmit = async (data: DeleteAccountType) => {
-    if (!session.data?.user.email) {
+    if (!email) {
       alert('로그인 상태가 아닙니다');
       return;
     }
@@ -56,12 +55,35 @@ export function DeleteAccountForm() {
       return;
     }
 
-    data = { ...data, email: session.data?.user.email };
+    data = { ...data, email };
 
-    router.push(`/modal?type=delete-account`, {
+    changeModalData({
+      title: '정말 탈퇴하시겠습니까?',
+      description: '회원님의 정보가 삭제됩니다.',
+      action: async () => {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/`,
+          {
+            method: 'DELETE',
+            body: JSON.stringify(data),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
+        );
+        if (!response.ok) {
+          router.back();
+          alert('비밀번호를 확인해주세요!');
+        } else {
+          await signOut();
+          router.push('/');
+          alert('회원탈퇴가 완료되었습니다.');
+        }
+      },
+    });
+    router.push(`/modal`, {
       scroll: false,
     });
-    changeModalData({ type: 'delete-account', accountInfo: data });
   };
 
   return (
@@ -79,7 +101,7 @@ export function DeleteAccountForm() {
         </div>
       </div>
       <div className='flex flex-col gap-6'>
-        <div className='text-center text-B2M14 text-text-primary'>
+        <div className='text-B2M14 text-text-primary text-center'>
           불편하셨던 점과 불만사항을 알려주시면 적극 반영해 고객님의 불편함을
           해결할 수 있도록 노력하겠습니다.
         </div>

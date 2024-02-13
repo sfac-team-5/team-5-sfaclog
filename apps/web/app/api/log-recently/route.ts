@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
   const category = searchParams.get('category');
   const page = searchParams.get('page');
 
-  // await new Promise(resolve => setTimeout(resolve, 1000));
+  await new Promise(resolve => setTimeout(resolve, 500));
 
   try {
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
@@ -14,10 +14,12 @@ export async function GET(request: NextRequest) {
     if (category === '전체') {
       logs = await pb.collection('logs').getList(Number(page), 6, {
         sort: '-created',
+        expand: 'user',
       });
     } else {
       logs = await pb.collection('logs').getList(Number(page), 6, {
         sort: '-created',
+        expand: 'user',
         filter: `series="${category}"`,
       });
     }

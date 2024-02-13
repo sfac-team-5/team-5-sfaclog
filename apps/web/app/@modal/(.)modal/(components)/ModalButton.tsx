@@ -1,19 +1,21 @@
-import { useModalDataActions } from '@/hooks/stores/useModalDataStore';
-import { useRouter } from 'next/navigation';
+import { useModalDataActions } from '@/hooks/stores/useModalStore';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 
 interface ModalButtonProps {
   action: any;
-  type: string | null;
 }
 
-function ModalButton({ action, type }: ModalButtonProps) {
+function ModalButton({ action }: ModalButtonProps) {
   const router = useRouter();
-  const { onChange: changeModalData } = useModalDataActions();
+  const searchParams = useSearchParams();
+  const type = searchParams.get('type');
+
+  const { onReset: resetModalData } = useModalDataActions();
 
   const onCancel = () => {
-    if (type === 'log-cancel') {
-      changeModalData({ type: null, action: null });
+    if (type === 'back') {
+      resetModalData();
       router.push('/log/write');
     } else {
       router.back();
@@ -21,7 +23,7 @@ function ModalButton({ action, type }: ModalButtonProps) {
   };
 
   const onAction = () => {
-    changeModalData({ type: null, action: null });
+    resetModalData();
     action();
   };
 
