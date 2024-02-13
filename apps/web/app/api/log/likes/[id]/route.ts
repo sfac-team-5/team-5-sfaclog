@@ -48,10 +48,16 @@ export async function PATCH(
     let userList;
     if (!isIncluded) {
       userList = [...likeLogs.user, session?.user.id];
+      await pb
+        .collection('logs')
+        .update(id, { likes: likeLogs.user.length + 1 });
     } else {
       userList = likeLogs.user.filter(
         (item: string) => item !== session?.user.id,
       );
+      await pb
+        .collection('logs')
+        .update(id, { likes: likeLogs.user.length - 1 });
     }
 
     const newLikeLogs = await pb

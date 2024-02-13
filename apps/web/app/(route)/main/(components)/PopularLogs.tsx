@@ -7,40 +7,22 @@ import { NoData } from '@/components/NoData';
 const fetchData = async () => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/log?sorted=popular`,
+    { cache: 'no-cache' },
   );
   if (!response.ok) return [];
   return response.json();
 };
 
-function getRandom(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
 async function PopularLogs() {
   const popularLogs = await fetchData();
   if (popularLogs.length === 0) return NoData();
-
-  const masonry = [[], [], []];
-
-  popularLogs.forEach((log: LogType, idx: number) => {
-    masonry[idx % 3]?.push(log);
-  });
 
   return (
     <div className='container mt-[72px] flex flex-col gap-8'>
       <SectionHeader title='인기 로그' more='/popular' />
       <div className='grid grid-cols-3 items-start gap-6'>
-        {masonry.map((column, columnIndex) => (
-          <div key={columnIndex} className='grid gap-4'>
-            {column.map((log: LogType) => (
-              <LogCard
-                variant='mainPage'
-                key={log.collectionId}
-                log={log}
-                more={getRandom(0, 2)}
-              />
-            ))}
-          </div>
+        {popularLogs.map((log: LogType) => (
+          <LogCard variant='mainPage' key={log.collectionId} log={log} />
         ))}
       </div>
     </div>

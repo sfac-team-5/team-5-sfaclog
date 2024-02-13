@@ -16,6 +16,7 @@ import InterestsInput from './(components)/InterestsInput';
 import OffersInput from './(components)/OffersInput';
 import { UserType } from '@/types';
 import { useRouter } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 
 interface ProfileEditFormProps {
   profile: UserType;
@@ -94,6 +95,7 @@ function ProfileEditForm({ profile }: ProfileEditFormProps) {
         const image = result.record.avatarUrl;
         if (status === 'authenticated') update({ name, image });
         alert('프로필이 수정되었습니다.');
+        revalidatePath('/mypage', 'layout');
         router.push('/mypage');
         router.refresh();
       })
@@ -108,7 +110,7 @@ function ProfileEditForm({ profile }: ProfileEditFormProps) {
       control={control}
       className='mx-auto mb-[120px] mt-[50px] w-[400px]'
     >
-      <p className='text-H1M24 mb-10 text-center'>내 프로필 편집</p>
+      <p className='mb-10 text-center text-H1M24'>내 프로필 편집</p>
 
       <div className='mb-[52px] flex flex-col gap-11'>
         <div className='flex gap-[26px]'>

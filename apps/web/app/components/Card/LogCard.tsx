@@ -56,11 +56,11 @@ export function LogCard({ variant, log, more }: LogCardProps) {
             </div>
           </div>
         </div>
-        {variant === 'logPage' &&
+        {/* {variant === 'logPage' &&
           more &&
           Array.from({ length: more }, (_, index) => (
             <LogCardMore key={index} log={log} />
-          ))}
+          ))} */}
       </CardBox>
     </Link>
   );

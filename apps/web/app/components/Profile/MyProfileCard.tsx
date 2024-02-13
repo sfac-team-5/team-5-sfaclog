@@ -9,8 +9,23 @@ import {
 } from './(components)';
 import { UserType } from '@/types';
 import { MyProfileLogout } from './(components)/MyProfileLogout';
+import { auth } from '@/auth';
 
-export async function MyProfileCard({ user }: { user: UserType }) {
+const getUserInfo = async (id: string) => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${id}`,
+    { cache: 'no-cache' },
+  );
+  if (!response.ok) return {};
+  return response.json();
+};
+
+export async function MyProfileCard() {
+  const session = await auth();
+  if (!session) return null;
+
+  const user = await getUserInfo(session?.user.id);
+
   return (
     <ProfileContainer>
       <MyProfileHeader updateMyPofileLink='#' />
