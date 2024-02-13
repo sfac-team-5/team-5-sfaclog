@@ -33,14 +33,13 @@ export async function GET(
           expand: 'followingId',
         });
 
+      // 각 팔로워가 현재 사용자에 의해 팔로우되고 있는지 확인
       isFollowingInfo = result.followerId.map((followerId: string) => {
         return {
           id: followerId,
           isFollowing: followingList.followingId.includes(followerId),
         };
       });
-
-      // 각 팔로워가 현재 사용자에 의해 팔로우되고 있는지 확인
     } else if (filter === 'following') {
       result = await pb
         .collection('following')
