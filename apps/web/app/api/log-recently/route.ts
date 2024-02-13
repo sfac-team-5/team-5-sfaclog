@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
   const category = searchParams.get('category');
   const page = searchParams.get('page');
 
-  // await new Promise(resolve => setTimeout(resolve, 1000));
+  await new Promise(resolve => setTimeout(resolve, 500));
 
   try {
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);

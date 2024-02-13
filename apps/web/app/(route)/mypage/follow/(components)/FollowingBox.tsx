@@ -17,7 +17,8 @@ export interface FollowBoxProps {
 
 function FollowingBox({ id, data, updateCount }: FollowBoxProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const [isFollowing, setIsFollowing] = useState(true);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [followStatus, setFollowStatus] = useState(true);
   const [avatarUrl, setAvatarUrl] = useState<string | undefined>(undefined);
 
   const intro =
@@ -25,6 +26,7 @@ function FollowingBox({ id, data, updateCount }: FollowBoxProps) {
 
   const handleUnfollowClick = async () => {
     try {
+      setIsProcessing(true);
       await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${data.id}/follow`,
         {
@@ -39,15 +41,18 @@ function FollowingBox({ id, data, updateCount }: FollowBoxProps) {
           }),
         },
       );
-      setIsFollowing(false);
+      setFollowStatus(false);
       updateCount('unfollow');
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsProcessing(false);
     }
   };
 
   const handleFollowClick = async () => {
     try {
+      setIsProcessing(true);
       await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${data.id}/follow`,
         {
@@ -62,10 +67,12 @@ function FollowingBox({ id, data, updateCount }: FollowBoxProps) {
           }),
         },
       );
-      setIsFollowing(true);
+      setFollowStatus(true);
       updateCount('follow');
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -99,7 +106,7 @@ function FollowingBox({ id, data, updateCount }: FollowBoxProps) {
         </div>
       </div>
 
-      {isFollowing ? (
+      {followStatus ? (
         <div
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
@@ -110,7 +117,8 @@ function FollowingBox({ id, data, updateCount }: FollowBoxProps) {
               size='m'
               label='언팔로우'
               color='white'
-              className='text-B3R12 w-[82px] px-0 hover:bg-white'
+              className='text-B3R12 w-[82px] !px-0 hover:bg-white'
+              disabled={isProcessing}
             />
           ) : (
             <CapsuleButton
@@ -119,6 +127,7 @@ function FollowingBox({ id, data, updateCount }: FollowBoxProps) {
               label='팔로잉'
               color='blue'
               className='text-B3R12 hover:bg-brand-70 w-[82px] !px-0'
+              disabled={isProcessing}
             />
           )}
         </div>
@@ -131,6 +140,7 @@ function FollowingBox({ id, data, updateCount }: FollowBoxProps) {
             color='white'
             className='text-B3R12 w-[82px] !px-0'
             onClick={handleFollowClick}
+            disabled={isProcessing}
           />
         </div>
       )}

@@ -52,6 +52,7 @@ import IconPlusBoxBlue from './plus/plus_box_blue.svg';
 import IconPlusBoxGray from './plus/plus_box_gray.svg';
 import IconPlusBlack from './plus/plus_black.svg';
 import IconPlusBlue from './plus/plus_blue.svg';
+import IconPlusWhite from './plus/plus_white.svg';
 import IconPlusGray from './plus/plus_gray.svg';
 // radio icon import
 import IconRadioBoxBlue from './radios/radio_box_blue.svg';
@@ -135,6 +136,7 @@ export {
   IconPlusBlack,
   IconPlusBlue,
   IconPlusGray,
+  IconPlusWhite,
   IconPlusBoxBlue,
   IconPlusBoxGray,
   IconRadioBoxBlue,

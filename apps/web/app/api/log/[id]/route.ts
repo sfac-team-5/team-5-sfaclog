@@ -4,16 +4,31 @@ import PocketBase from 'pocketbase';
 import { LogDataType } from '../write/route';
 import { revalidatePath } from 'next/cache';
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } },
-) {
-  const { id } = params;
+export async function GET(request: NextRequest) {
   try {
-    const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
-    const log = await pb.collection('logs').getOne(id, { expand: 'user' });
+    const url = new URL(request.url);
+    const currentUser = url.searchParams.get('currentUser');
+    const logId = url.pathname.split('/').pop() as string;
 
-    return NextResponse.json(log, { status: 200 });
+    const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
+    const log = await pb.collection('logs').getOne(logId, { expand: 'user' });
+    const logUser = log.expand?.user.id;
+
+    if (currentUser) {
+      // 현재 사용자의 팔로잉 목록 조회
+      const followingList = await pb
+        .collection('following')
+        .getFirstListItem(`userId="${currentUser}"`, {
+          expand: 'followingId',
+        });
+
+      // logUser가 currentUser에 의해 팔로우되고 있는지 확인
+      const isFollowing = followingList.followingId.includes(logUser);
+      return NextResponse.json({ log, isFollowing }, { status: 200 });
+    } else {
+      return NextResponse.json({ log }, { status: 200 });
+    }
+    return NextResponse.json({ log }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       {
@@ -32,9 +47,6 @@ export async function PUT(
   const session = await auth();
   const formData = await request.formData();
   const jsonTags = JSON.stringify(formData.getAll('tags'));
-  // const isThumbnailChange = typeof formData.get('thumbnail') !== 'string';
-
-  // let thumbnailData;
 
   try {
     const data: LogDataType = {
@@ -49,20 +61,6 @@ export async function PUT(
     if (typeof formData.get('thumbnail') === 'string') {
       delete data.thumbnail;
     }
-    // const data = {
-    //   user: session?.user.id,
-    //   series: formData.get('series'),
-    //   title: formData.get('title'),
-    //   tags: '',
-    //   // thumbnail: formData.get('thumbnail'),
-    //   content: formData.get('content'),
-    //   views: 0,
-    //   isVisibility: true,
-    // };
-    // if (isThumbnailChange) {
-    //   thumbnailData = { ...data, thumbnail: formData.get('thumbnail') };
-    //   // data['thumbnail'] = formData.get('thumbnail');
-    // }
 
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
     const log = await pb.collection('logs').update(id, data);
@@ -85,10 +83,11 @@ export async function DELETE(
 ) {
   const { id } = params;
   try {
-    const data = { isDelete: true };
+    // const data = { isDelete: true };
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
-    const log = await pb.collection('logs').update(id, data);
-    return NextResponse.json(log, { status: 200 });
+    await pb.collection('logs').delete(id);
+    // const log = await pb.collection('logs').update(id, data);
+    return NextResponse.json({}, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { message: 'An unexpected error occurred' },

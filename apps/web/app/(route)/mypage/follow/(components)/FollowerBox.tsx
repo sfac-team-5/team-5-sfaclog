@@ -12,7 +12,8 @@ function FollowerBox({ id, data, updateCount, isFollowing }: FollowBoxProps) {
   const { onChange: changeModalData } = useModalDataActions();
 
   const [isHovered, setIsHovered] = useState(false);
-  const [isFollowingButton, setIsFollowingButton] = useState(isFollowing);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [followStatus, setFollowStatus] = useState(isFollowing);
   const [avatarUrl, setAvatarUrl] = useState<string | undefined>(undefined);
 
   const intro =
@@ -20,6 +21,7 @@ function FollowerBox({ id, data, updateCount, isFollowing }: FollowBoxProps) {
 
   const handleUnfollowClick = async () => {
     try {
+      setIsProcessing(true);
       await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${data.id}/follow`,
         {
@@ -34,15 +36,18 @@ function FollowerBox({ id, data, updateCount, isFollowing }: FollowBoxProps) {
           }),
         },
       );
-      setIsFollowingButton(false);
+      setFollowStatus(false);
       updateCount('unfollow');
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsProcessing(false);
     }
   };
 
   const handleFollowClick = async () => {
     try {
+      setIsProcessing(true);
       await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${data.id}/follow`,
         {
@@ -57,10 +62,12 @@ function FollowerBox({ id, data, updateCount, isFollowing }: FollowBoxProps) {
           }),
         },
       );
-      setIsFollowingButton(true);
+      setFollowStatus(true);
       updateCount('follow');
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -117,7 +124,7 @@ function FollowerBox({ id, data, updateCount, isFollowing }: FollowBoxProps) {
   }, [data.avatar]);
 
   return (
-    <div className='flex items-center justify-between border-b border-neutral-10 py-5'>
+    <div className='border-neutral-10 flex items-center justify-between border-b py-5'>
       <div className='flex gap-3'>
         <Avatar size={60} url={avatarUrl} />
         <div className='flex flex-col justify-center gap-1.5'>
@@ -126,7 +133,7 @@ function FollowerBox({ id, data, updateCount, isFollowing }: FollowBoxProps) {
         </div>
       </div>
 
-      {isFollowingButton ? (
+      {followStatus ? (
         <div className='flex gap-3'>
           <div
             onMouseEnter={() => setIsHovered(true)}
@@ -137,8 +144,9 @@ function FollowerBox({ id, data, updateCount, isFollowing }: FollowBoxProps) {
                 size='m'
                 label='언팔로우'
                 color='white'
-                className='w-[82px] px-0 text-B3R12 hover:bg-white'
+                className='text-B3R12 w-[82px] !px-0 hover:bg-white'
                 onClick={handleUnfollowClick}
+                disabled={isProcessing}
               />
             ) : (
               <CapsuleButton
@@ -146,12 +154,13 @@ function FollowerBox({ id, data, updateCount, isFollowing }: FollowBoxProps) {
                 size='m'
                 label='팔로잉'
                 color='blue'
-                className='w-[82px] !px-0 text-B3R12 hover:bg-brand-70'
+                className='text-B3R12 hover:bg-brand-70 w-[82px] !px-0'
+                disabled={isProcessing}
               />
             )}
           </div>
           <button
-            className='flex size-9 items-center justify-center rounded-full border border-neutral-10'
+            className='border-neutral-10 flex size-9 items-center justify-center rounded-full border'
             onClick={onDelete}
           >
             <IconCancelBlack width={16} />
@@ -164,11 +173,12 @@ function FollowerBox({ id, data, updateCount, isFollowing }: FollowBoxProps) {
             size='m'
             label='팔로우'
             color='white'
-            className='w-[82px] !px-0 text-B3R12'
+            className='text-B3R12 w-[82px] !px-0'
             onClick={handleFollowClick}
+            disabled={isProcessing}
           />
           <button
-            className='flex size-9 items-center justify-center rounded-full border border-neutral-10'
+            className='border-neutral-10 flex size-9 items-center justify-center rounded-full border'
             onClick={onDelete}
           >
             <IconCancelBlack width={16} />

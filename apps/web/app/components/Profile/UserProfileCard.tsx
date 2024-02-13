@@ -9,11 +9,12 @@ import {
 } from './(components)';
 import PocketBase from 'pocketbase';
 import { CareerType, UserType } from '@/types';
-import { ButtonRound } from '@repo/ui/ButtonRound';
 import { auth } from '@/auth';
+import UserFlwFlwerContainer from './(components)/UserFlwFlwerContainer';
 
 interface UserProfileProps {
   user: UserType;
+  isFollowing?: boolean;
 }
 
 const getRecentLogs = async (id: string) => {
@@ -37,10 +38,9 @@ const getRecentLogs = async (id: string) => {
   }
 };
 
-export async function UserProfileCard({ user }: UserProfileProps) {
+export async function UserProfileCard({ user, isFollowing }: UserProfileProps) {
   const session = await auth();
   const userLogs = await getRecentLogs(user.id);
-  console.log(user);
 
   return (
     <ProfileContainer>
@@ -53,18 +53,14 @@ export async function UserProfileCard({ user }: UserProfileProps) {
             : 'error'
         }
       />
-      <div className='mt-6'>
-        <ProfileFlwFlwer
-          follow={user.followingCount}
-          follower={user.followerCount}
-        />
-      </div>
-      {session?.user.id !== user.id && (
-        <div className='mt-6 grid grid-cols-2 gap-2'>
-          <ButtonRound type='filled'>팔로우</ButtonRound>
-          <ButtonRound type='outline'>제안하기</ButtonRound>
-        </div>
-      )}
+
+      <UserFlwFlwerContainer
+        currentUser={session?.user.id}
+        logUser={user.id}
+        initialFollowerCount={user.followerCount}
+        initialFollowingCount={user.followingCount}
+        isFollowing={isFollowing}
+      />
 
       {user.sns && (
         <>
