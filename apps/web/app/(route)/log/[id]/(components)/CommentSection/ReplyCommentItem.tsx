@@ -20,7 +20,7 @@ interface ReplyCommentItemProps {
 function ReplyCommentItem({
   item,
   logId,
-  userId,
+  userId: currentUserId,
   authorId,
 }: ReplyCommentItemProps) {
   const router = useRouter();
@@ -87,9 +87,9 @@ function ReplyCommentItem({
         <p className='text-B2R14 text-text-primary'>
           {item.publicScope
             ? item.text
-            : item.userId === userId
+            : item.userId === currentUserId
               ? item.text
-              : authorId === userId
+              : authorId === currentUserId
                 ? item.text
                 : '비공개 댓글입니다.'}
         </p>
