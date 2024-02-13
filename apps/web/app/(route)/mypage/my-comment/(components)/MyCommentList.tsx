@@ -10,6 +10,7 @@ import CommentCount from './CommentCount';
 import MyPagePagination from '@/components/Pagination/MyPagePagination';
 import MycommentFilter from './MycommentFilter';
 import { MypageNotFound } from '../../(components)/MypageNotFound';
+import Link from 'next/link';
 
 interface MyCommentListProps {
   page: number;
@@ -98,37 +99,41 @@ async function MyCommentList({ page, sort }: MyCommentListProps) {
   return (
     <div>
       <MycommentFilter />
-      {myCommentList.map((comment: any) => {
-        return (
-          <div
-            key={comment.id}
-            className='shadow-custom mb-6 w-full overflow-hidden rounded-[6px] last:mb-0'
-          >
-            <div className='relative flex h-[110px] flex-col items-start justify-center bg-white pl-[64px] pr-[40px]'>
-              <p className='text-B1M16 text-text-primary mb-[9px]'>
-                {comment.text}
-              </p>
-              <p className='text-neutral-40'>
-                {formatDateToYMDHM(comment.createAt)}
-              </p>
-              <MyCommentDeleteButton
-                logId={comment.logId}
-                commentId={comment.id}
-                userId={comment.userId}
-                type={comment.commentId}
-              />
-            </div>
-            <div className='bg-tag-tag flex h-[53px] items-center pl-[64px]'>
-              <IconReplyArrow className='mr-3' />
-              <p className='text-B2R14 text-text-primary mr-2'>
-                [원문] {comment.logTitle}
-              </p>
-              <IconComment className='mr-[3px]' />
-              <CommentCount logId={comment.logId} />
-            </div>
-          </div>
-        );
-      })}
+      <ul className='mb-6'>
+        {myCommentList.map((comment: any) => {
+          return (
+            <li key={comment.id} className='mb-6 shadow-custom last:mb-0'>
+              <Link
+                href={`/log/${comment.logId}`}
+                className='w-full overflow-hidden rounded-[6px]'
+              >
+                <div className='relative flex h-[110px] flex-col items-start justify-center bg-white pl-[64px] pr-[40px]'>
+                  <p className='mb-[9px] text-B1M16 text-text-primary'>
+                    {comment.text}
+                  </p>
+                  <p className='text-neutral-40'>
+                    {formatDateToYMDHM(comment.createAt)}
+                  </p>
+                  <MyCommentDeleteButton
+                    logId={comment.logId}
+                    commentId={comment.id}
+                    userId={comment.userId}
+                    type={comment.commentId}
+                  />
+                </div>
+                <div className='flex h-[53px] items-center bg-tag-tag pl-[64px]'>
+                  <IconReplyArrow className='mr-3' />
+                  <p className='mr-2 text-B2R14 text-text-primary'>
+                    [원문] {comment.logTitle}
+                  </p>
+                  <IconComment className='mr-[3px]' />
+                  <CommentCount logId={comment.logId} />
+                </div>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
       <MyPagePagination
         totalItems={totalItems}
         page={page}
