@@ -5,7 +5,7 @@ import { SectionHeader } from '@/components/SectionHeader';
 
 const fetchData = async () => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/community?sorted=hi`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/community?sorted=popular`,
   );
   if (!response.ok) return [];
   return response.json();
