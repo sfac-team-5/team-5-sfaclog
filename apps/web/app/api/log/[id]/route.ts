@@ -83,10 +83,11 @@ export async function DELETE(
 ) {
   const { id } = params;
   try {
-    const data = { isDelete: true };
+    // const data = { isDelete: true };
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
-    const log = await pb.collection('logs').update(id, data);
-    return NextResponse.json(log, { status: 200 });
+    await pb.collection('logs').delete(id);
+    // const log = await pb.collection('logs').update(id, data);
+    return NextResponse.json({}, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { message: 'An unexpected error occurred' },
