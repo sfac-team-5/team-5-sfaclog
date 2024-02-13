@@ -31,7 +31,7 @@ async function LogDetailPage({ params }: { params: { id: string } }) {
         </div>
         <div className='w-full'>
           <ContentSection log={log} />
-          <CommentSection logId={log.id} />
+          <CommentSection logId={log.id} authorId={log.expand.user.id} />
         </div>
         <ViewObserver logId={id} />
       </main>
