@@ -15,6 +15,10 @@ module.exports = {
         protocol: 'https',
         hostname: 's3-alpha-sig.figma.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'xh5yt8o994.execute-api.ap-northeast-2.amazonaws.com',
+      },
     ],
   },
   typescript: {
