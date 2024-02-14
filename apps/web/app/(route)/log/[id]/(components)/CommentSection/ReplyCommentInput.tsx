@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 
 import { IconReplyArrow } from '@public/svgs';
 import GhostButton from '@repo/ui/GhostButton';
+import { useSession } from 'next-auth/react';
 
 interface ReplyCommentInputProps {
   logId: string;
@@ -16,6 +17,7 @@ interface CommentFormData {
 
 function ReplyCommentInput({ logId, commentId }: ReplyCommentInputProps) {
   const router = useRouter();
+  const { data: session } = useSession();
   const { register, handleSubmit, setValue, watch, reset } =
     useForm<CommentFormData>({
       defaultValues: {
@@ -25,6 +27,7 @@ function ReplyCommentInput({ logId, commentId }: ReplyCommentInputProps) {
     });
 
   const onSubmit: SubmitHandler<CommentFormData> = async data => {
+    if (!session) return alert('로그인이 필요합니다!');
     await fetch(`/api/log/reply-comment/${logId}?comment-id=${commentId}`, {
       method: 'POST',
       body: JSON.stringify(data),
@@ -41,13 +44,13 @@ function ReplyCommentInput({ logId, commentId }: ReplyCommentInputProps) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className='border-neutral-10 bg-background-5 flex h-[88px] w-full items-start border-t px-5 py-6'
+      className='flex h-[88px] w-full items-start border-t border-neutral-10 bg-background-5 px-5 py-6'
     >
       <IconReplyArrow className='mr-[10px]' />
       <div className='flex w-full gap-3'>
         <input
           {...textRegister}
-          className='placeholder:text-B2R14 placeholder:text-neutral-40 h-[40px] w-full resize-none rounded-[6px] border px-4 py-2'
+          className='h-[40px] w-full resize-none rounded-[6px] border px-4 py-2 placeholder:text-B2R14 placeholder:text-neutral-40'
           placeholder='댓글을 입력해보세요.'
         />
         <GhostButton
