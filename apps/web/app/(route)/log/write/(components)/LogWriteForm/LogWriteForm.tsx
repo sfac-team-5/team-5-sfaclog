@@ -65,6 +65,7 @@ function LogWriteForm() {
       }
     }
 
+    formData.set('title', data.title);
     formData.set('thumbnail', data.thumbnail && (data.thumbnail[0] as any));
 
     const response = await fetch(
