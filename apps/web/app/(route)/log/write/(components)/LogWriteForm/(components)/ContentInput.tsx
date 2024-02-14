@@ -50,7 +50,7 @@ export default function ContentInput({
       formData.append('image', file);
 
       try {
-        const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
+        const pb = new PocketBase(`${process.env.NEXT_PUBLIC_POCKETBASE_URL}`);
         const response = await pb.collection('storage').create(formData);
         const imgUrl = pb.files.getUrl(response, response.image);
         const editor = quillRef.current.getEditor();
