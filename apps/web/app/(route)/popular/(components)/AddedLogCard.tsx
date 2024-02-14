@@ -17,12 +17,14 @@ export default function AddedLogCard({
   const [addeLogCard, setAddedLogCard] = useState<LogType[]>([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [isObserver, setIsObserver] = useState(false);
 
   const triggerRef = useCallback(
     (node: any) => {
       if (!node) return;
       if (isLoading) return;
-
+      if (isObserver) return;
+      setIsObserver(true);
       const observer = new IntersectionObserver(
         (entries, observer) => {
           entries.forEach(entry => {
@@ -57,6 +59,7 @@ export default function AddedLogCard({
         }
       } finally {
         setIsLoading(false);
+        setIsObserver(false);
       }
     };
     fetchData();
