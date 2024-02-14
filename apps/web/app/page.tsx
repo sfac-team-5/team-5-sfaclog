@@ -1,12 +1,17 @@
-import { Button } from '@repo/ui/button';
-import { IconNext } from '../public/svgs';
+import PopularCommunity from './(route)/main/(components)/PopularCommunity';
+import PopularLogs from './(route)/main/(components)/PopularLogs';
+import { MainCarousel } from './components/Carousel/MainCarousel';
+import Footer from './components/Footer/Footer';
 
-export default function Page() {
+export default async function Page() {
   return (
-    <main>
-      <h4 className='text-2xl font-bold text-blue-400'>안녕하세요? ㅍㅍㅍ</h4>
-      <Button />
-      <IconNext />
-    </main>
+    <>
+      <main>
+        <MainCarousel />
+        <PopularLogs />
+        <PopularCommunity />
+      </main>
+      <Footer />
+    </>
   );
 }

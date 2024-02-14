@@ -1,3 +1,48 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .hide-scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scroll::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.ql-toolbar.ql-snow {
+  @apply rounded-t-[6px];
+}
+
+.ql-container.ql-snow {
+  @apply !h-[calc(400px-43px)] rounded-b-[6px];
+}
+
+.headerTab {
+  margin: 0 auto;
+  height: 100%;
+  width: 1440px;
+  padding: 0 184px;
+}
+
+@media (max-width: 1440px) {
+  .headerTab {
+    width: 1000px;
+    padding: 0 30px;
+  }
+  .container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .headerTab {
+    width: 100%;
+  }
+  .container {
+    width: 100%;
+  }
+}

@@ -3,9 +3,26 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./button": "./src/button.tsx",
     "./card": "./src/card.tsx",
-    "./code": "./src/code.tsx"
+    "./code": "./src/code.tsx",
+    "./Tabs": "./src/Tabs.tsx",
+    "./SelectBox": "./src/SelectBox.tsx",
+    "./ButtonRound": "./src/ButtonRound.tsx",
+    "./Icon": "./public/svgs/index.ts",
+    "./Toggle": "./src/Toggle.tsx",
+    "./RadioButtons": "./src/RadioButtons.tsx",
+    "./Chip": "./src/Chip.tsx",
+    "./Button": "./src/Button/Button.tsx",
+    "./GhostButton": "./src/Button/GhostButton.tsx",
+    "./SecondaryButton": "./src/Button/SecondaryButton.tsx",
+    "./SNSButton": "./src/Button/SNSButton.tsx",
+    "./InputBox": "./src/InputBox.tsx",
+    "./Check": "./src/Check.tsx",
+    "./Radio": "./src/Radio.tsx",
+    "./CapsuleButton": "./src/Button/CapsuleButton.tsx",
+    "./HeartCapsuleButton": "./src/Button/HeartCapsuleButton.tsx",
+    "./IconButton": "./src/Button/IconButton.tsx",
+    "./RoundIconButton": "./src/Button/RoundIconButton.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
@@ -14,6 +31,7 @@
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
+    "@svgr/webpack": "^8.1.0",
     "@turbo/gen": "^1.11.3",
     "@types/eslint": "^8.56.1",
     "@types/node": "^20.10.6",
@@ -21,9 +39,11 @@
     "@types/react-dom": "^18.2.18",
     "eslint": "^8.56.0",
     "react": "^18.2.0",
+    "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.18"
+    "@headlessui/react": "^1.7.18",
+    "@headlessui/tailwindcss": "^0.2.0"
   }
 }
