@@ -36,7 +36,6 @@ export async function PATCH(
 ) {
   const { id } = params;
   const session = await auth();
-  if (!session) return NextResponse.json(null, { status: 403 });
 
   try {
     const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
