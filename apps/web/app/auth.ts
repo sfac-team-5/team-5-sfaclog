@@ -77,13 +77,7 @@ export const config = {
         session.user.email = token.email;
         session.user.image = token.image;
       }
-      // console.log('session =', session);
       return session;
-    },
-    authorized({ request, auth }) {
-      const { pathname } = request.nextUrl;
-      if (pathname === '/middleware-example') return !!auth;
-      return true;
     },
   },
   secret: process.env.AUTH_SECRET,
