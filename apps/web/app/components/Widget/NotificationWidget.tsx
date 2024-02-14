@@ -27,7 +27,7 @@ export function NotificationWidget({
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const pb = new PocketBase('http://3.35.176.72:8090');
+        const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
 
         const thirtyDaysAgo = new Date();
         thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);

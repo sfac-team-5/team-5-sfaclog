@@ -22,7 +22,7 @@ export const config = {
   providers: [
     credentials({
       async authorize(credentials: credentialsType) {
-        const pb = new PocketBase('http://3.35.176.72:8090');
+        const pb = new PocketBase(`${process.env.POCKETBASE_URL}`);
 
         const authData: any = await pb
           .collection('users')
