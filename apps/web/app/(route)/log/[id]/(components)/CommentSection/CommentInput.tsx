@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 
 import { IconCheckBoxBlue, IconCheckBoxGray } from '@repo/ui/Icon';
 import GhostButton from '@repo/ui/GhostButton';
+import { useSession } from 'next-auth/react';
 
 interface CommentInputProps {
   logId: string;
@@ -17,6 +18,7 @@ export interface CommentFormData {
 
 function CommentInput({ logId }: CommentInputProps) {
   const router = useRouter();
+  const { data: session } = useSession();
   const { register, handleSubmit, setValue, watch, reset } =
     useForm<CommentFormData>({
       defaultValues: {
@@ -27,6 +29,7 @@ function CommentInput({ logId }: CommentInputProps) {
   const isChecked = watch('publicScope');
 
   const onSubmit: SubmitHandler<CommentFormData> = async data => {
+    if (!session) return alert('로그인이 필요합니다!');
     await fetch(`/api/log/comment/${logId}`, {
       method: 'POST',
       body: JSON.stringify(data),
@@ -49,7 +52,7 @@ function CommentInput({ logId }: CommentInputProps) {
     <form className='flex flex-col gap-3' onSubmit={handleSubmit(onSubmit)}>
       <textarea
         {...textRegister}
-        className='placeholder:text-B2R14 placeholder:text-neutral-40 h-[80px] resize-none rounded-[6px] border px-4 py-2'
+        className='h-[80px] resize-none rounded-[6px] border px-4 py-2 placeholder:text-B2R14 placeholder:text-neutral-40'
         placeholder='댓글을 입력해보세요.'
       />
       <div className='flex items-center justify-between'>

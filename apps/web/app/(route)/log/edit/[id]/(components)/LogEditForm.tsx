@@ -27,7 +27,7 @@ const ContentEditor = dynamic(
     ),
   {
     loading: () => (
-      <div className='h-[400px] w-[670px] rounded-md border border-stroke-30'></div>
+      <div className='border-stroke-30 h-[400px] w-[670px] rounded-md border'></div>
     ),
     ssr: false,
   },
@@ -99,15 +99,6 @@ function LogEditForm({ log }: LogEditFormProps) {
     data: LogFormData;
   }) => {
     // 리펙토링 필요 T_T
-    if (data.tag) {
-      for (const tag of data.tag) {
-        formData.append('tags', tag);
-      }
-    }
-
-    formData.set('title', data.title);
-    formData.set('thumbnail', data.thumbnail && (data.thumbnail[0] as any));
-
     // const response = await fetch(
     //   `${process.env.NEXT_PUBLIC_BASE_URL}/api/log/${id}`,
     //   {
@@ -121,7 +112,7 @@ function LogEditForm({ log }: LogEditFormProps) {
     //   router.refresh();
     // }
 
-    editLogApi({ formData, id }).then(() => {
+    editLogApi({ formData, data, id }).then(() => {
       router.push(`/log/${id}`);
     });
   };
@@ -177,7 +168,7 @@ function LogEditForm({ log }: LogEditFormProps) {
         {/* <SeriesSetting /> */}
         <SeriesSetting setValue={setValue} selectList={logCategories} />
       </div>
-      <div className='fixed bottom-0 left-0 flex w-full items-center justify-end gap-5 bg-neutral-5 px-[60px] py-3'>
+      <div className='bg-neutral-5 fixed bottom-0 left-0 flex w-full items-center justify-end gap-5 px-[60px] py-3'>
         <p className='text-B3R12 text-neutral-40'>자동 저장 완료 00:00:00</p>
         <Button
           type='button'

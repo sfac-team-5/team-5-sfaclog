@@ -16,13 +16,14 @@ interface CommentItemProps {
 
 function CommentItem({ item, logId, userId, authorId }: CommentItemProps) {
   const [isOpen, setIsOpen] = useState(false);
+  console.log(item);
 
   return (
     <li className='border-neutral-10 border-b'>
       <div className='flex flex-col gap-3 px-5 py-6'>
         <div className='flex justify-between'>
           <div className='flex items-center'>
-            {item.userThumbnail.length === 0 ? (
+            {!item.userThumbnail || item.userThumbnail?.length === 0 ? (
               <Avatar size={30} />
             ) : (
               <div className='relative size-6 overflow-hidden rounded-full'>

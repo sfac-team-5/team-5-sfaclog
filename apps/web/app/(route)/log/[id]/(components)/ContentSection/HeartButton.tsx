@@ -2,12 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { IconHeartBlack, IconHeartBlue } from '@repo/ui/Icon';
+import { useSession } from 'next-auth/react';
 
 interface HeartButtonProps {
   logId: string;
 }
 
 function HeartButton({ logId }: HeartButtonProps) {
+  const { data: session } = useSession();
   const [likeCount, setLikeCount] = useState(0);
   const [isLike, setisLike] = useState(false);
 
@@ -24,6 +26,7 @@ function HeartButton({ logId }: HeartButtonProps) {
   }, []);
 
   const onClick = async () => {
+    if (!session) return;
     const response = await fetch(`/api/log/likes/${logId}`, {
       method: 'PATCH',
     });
