@@ -55,7 +55,7 @@ function ReplyCommentItem({
           <div className='flex items-start'>
             <IconReplyArrow className='mr-[10px]' />
             <div className='flex items-center'>
-              {item.userThumbnail.length === 0 ? (
+              {!item.userThumbnail || item.userThumbnail?.length === 0 ? (
                 <Avatar size={30} />
               ) : (
                 <div className='relative size-6 overflow-hidden rounded-full'>
