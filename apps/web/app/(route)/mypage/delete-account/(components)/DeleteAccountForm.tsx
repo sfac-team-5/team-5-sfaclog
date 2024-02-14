@@ -120,6 +120,7 @@ export function DeleteAccountForm({ email }: { email?: string }) {
         <div className='flex flex-col gap-3'>
           <div className='text-B1M16 text-text-primary'>비밀번호 입력</div>
           <InputBox
+            type='password'
             placeholder='현재 비밀번호를 입력해주세요.'
             errorMessage={errors.password?.message}
             onValueChange={password => setValue('password', password)}
