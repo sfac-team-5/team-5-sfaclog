@@ -48,7 +48,10 @@ function MyCommentDeleteButton({
   return (
     <button
       className='absolute right-3 top-3'
-      onClick={() => onClick(logId, commentId.toString(), userId)}
+      onClick={e => {
+        e.stopPropagation();
+        onClick(logId, commentId.toString(), userId);
+      }}
     >
       <div className='size-4'>
         <IconCancelBlack />

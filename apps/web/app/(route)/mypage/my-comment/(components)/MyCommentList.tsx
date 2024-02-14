@@ -1,17 +1,11 @@
 import React from 'react';
 import PocketBase from 'pocketbase';
-import Link from 'next/link';
 import { Session } from 'next-auth';
-
 import { auth } from '@/auth';
-import { NoData } from '@/components/NoData';
-import { IconComment, IconReplyArrow } from '@public/svgs';
-import MyCommentDeleteButton from './MyCommentDeleteButton';
-import CommentCount from './CommentCount';
 import MyPagePagination from '@/components/Pagination/MyPagePagination';
 import MycommentFilter from './MycommentFilter';
 import { MypageNotFound } from '../../(components)/MypageNotFound';
-import { formatCommentDate } from '@/utils/formatUtils';
+import MyCommentListItem from './MyCommentListItem';
 
 interface MyCommentListProps {
   page: number;
@@ -102,37 +96,7 @@ async function MyCommentList({ page, sort }: MyCommentListProps) {
       <MycommentFilter />
       <ul className='mb-6'>
         {myCommentList.map((comment: any) => {
-          return (
-            <li key={comment.id} className='shadow-custom mb-6 last:mb-0'>
-              <Link
-                href={`/log/${comment.logId}`}
-                className='w-full overflow-hidden rounded-[6px]'
-              >
-                <div className='relative flex h-[110px] flex-col items-start justify-center bg-white pl-[64px] pr-[40px]'>
-                  <p className='text-B1M16 text-text-primary mb-[9px]'>
-                    {comment.text}
-                  </p>
-                  <p className='text-neutral-40'>
-                    {formatCommentDate(comment.createAt)}
-                  </p>
-                  <MyCommentDeleteButton
-                    logId={comment.logId}
-                    commentId={comment.id}
-                    userId={comment.userId}
-                    type={comment.commentId}
-                  />
-                </div>
-                <div className='bg-tag-tag flex h-[53px] items-center pl-[64px]'>
-                  <IconReplyArrow className='mr-3' />
-                  <p className='text-B2R14 text-text-primary mr-2'>
-                    [원문] {comment.logTitle}
-                  </p>
-                  <IconComment className='mr-[3px]' />
-                  <CommentCount logId={comment.logId} />
-                </div>
-              </Link>
-            </li>
-          );
+          return <MyCommentListItem key={comment.id} comment={comment} />;
         })}
       </ul>
       <MyPagePagination
