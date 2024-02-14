@@ -13,6 +13,7 @@ export async function GET(request: NextRequest) {
     if (sorted === 'popular') {
       logRecords = await pb.collection('logs').getFullList({
         sort: '-likes',
+        expand: 'user',
         filter: `title ~ '${query}' || content ~ '${query}'`,
       });
 
@@ -42,6 +43,7 @@ export async function GET(request: NextRequest) {
     if (sorted === 'recently') {
       logRecords = await pb.collection('logs').getFullList({
         sort: '-created',
+        expand: 'user',
         filter: `title ~ '${query}' || content ~ '${query}'`,
       });
 
