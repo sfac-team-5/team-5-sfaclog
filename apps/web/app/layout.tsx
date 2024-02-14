@@ -16,14 +16,19 @@ const pretendard = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://team-5-sfaclog-web.vercel.app'),
   title: 'SFACLOG',
-  description: '',
+  description: '스팩로그에서 성장의 길을 열어 보세요',
   openGraph: {
     title: 'SFACLOG',
     description: '스팩로그에서 성장의 길을 열어 보세요',
-    // url: 'https://nextjs.org',
-    siteName: 'SFACLOG',
-    images: './opengraph-image.png',
+    images: '/opengraph-image.png',
+  },
+  twitter: {
+    site: '@SFACLOG',
+    title: 'SFACLOG',
+    description: '스팩로그에서 성장의 길을 열어 보세요',
+    images: '/twitter-image.png',
   },
 };
 
