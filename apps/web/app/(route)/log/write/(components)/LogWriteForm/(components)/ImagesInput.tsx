@@ -30,7 +30,7 @@ function ImagesInput({ register, watch, thumbnail, logId }: ImagesInputProps) {
   useEffect(() => {
     if (thumbnail && thumbnail?.length > 0 && logId) {
       setNewPrevImage(
-        `${process.env.POCKETBASE_URL}/api/files/logs/${logId}/${thumbnail}`,
+        `${process.env.NEXT_PUBLIC_POCKETBASE_URL}/api/files/logs/${logId}/${thumbnail}`,
       );
     }
   }, []);
