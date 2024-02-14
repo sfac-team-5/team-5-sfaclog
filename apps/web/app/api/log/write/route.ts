@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
       content: formData.get('content'),
       views: 0,
       likes: 0,
-      isVisibility: true,
+      isVisibility: formData.get('publicScope') === 'true' ? true : false,
     };
     if (formData.get('thumbnail') === 'null') {
       delete data.thumbnail;
