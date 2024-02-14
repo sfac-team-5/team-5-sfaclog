@@ -19,7 +19,7 @@ export function FloatingButtons({ writeUrl }: FloatingButtonsProps) {
   };
 
   return (
-    <div className='bottom fixed bottom-12 right-12 flex flex-col gap-3'>
+    <div className='bottom fixed bottom-12 right-12 flex flex-col gap-3 z-10'>
       <Link
         href={writeUrl}
         className='bg-brand-90 border-brand-90 shadow-custom flex size-10 items-center justify-center rounded-full border-2 p-1.5'
