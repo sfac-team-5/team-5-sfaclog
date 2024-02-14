@@ -20,6 +20,8 @@ export function LogCard({ variant, log, more }: LogCardProps) {
   const nickname = log.expand?.user?.nickname
     ? log.expand.user.nickname
     : '사용자명';
+  const title =
+    log.title.length > 40 ? log.title.substr(0, 40) + '...' : log.title;
 
   return (
     <Link href={`/log/${log.id}`}>
@@ -42,10 +44,10 @@ export function LogCard({ variant, log, more }: LogCardProps) {
           <CardCategory category={log.series} />
           <CardDate date={log.created} />
         </div>
-        <div>
-          <CardTitle title={log.title} />
+        <div className='h-[48px]'>
+          <CardTitle title={title} />
         </div>
-        <div className='mt-5 flex w-full justify-between'>
+        <div className='mt-2 flex w-full justify-between'>
           <div className='mt-5 flex w-full justify-between'>
             <div className='flex items-center gap-2'>
               <Avatar size={24} />

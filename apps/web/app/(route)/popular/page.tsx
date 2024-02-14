@@ -64,7 +64,7 @@ async function page({
       <FloatingButtons writeUrl='/log/write' />
       <CategoryButtonWrap type='category' list={logCategories} />
       <LogNavigation totalLogs={totalLogs} selectList={selectList} />
-      <ul className='grid grid-cols-3 gap-6'>
+      <ul className='mb-6 grid grid-cols-3 gap-6'>
         {logs.map((log: LogType) => (
           <LogCard variant='logPage' key={log.id} log={log}></LogCard>
         ))}
