@@ -50,7 +50,7 @@ async function LogDetailPage({ params }: { params: { id: string } }) {
           <LogSection />
         </div>
         <div className='w-full'>
-          <ContentSection log={result.log} />
+          <ContentSection log={result.log} userId={session?.user.id || ''} />
           <CommentSection
             logId={result.log.id}
             authorId={result.log.expand?.user.id}
