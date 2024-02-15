@@ -2,9 +2,15 @@
 
 <br />
 
-# 🖥️ SFACLOG
+# SFACLOG
 개발자들이 서로의 경험을 공유하고 커뮤니티 정보 수집을 통해 자신을 표현할 수 있는 플랫폼
 
+<br />
+
+> 배포 주소： https://team-5-sfaclog-web.vercel.app/   
+> 위키 보기： https://github.com/sfac-team-5/team-5-sfaclog/wiki
+
+<br />
 <br />
 
 ## 🔍 주요 기능
