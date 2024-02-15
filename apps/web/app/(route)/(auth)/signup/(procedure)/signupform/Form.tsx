@@ -188,6 +188,14 @@ export function Form() {
             }
             {...register('nickname', {
               required: '닉네임을 입력해 주세요.',
+              minLength: {
+                value: 2,
+                message: '2자 이상 입력해주세요.',
+              },
+              maxLength: {
+                value: 12,
+                message: '12자 이하로 입력해주세요.',
+              },
               validate: async value => await checkNickName(value),
             })}
           />
