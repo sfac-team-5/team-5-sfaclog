@@ -50,11 +50,7 @@ export async function MyProfileCard() {
         }
       />
       <div className='mt-6'>
-        <ProfileFlwFlwer
-          type='my'
-          follow={user.followingCount}
-          follower={user.followerCount}
-        />
+        <ProfileFlwFlwer userId={user.id} />
       </div>
       {user.career && Object.entries(user.career).length !== 0 && (
         <>
