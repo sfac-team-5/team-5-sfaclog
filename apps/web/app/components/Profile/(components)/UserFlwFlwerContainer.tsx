@@ -31,10 +31,7 @@ function UserFlwFlwerContainer({
   return (
     <>
       <div className='mt-6'>
-        <ProfileFlwFlwer
-          follow={initialFollowingCount}
-          follower={followerCount}
-        />
+        <ProfileFlwFlwer userId={logUser} followerCount={followerCount} />
       </div>
       {currentUser && currentUser !== logUser && (
         <UserFollowButtons

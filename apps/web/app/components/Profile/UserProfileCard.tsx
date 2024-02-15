@@ -1,7 +1,6 @@
 import {
   Hr,
   ProfileContainer,
-  ProfileFlwFlwer,
   ProfileIntro,
   ProfileSNS,
   ProfileCareer,
