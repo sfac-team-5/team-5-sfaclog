@@ -32,13 +32,14 @@ export function ProfileFlwFlwer({
       href={'/mypage/follow'}
       className='relative flex h-[53px] w-full rounded-md bg-brand-5'
     >
+      {/* 팔로우 팔로워 변수명 변경 필요 */}
       <div className='flex basis-1/2 flex-col items-center justify-center gap-[2px] p-[10px]'>
-        <div className='text-B1B16 text-brand-90'>{count.follow}</div>
+        <div className='text-B1B16 text-brand-90'>{count.follower}</div>
         <div className='text-B5R10 text-neutral-50'>팔로우</div>
       </div>
       <div className='absolute left-1/2 top-[10px] h-[33px] w-[1px] rounded-md bg-brand-30' />
       <div className='flex basis-1/2 flex-col items-center justify-center gap-[2px] p-[10px]'>
-        <div className='text-B1B16 text-brand-90'>{count.follower}</div>
+        <div className='text-B1B16 text-brand-90'>{count.follow}</div>
         <div className='text-B5R10 text-neutral-50'>팔로워</div>
       </div>
     </Link>
