@@ -76,7 +76,7 @@ export function DeleteAccountForm({ email }: { email?: string }) {
           router.back();
           alert('비밀번호를 확인해주세요!');
         } else {
-          await signOut();
+          await signOut({ redirect: true, callbackUrl: '/' });
           router.push('/');
           alert('회원탈퇴가 완료되었습니다.');
         }
