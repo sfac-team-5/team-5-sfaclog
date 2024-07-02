@@ -7,7 +7,7 @@
 
 <br />
 
-> 배포 주소： https://team-5-sfaclog-web.vercel.app/   
+> 배포 주소： ~~https://team-5-sfaclog-web.vercel.app/~~ (백엔드 API 제공 종료로 원활한 이용이 불가능합니다.)   
 > 위키 보기： https://github.com/sfac-team-5/team-5-sfaclog/wiki
 
 <br />
